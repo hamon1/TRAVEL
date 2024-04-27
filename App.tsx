@@ -76,7 +76,7 @@
 // });
 // export default HelloWorldApp;
 import React from 'react';
- import AppStack from './src/pages/Home/App';
+ import AppStack from './src/pages/Home/Home';
  
  const App = () => {
    return (
