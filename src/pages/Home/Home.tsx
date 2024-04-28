@@ -28,17 +28,24 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import BottomTabNavigator from '../navigation/TabNavigation';
 
+
 // text -> tlatlist(travel data)
 const Background = () => {
   return (
     <>
       <View style={styles.container}>
-        <Text>Hello World!</Text>
+        <ScrollView style={styles.boardScroll}>
         <TouchableOpacity
           style={styles.board}
         onPress={() => Navigation.navigate(PlaceBoard)}>
-          <Text>여기는 버튼입니다.</Text>
+          <Text>Place1</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.board}
+        onPress={() => Navigation.navigate(PlaceBoard)}>
+          <Text>Place2</Text>
+        </TouchableOpacity>
+        </ScrollView>
       </View>
       {/* <NavigationBar /> */}
       <Topbar />
@@ -65,8 +72,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   board: {
+    margin: 10,
     backgroundColor: 'red',
-    height: 100,
+    height: 600,
+    width: '95%',
+  },
+  boardScroll: {
+    width: '100%',
+    top: 62,
   }
 });
 

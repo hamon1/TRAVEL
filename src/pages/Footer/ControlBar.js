@@ -16,9 +16,14 @@ import ProfileScreen from '../Profile/Profile';
 import { ColorProperties } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
+// class MoveHome extends React.Component {
+//   render() {
+//     const {navigation} = this.props;}}
+
 
 /*use tabNavigation*/
-const Buttombar = ({navigation}) => {
+const Buttombar = () => {
+  // const navigation = UseNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.button}></View>
