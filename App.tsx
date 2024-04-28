@@ -74,15 +74,12 @@
 //     alignItems: 'center',
 //   }
 // });
-// export default HelloWorldApp;
+
 import React from 'react';
- import AppStack from './src/pages/Home/App';
- 
- const App = () => {
-   return (
-     <AppStack />
-   );
- };
- 
- 
- export default App;
+import AppStack from './src/pages/Home/Home';
+
+const App = () => {
+  return <AppStack />;
+};
+
+export default App;
