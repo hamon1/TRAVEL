@@ -16,17 +16,24 @@ import ProfileScreen from '../Profile/Profile';
 import { ColorProperties } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
+import navigationStack from './index';
+import NavigationContainer from '@react-navigation/native';
 // class MoveHome extends React.Component {
 //   render() {
 //     const {navigation} = this.props;}}
 
-
+const Stack = createNativeStackNavigator();
 /*use tabNavigation*/
 const Buttombar = () => {
   // const navigation = UseNavigation();
   return (
+    // eslint-disable-next-line react/jsx-no-undef
     <View style={styles.container}>
-      <View style={styles.button}></View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('HomeScreen')}>
+        <Text>home</Text>
+      </TouchableOpacity>
       <View style={styles.button}></View>
       <TouchableOpacity
         style={styles.button}

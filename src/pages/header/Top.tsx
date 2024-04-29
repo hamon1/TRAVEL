@@ -18,7 +18,7 @@ const Header = () => {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 62,
+        height: 84,
         backgroundColor: 'white',
         position: 'absolute',
         top: 0, // 아이폰 상단의 기본 바는 어떻게 취급하는거지? -> 일단은 띄어 놓음.
