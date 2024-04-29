@@ -1,9 +1,10 @@
-// // /**
-// //  * 매인 화면 (로그인 시, 가장 먼저 보이는 화면)
-// //  * 여행지 추천 목록  - 무한 스크롤.
-// //  *
-// //  * @format
-// //  */
+/**
+ * 매인 화면 (로그인 시, 가장 먼저 보이는 화면)
+ * 여행지 추천 목록  - 무한 스크롤. - flatlist 통해 구현.
+ * 상단 리롤, 데이터 get -> 임시 data API를 통해 구현함. (이후 데이터 구축)
+ * 
+ * @format
+ */
 
 // import React from 'react';
 // import Controlbar from '../Footer/ControlBar';
@@ -137,6 +138,7 @@ import {View, Image, Text, FlatList, StyleSheet} from 'react-native';
 
 import Header from '../header/Top';
 import Controlbar from '../Footer/ControlBar';
+import Place_detaile from './Place_info';
 
 export default class App extends React.Component {
   state = {
@@ -145,8 +147,9 @@ export default class App extends React.Component {
     refreshing: false,
   }
 
+/*데이터 가져옴, 가져온 데이터 페이지 +1, 임시로 API로 구축함*/
   _getData = async () => {
-    const url = 'https://jsonplaceholder.typicode.com/photos?_limit=10';
+    const url = 'https://jsonplaceholder.typicode.com/photos?_limit=10'; 
     fetch(url)
       .then(res => res.json())
       .then(data => {
@@ -158,7 +161,8 @@ export default class App extends React.Component {
       });
   }
 
-  _handleRefresh = () => {
+  /*refresh. 상단 새로고침*/
+  _handleRefresh = () => { 
     this.setState(
       {
         refreshing: true,
@@ -168,7 +172,8 @@ export default class App extends React.Component {
     );
   };
 
-  _handleLoadMore = () => {
+  /*무한 스크롤을 위한 데이터 가자오기*/
+  _handleLoadMore = () => { /*데이터 가저옴*/
     this._getData();
   }
 
@@ -176,6 +181,7 @@ export default class App extends React.Component {
     this._getData();
   }
 
+  /*리스트 아이템-각 section 구현*/
   _renderItem = ({item}) => (
     <View style={{borderBottomWidth:1, marginTop: 20}}>
       <Image source={{uri: item.url}} style={{height: 200}} />
