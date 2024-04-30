@@ -76,7 +76,7 @@
 // });
 
 import React from 'react';
-import AppStack from './src/pages/Home/Home';
+import AppStack from './src/pages/Profile/Profile';
 
 const App = () => {
   return <AppStack />;

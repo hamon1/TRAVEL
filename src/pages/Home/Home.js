@@ -223,7 +223,6 @@ const styles = StyleSheet.create({
   section: {
     backgroundColor: 'white',
     marginLeft: 10,
-    // borderBottomWidth: 1,
     marginTop: 20,
     height: 500,
     width: '95%',
