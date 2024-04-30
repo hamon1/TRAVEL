@@ -183,10 +183,14 @@ export default class App extends React.Component {
 
   /*리스트 아이템-각 section 구현*/
   _renderItem = ({item}) => (
-    <View style={{borderBottomWidth:1, marginTop: 20}}>
-      <Image source={{uri: item.url}} style={{height: 200}} />
-      <Text>{item.title}</Text>
-      <Text>{item.id}</Text>
+    <View style={styles.section}>
+      <Image source={{uri: item.url}} style={styles.image} />
+      <Text style={styles.text_Name}>{item.title}</Text>
+      <Text style={styles.text}>{item.id}</Text>
+      <Text style={styles.text}>
+        test test test test test test test test test test test test test test
+        test test test test test test test test test test test test test test
+      </Text>
     </View>
   );
 
@@ -213,5 +217,35 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     top: 80,
+  },
+  section: {
+    backgroundColor: 'white',
+    marginLeft: 10,
+    // borderBottomWidth: 1,
+    marginTop: 20,
+    height: 500,
+    width: '95%',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+  },
+  image: {
+    width: '100%',
+    height: 200,
+    alignItems: 'center',
+    top: 10,
+    borderRadius: 15,
+  },
+  text_Name: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
+    top: 20,
+    left: 10,
+  },
+  text: {
+    fontSize: 15,
+    color: 'black',
+    top: 30,
+    left: 10,
   },
 });

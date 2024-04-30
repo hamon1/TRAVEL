@@ -16,7 +16,6 @@ import ProfileScreen from '../Profile/Profile';
 import { ColorProperties } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-import navigationStack from './index';
 import NavigationContainer from '@react-navigation/native';
 // class MoveHome extends React.Component {
 //   render() {
