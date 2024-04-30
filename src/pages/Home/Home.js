@@ -188,8 +188,10 @@ export default class App extends React.Component {
       <Text style={styles.text_Name}>{item.title}</Text>
       <Text style={styles.text}>{item.id}</Text>
       <Text style={styles.text}>
-        test test test test test test test test test test test test test test
-        test test test test test test test test test test test test test test
+        Ut nisi consequat ea qui veniam dolor laborum dolor quis eiusmod irure.
+        Voluptate culpa voluptate laboris aute nisi velit magna ea ut anim
+        consequat mollit. Exercitation proident magna magna et sit enim ea
+        exercitation consequat aliqua culpa.
       </Text>
     </View>
   );
