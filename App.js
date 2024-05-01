@@ -75,11 +75,14 @@
 //   }
 // });
 
+import 'react-native-gesture-handler';
+
 import React from 'react';
-import AppStack from './src/pages/Profile/Profile';
+// import AppStack from './src/pages/Home/Home';
+import Navigator from './src/pages/navigation/StackNavigation';
 
 const App = () => {
-  return <AppStack />;
+  return <Navigator />;
 };
 
 export default App;
