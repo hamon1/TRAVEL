@@ -19,8 +19,7 @@ const HomeStack = () => {
     <Stack.Navigator
       initialRouteName="HomeScreen"
       detachInactiveScreens="false"
-      screenOptions={{headerShown: false}}
-    >
+      screenOptions={{headerShown: false}}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="PlaceDetails" component={PlaceDetails} />
       <Stack.Screen name="addPlace" component={addPlace} />
@@ -30,14 +29,10 @@ const HomeStack = () => {
 
 const TabNavigator = () => {
   return (
-    <>
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Profile" component={Profile} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </>
+    <Tab.Navigator detachInactiveScreens={false}>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Profile" component={Profile} />
+    </Tab.Navigator>
   );
 };
 export default TabNavigator;

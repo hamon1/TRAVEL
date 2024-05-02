@@ -4,6 +4,7 @@
  *
  *
  */
+import People from '../Button/NumOfPeople';
 
 import React from 'react';
 import {
@@ -16,8 +17,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-import Header from '../header/Top';
-import Controlbar from '../Footer/ControlBar';
+import AddButton from '../Button/NewPlanButton';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -25,25 +25,31 @@ const Profile = () => {
   const navigation = useNavigation();
   return (
     <>
-      {/* <SafeAreaView style={{flex: 1}}> */}
-      <View style={styles.userProfile}>
-        <View style={styles.user_image}>
-          <Image style={styles.image}></Image>
+      <View style={styles.block}>
+        
+        <View style={styles.userProfile}>
+          <View style={styles.user_image}>
+            <Image style={styles.image}></Image>
+          </View>
+          <View style={styles.introduce_box}>
+            <Text style={styles.profile_name}>userName</Text>
+            <Text style={styles.profile_id}>userId: 000000</Text>
+            <Text style={styles.introduce_text}>
+              Ad consequat fugiat ad nostrud aliqua occaecat culpa amet.
+            </Text>
+          </View>
         </View>
-
-        <View style={styles.introduce_box}>
-          <Text style={styles.profile_id_text}>userID</Text>
-          <Text style={styles.introduce_text}>
-            Ad consequat fugiat ad nostrud aliqua occaecat culpa amet.
-          </Text>
-        </View>
+        <FlatList style={styles.container} />
+        <AddButton />
       </View>
-      <FlatList style={styles.container} />
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  block: {
+    flex: 1,
+  },
   userProfile: {
     width: '100%',
     // top: 80,
@@ -74,20 +80,18 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     alignItems: 'center',
-    top: 10,
     borderRadius: 45,
-    // left: -50,
   },
   introduce_box: {
-    width: '60%',
+    width: '70%',
     height: 128,
-    // backgroundColor: 'blue',
+    backgroundColor: 'green',
     paddingLeft: 10,
   },
   user_image: {
-    width: '40%',
+    width: '30%',
     height: 128,
-    // backgroundColor: 'red',
+    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -106,16 +110,27 @@ const styles = StyleSheet.create({
     top: 30,
     left: 10,
   },
-  profile_id_text: {
-    fontSize: 20,
-    fontWeight: 'light',
+  profile_name: {
+    fontSize: 16,
+    fontWeight: 'blod',
     color: 'black',
     top: 20,
     left: 10,
     width: '50%',
   },
-  introduce_text: {
+  profile_id: {
+    fontSize: 14,
+    fontWeight: 'thin',
+    color: 'black',
+    top: 25,
+    left: 10,
     width: '50%',
+  },
+  introduce_text: {
+    width: '60%',
+    height: '30%',
+    left: 10,
+    top: 40,
   },
 });
 
