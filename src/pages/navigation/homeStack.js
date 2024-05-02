@@ -1,22 +1,25 @@
-// import {createStackNavigator} from '@react-navigation/native-stack';
-// import {createAppContainer} from '@react-navigation/native/';
+import 'react-native-gesture-handler';
 
-// import Home from '../Home/Home';
-// import Details from '../Home/PlaceDetails';
-// import Profile from '../Profile/Profile';
+import React from 'react';
 
-// const screens = {
-//   Home: {
-//     screen: Home,
-//   },
-//   Profile: {
-//     screen: Profile,
-//   },
-//   Details: {
-//     screen: Details,
-//   },
-// };
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-// const HomeStack = createStackNavigator(screens);
+import HomeScreen from '../Home/HomeScreen';
+import PlaceDetails from '../Home/PlaceDetails';
+import addPlace from '../Home/addPlaceScreen';
 
-// export default createAppContainer(HomeStack);
+const Stack = createNativeStackNavigator();
+const HomeStack = () => {
+  return (
+      <Stack.Navigator
+        initialRouteName="HomeScreen"
+        detachInactiveScreens="false"
+        screenOptions={{headerShown: false}}>
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="PlaceDetails" component={PlaceDetails} />
+        <Stack.Screen name="addPlace" component={addPlace} />
+      </Stack.Navigator>
+  );
+};
+export default HomeStack;

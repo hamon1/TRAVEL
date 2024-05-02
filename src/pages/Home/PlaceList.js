@@ -9,7 +9,7 @@ function PlaceList({place}) {
       style={style.list}
       data={place}
       renderItem={({item}) => (
-        <PlaceSection id={place.id} text={place.text} text2={place.text2} />
+        <PlaceSection id={item.id} text={item.text} text2={item.text2} />
       )}
       keyExtractor={item => item.id.toString()}
     />

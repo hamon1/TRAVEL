@@ -79,7 +79,7 @@ import 'react-native-gesture-handler';
 
 import React from 'react';
 // import AppStack from './src/pages/Home/Home';
-import Navigator from './src/pages/navigation/StackNavigation';
+import Navigator from './src/pages/navigation/TabNavigatior';
 
 const App = () => {
   return <Navigator />;

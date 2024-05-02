@@ -7,7 +7,9 @@ const PlaceSection = ({id, text, text2}) => {
   return (
     <View style={styles.section}>
       <TouchableOpacity
-        onPress={() => navigation.navigate('PlaceDetails')}>
+        onPress={() =>
+          navigation.navigate('PlaceDetails', {name: text, id: id, text: text2})
+        }>
         <Image style={styles.image} />
         <Text style={styles.text_Name}>{text}</Text>
         <Text style={styles.text}>{id}</Text>
