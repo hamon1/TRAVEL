@@ -10,12 +10,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../Home/HomeScreen';
 import Profile from '../Profile/Profile';
 import PlaceDetails from '../Home/PlaceDetails';
-import addPlace from '../Home/addPlaceScreen';
+import addPlace from '../Plans/addPlaceScreen';
 
 import AppPlanButton from '../../components/NewPlanButton';
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
 
 const TabNavigator = () => {
   return (
