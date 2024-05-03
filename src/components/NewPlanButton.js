@@ -25,7 +25,9 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     bottom: 16,
-    right: 16,
+    left: '50%',
+    transform: [{translateX: -28}],
+    zIndex: 5,
     width: 56,
     height: 56,
     borderRadius: 28,

@@ -4,9 +4,9 @@
  *
  *
  */
-import People from '../Button/NumOfPeople';
+import People from '../../components/NumOfPeople';
 
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Image,
@@ -14,43 +14,110 @@ import {
   FlatList,
   StyleSheet,
   Button,
-  SafeAreaView,
+  KeyboardAvoidingView,
 } from 'react-native';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
-import AddButton from '../Button/NewPlanButton';
+import PlanList from './PlanList';
+import Empty from '../../assets/Empty';
 
 import {useNavigation} from '@react-navigation/native';
+import PlaceList from '../Home/PlaceList';
 
 const Profile = () => {
+  const [plan, setplace] = useState([
+    {
+      id: 1,
+      text: 'place1',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+    {
+      id: 2,
+      text: 'place2',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+    {
+      id: 3,
+      text: 'place3',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+    {
+      id: 4,
+      text: 'place4',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+    {
+      id: 5,
+      text: 'place5',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+    {
+      id: 6,
+      text: 'place6',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+    {
+      id: 7,
+      text: 'place7',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+  ]);
+
   const navigation = useNavigation();
+
   return (
     <>
-      <View style={styles.block}>
-        
-        <View style={styles.userProfile}>
-          <View style={styles.user_image}>
-            <Image style={styles.image}></Image>
+      <SafeAreaProvider>
+        <View style={styles.block}>
+          <View style={styles.userProfile}>
+            <View style={styles.user_image}>
+              <Image style={styles.image} />
+            </View>
+            <View style={styles.introduce_box}>
+              <Text style={styles.profile_name}>userName</Text>
+              <Text style={styles.profile_id}>userId: 000000</Text>
+              <Text style={styles.introduce_text}>
+                Ad consequat fugiat ad nostrud aliqua occaecat culpa amet.
+              </Text>
+            </View>
           </View>
-          <View style={styles.introduce_box}>
-            <Text style={styles.profile_name}>userName</Text>
-            <Text style={styles.profile_id}>userId: 000000</Text>
-            <Text style={styles.introduce_text}>
-              Ad consequat fugiat ad nostrud aliqua occaecat culpa amet.
-            </Text>
-          </View>
+
+          <SafeAreaView style={styles.PlaceList}>
+            <KeyboardAvoidingView>
+
+              {plan.length === 0 ? (
+                <Empty />
+              ) : (
+                <>
+                  <PlanList plan={plan} />
+                </>
+              )}
+            </KeyboardAvoidingView>
+          </SafeAreaView>
         </View>
-        <FlatList style={styles.container} />
-        <AddButton />
-      </View>
+      </SafeAreaProvider>
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  PlaceList: {
+    top: 128,
+    backgroundColor: 'white',
+    height: 546,
+  },
   block: {
     flex: 1,
   },
   userProfile: {
+    // flex: 1,
     width: '100%',
     // top: 80,
     height: 128,
@@ -91,7 +158,7 @@ const styles = StyleSheet.create({
   user_image: {
     width: '30%',
     height: 128,
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
   },

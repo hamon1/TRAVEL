@@ -25,23 +25,26 @@ import {useNavigation} from '@react-navigation/native';
 const Place_detaile = ({route}) => {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
-      <Image style={styles.image}></Image>
-      <View style={styles.textContainer}>
-        <Text style={styles.nameText}>
-          Place_detaile / Place: {route.params.name} {route.params.id}
-        </Text>
-        <Text style={styles.infoText}>{route.params.text}</Text>
-      </View>
-      {/**아래부터 리뷰(별점) 컨테이너 */}
-      <View></View>
+    <>
+      <ScrollView style={styles.container}>
+        <Image style={styles.image} />
+        <Image style={styles.image_map} />
+        <View style={styles.textContainer}>
+          <Text style={styles.nameText}>
+            Place_detaile / Place: {route.params.name} {route.params.id}
+          </Text>
+          <Text style={styles.infoText}>{route.params.text}</Text>
+        </View>
+        {/**아래부터 리뷰(별점) 컨테이너 */}
+        <View />
+      </ScrollView>
       <Button
         style={styles.addButton}
         title="add"
         onPress={() => navigation.navigate('addPlace')}
       />
       <Button title="back" onPress={() => navigation.pop()} />
-    </View>
+    </>
   );
 };
 
@@ -57,6 +60,16 @@ const styles = StyleSheet.create({
     top: 10,
     left: 10,
     borderRadius: 15,
+  },
+  image_map: {
+    backgroundColor: '#D9D9D9',
+    width: '95%',
+    height: 200,
+    alignItems: 'center',
+    top: 10,
+    left: 10,
+    borderRadius: 15,
+    marginTop: 10,
   },
   textContainer: {
     width: '95%',

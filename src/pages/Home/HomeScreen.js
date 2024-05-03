@@ -19,18 +19,10 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import Header from '../header/Top';
-import Controlbar from '../Footer/ControlBar';
-
-import details from './PlaceDetails';
-
-import {useDataFetch} from '../../hook/DataFetch';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
 import PlaceList from './PlaceList';
-import Empty from './Empty';
-import PlaceSection from './PlaceSection';
-import AddPlace from './addPlaceScreen';
+import Empty from '../../assets/Empty';
 
 function HomeScreen() {
   const [place, setplace] = useState([
