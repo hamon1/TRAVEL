@@ -28,6 +28,7 @@ const Place_detaile = ({route}) => {
     <>
       <ScrollView style={styles.container}>
         <Image style={styles.image} />
+        {/**아래 이미지 지도 */}
         <Image style={styles.image_map} />
         <View style={styles.textContainer}>
           <Text style={styles.nameText}>

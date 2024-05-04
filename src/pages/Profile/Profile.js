@@ -18,11 +18,11 @@ import {
 } from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
-import PlanList from '../Plans/PlanList';
+import PlanList from '../../components/PlanList';
 import Empty from '../../assets/Empty';
 
 import {useNavigation} from '@react-navigation/native';
-import PlaceList from '../Home/PlaceList';
+import PlaceList from '../../components/PlaceList';
 
 const Profile = () => {
   const navigation = useNavigation();

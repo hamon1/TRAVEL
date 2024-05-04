@@ -6,6 +6,7 @@ import {StyleSheet, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import HomeScreen from '../Home/HomeScreen';
 import Profile from '../Profile/Profile';
@@ -20,9 +21,30 @@ const TabNavigator = () => {
   return (
     <>
       <View style={styles.block}>
-        <Tab.Navigator detachInactiveScreens={false}>
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Navigator
+          detachInactiveScreens={false}
+          screenOptions={{
+            tabBarActiveTintColor: '#135',
+            tabBarShowLabel: false,
+          }}>
+          <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              tabBarIcon: ({color}) => (
+                <Icon name="home" size={24} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              tabBarIcon: ({color}) => (
+                <Icon name="person" size={24} color={color} />
+              ),
+            }}
+          />
         </Tab.Navigator>
       </View>
       <AppPlanButton />

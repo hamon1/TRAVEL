@@ -1,3 +1,7 @@
+/**
+ * 여행지 정보 무한스크롤. (flatlist)
+ */
+
 import React from 'react';
 import {FlatList, View, Text, StyleSheet} from 'react-native';
 

@@ -19,11 +19,11 @@ import {
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 
-import PlanList from './PlanList';
+import PlanList from '../../components/PlanList';
 import Empty from '../../assets/Empty';
 
 const Profile = () => {
-  const [plan, setPlace] = useState([
+  const [plan, setPlan] = useState([
     {
       id: 1,
       text: 'place1',
@@ -68,6 +68,23 @@ const Profile = () => {
     },
   ]);
 
+  const onInsert = text => {
+    const nextId =
+      plan.length > 0 ? Math.max(...plan.map(plan => plan.id)) + 1 : 1;
+    const plan = {
+      id: nextId,
+      text: 'plance',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    };
+    setPlan(plan.concat(plan));
+  };
+
+  const onRemove = id => {
+    const nextPlan = plan.filter(plan => plan.id !== id);
+    setPlan(nextPlan);
+  };
+
   const navigation = useNavigation();
 
   return (
@@ -80,7 +97,11 @@ const Profile = () => {
                 <Empty />
               ) : (
                 <>
-                  <PlanList plan={plan} />
+                  <PlanList
+                    plan={plan}
+                    onInsert={onInsert}
+                    onRemove={onRemove}
+                  />
                 </>
               )}
             </KeyboardAvoidingView>

@@ -1,5 +1,5 @@
 /**
- * 임시 plan 추가 버튼
+ * 여행지 리스트 보여주는 버튼.
  */
 
 import React from 'react';
