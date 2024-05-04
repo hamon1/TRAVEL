@@ -6,7 +6,7 @@
  */
 import People from '../../components/NumOfPeople';
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Image,
@@ -17,15 +17,13 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
 
-import PlanList from '../Plans/PlanList';
+import PlanList from './PlanList';
 import Empty from '../../assets/Empty';
 
-import {useNavigation} from '@react-navigation/native';
-import PlaceList from '../Home/PlaceList';
-
 const Profile = () => {
-  const [plan, setplace] = useState([
+  const [plan, setPlace] = useState([
     {
       id: 1,
       text: 'place1',

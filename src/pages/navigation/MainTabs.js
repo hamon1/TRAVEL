@@ -10,7 +10,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../Home/HomeScreen';
 import Profile from '../Profile/Profile';
 import PlaceDetails from '../Home/PlaceDetails';
-import addPlace from '../Plans/addPlaceScreen';
+import addPlace from '../Plans/PlansScreen';
 
 import AppPlanButton from '../../components/NewPlanButton';
 
