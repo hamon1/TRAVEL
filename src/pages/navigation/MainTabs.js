@@ -13,7 +13,7 @@ import Profile from '../Profile/Profile';
 import PlaceDetails from '../Home/PlaceDetails';
 import addPlace from '../Plans/PlansScreen';
 
-import AppPlanButton from '../../components/NewPlanButton';
+import AppPlanButton from '../../components/ShowListButton';
 
 const Tab = createBottomTabNavigator();
 

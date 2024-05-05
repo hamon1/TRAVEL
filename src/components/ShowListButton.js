@@ -6,12 +6,11 @@ import React from 'react';
 import {Platform, Pressable, StyleSheet, View} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Octicons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 function NewPlanButton() {
   const navigation = useNavigation();
 
-  {/** 새로운 플랜 생성 */}
   const onPress = () => {
     navigation.navigate('addPlace');
   };
@@ -19,7 +18,7 @@ function NewPlanButton() {
   return (
     <View style={styles.container}>
       <Pressable style={styles.button} onPress={onPress}>
-        <Icon name="plus" color={'white'} size={36} />
+        <Icon name="list" color={'white'} size={36} />
       </Pressable>
     </View>
   );
@@ -28,7 +27,7 @@ function NewPlanButton() {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 12,
+    bottom: 16,
     left: '50%',
     transform: [{translateX: -28}],
     zIndex: 5,

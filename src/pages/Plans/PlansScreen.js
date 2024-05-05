@@ -21,6 +21,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import PlanList from '../../components/PlanList';
 import Empty from '../../assets/Empty';
+import NewPlanbutton from '../../components/NewPlanButton';
 
 const PlansScreen = () => {
   const [plan, setPlan] = useState([
@@ -104,6 +105,7 @@ const PlansScreen = () => {
                   />
                 </>
               )}
+              <NewPlanbutton style={styles.button} />
             </KeyboardAvoidingView>
           </SafeAreaView>
         </View>
@@ -124,6 +126,8 @@ const styles = StyleSheet.create({
     top: 128,
     backgroundColor: 'blue',
   },
+  button: {
+  }
 });
 
 export default PlansScreen;
