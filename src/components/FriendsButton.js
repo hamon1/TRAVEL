@@ -1,23 +1,25 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const NumOfPeople = () => {
   return (
     <View styles={styles.container}>
-      <Text>1</Text>
+      
+      <Icon name="people" size={24} color="#000000" />
+      {/** 친구목록.length */}
+      <Text style={styles.num}>1</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    width: 42,
-    height: 12,
-    backgroundColor: 'red',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'row',
   },
+  num: {
+  
+  }
 });
 
 export default NumOfPeople;

@@ -22,9 +22,10 @@ const TabNavigator = () => {
     <>
       <View style={styles.block}>
         <Tab.Navigator
+          initialRouteName="Home"
           detachInactiveScreens={false}
           screenOptions={{
-            tabBarActiveTintColor: '#135',
+            tabBarActiveTintColor: '#fb8c00',
             tabBarShowLabel: false,
           }}>
           <Tab.Screen

@@ -1,7 +1,7 @@
 /**
- * 만든 여행 계획 보드 리스트 - 박스(section)
+ * 친구 목록 - 친구 박스
  *
- * 보드 id, text - 보드 이름, text2 - ''
+ * 
  */
 
 import React from 'react';
@@ -16,8 +16,9 @@ import {
 import {useNavigation} from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Octicons';
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const PlanSection = ({id, text, text2, onRemove}) => {
+const FriendSection = ({id, text, text2, onRemove}) => {
   const navigation = useNavigation();
 
   const remove = () => {
@@ -47,12 +48,20 @@ const PlanSection = ({id, text, text2, onRemove}) => {
   return (
     <View>
       <TouchableOpacity style={styles.section}>
-        {/**TouchableOpacity / onPress=> plans로 이동 */}
+        <Image style={styles.userImage}></Image>
         <Text style={styles.text_Name}>{text}</Text>
         <Text style={styles.text}>{id}</Text>
-
-        <TouchableOpacity onPress={remove} style={styles.icon}>
-          <Icon name="x" size={24} color="#ffffff" />
+        {/** 친구 삭제 */}
+        <TouchableOpacity onPress={remove} style={styles.icon_remove}>
+          <Icon name="x" size={24} color="#000000" />
+        </TouchableOpacity>
+        {/** 채팅창으로 이동 */}
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('chatRoom');
+          }}
+          style={styles.icon_message}>
+          <Icon2 name="message" size={24} color="#000000" />
         </TouchableOpacity>
       </TouchableOpacity>
     </View>
@@ -63,10 +72,9 @@ const styles = StyleSheet.create({
   section: {
     top: 10,
     bottom: 10,
-    backgroundColor: '#FFE99C',
+    backgroundColor: 'white',
     marginLeft: 10,
     marginBottom: 10,
-    borderRadius: 15,
     height: 120,
     width: '95%',
     // justifyContent: 'center',
@@ -76,21 +84,40 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: 'black',
-    top: 20,
-    left: 20,
+    top: 28,
+    left: '28%',
+    position: 'absolute',
   },
   text: {
     fontSize: 14,
     color: '#616161',
-    top: 30,
-    left: 25,
+    top: 56,
+    left: '28%',
+    position: 'absolute',
   },
-  icon: {
+  icon_remove: {
     width: 24,
     height: 24,
-    top: -20,
+    top: 24,
     left: '92%',
+    position: 'absolute',
+  },
+  icon_message: {
+    width: 24,
+    height: 24,
+    top: 24,
+    left: '80%',
+    position: 'absolute',
+  },
+  userImage: {
+    width: 64,
+    height: 64,
+    borderRadius: 45,
+    backgroundColor: 'gray',
+    left: 16,
+    top: '50%',
+    transform: [{translateY: -32}],
   },
 });
 
-export default PlanSection;
+export default FriendSection;

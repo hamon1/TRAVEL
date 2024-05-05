@@ -84,6 +84,7 @@ function HomeScreen() {
 const style = StyleSheet.create({
   block: {
     flex: 1,
+    backgroundColor: 'white',
   },
   avoid: {
     flex: 1,

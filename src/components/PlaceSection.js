@@ -1,3 +1,9 @@
+/**
+ * mainTab - 여행지 리스트의 section.
+ * 
+ * 이 section의 id, text, tex2 -> placedetail로 넘어감.
+ */
+
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';

@@ -4,7 +4,7 @@
  *
  *
  */
-import People from '../../components/NumOfPeople';
+import People from '../../components/FriendsButton';
 
 import React, {useState} from 'react';
 import {
@@ -15,6 +15,7 @@ import {
   StyleSheet,
   Button,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
@@ -23,12 +24,14 @@ import Empty from '../../assets/Empty';
 
 import {useNavigation} from '@react-navigation/native';
 import PlaceList from '../../components/PlaceList';
+import Friends from '../../components/FriendsButton';
 
 const Profile = () => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.block}>
+      
       <View style={styles.userProfile}>
         <Image style={styles.image} />
         <Text style={styles.profile_name}>userName</Text>
@@ -36,6 +39,13 @@ const Profile = () => {
         <Text style={styles.introduce_text}>
           Ad consequat fugiat ad nostrud aliqua occaecat culpa amet.
         </Text>
+        <TouchableOpacity
+          style={styles.friend}
+          onPress={() => {
+            navigation.navigate('friends');
+          }}>
+          <Friends />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -44,6 +54,7 @@ const Profile = () => {
 const styles = StyleSheet.create({
   block: {
     flex: 1,
+    backgroundColor: '#FFE99C',
   },
   userProfile: {
     // flex: 1,
@@ -51,7 +62,7 @@ const styles = StyleSheet.create({
     // top: 80,
     height: '50%',
     backgroundColor: '#FFF8DE',
-    position: 'absolute',
+    // position: 'absolute',
   },
   image: {
     backgroundColor: 'gray',
@@ -82,6 +93,15 @@ const styles = StyleSheet.create({
     height: '30%',
     left: 10,
     top: 40,
+  },
+  friend: {
+    top: 10,
+    left: '50%',
+    backgroundColor: '#df2571',
+    width: 56,
+    height: 32,
+    borderRadius: 15,
+    flexDirection: 'row',
   },
 });
 

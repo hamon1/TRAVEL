@@ -44,7 +44,7 @@ const Place_detaile = ({route}) => {
         title="add"
         onPress={() => navigation.navigate('addPlace')}
       />
-      <Button title="back" onPress={() => navigation.pop()} />
+      <Button title="back" onPress={() => navigation.navigate('Home')} />
     </>
   );
 };

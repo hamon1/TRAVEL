@@ -6,6 +6,7 @@ import React from 'react';
 import {Platform, Pressable, StyleSheet, View} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 function NewPlanButton() {
   const navigation = useNavigation();
@@ -16,7 +17,9 @@ function NewPlanButton() {
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button} onPress={onPress}></Pressable>
+      <Pressable style={styles.button} onPress={onPress}>
+        <Icon name="list" color={'white'} size={36} />
+        </Pressable>
     </View>
   );
 }
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
   button: {
     width: 56,
     height: 56,
-    backgroundColor: '#006993',
+    backgroundColor: '#fb8c00',
     borderRadius: 28,
     justifyContent: 'center',
     alignItems: 'center',
