@@ -33,7 +33,13 @@ const Profile = () => {
   return (
     <View style={styles.block}>
       <View style={styles.userProfile}>
-        <Image style={styles.image} />
+        <Image
+          style={styles.image}
+          /** 이미지 설정(기본 값)
+           * 이후 사용자가 선택한 이미지로 변경 가능하게.
+           */
+          source={require('../../assets/Defualtuserimage.png')}
+        />
         <Text style={styles.profile_name}>userName</Text>
         <Text style={styles.profile_id}>userId: 000000</Text>
         <Text style={styles.introduce_text}>
