@@ -4,7 +4,7 @@ import MainTab from './MainTabs';
 
 import HomeScreen from '../Home/HomeScreen';
 import PlaceDetail from '../Home/PlaceDetails';
-import addPlace from '../Plans/PlansScreen';
+import addPlace from '../Plans/PlanListScreen';
 import friends from '../FriendsList/FriendsScreen';
 import chatroom from '../Chat/ChatScreen';
 
@@ -22,14 +22,11 @@ function RootStack() {
         initialRouteName={HomeScreen}
         etachInactiveScreens={false}
       />
-      <Stack.Screen name="PlaceDetails" component={PlaceDetail} />
-      <Stack.Screen name="addPlace" component={addPlace} />
       <Stack.Screen
-        name="friends"
-        component={friends}
-        options={{headerRight: () => <IconAdd />}}
+        name="addPlace"
+        component={addPlace}
+        options={{headerShown: false}}
       />
-      <Stack.Screen name="chatRoom" component={chatroom} />
     </Stack.Navigator>
   );
 }

@@ -48,7 +48,7 @@ const Profile = () => {
         <TouchableOpacity
           style={styles.friend}
           onPress={() => {
-            navigation.navigate('friends');
+            navigation.navigate('FriendList');
           }}>
           <Friends />
         </TouchableOpacity>

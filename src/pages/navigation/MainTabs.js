@@ -11,7 +11,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from '../Home/HomeScreen';
 import Profile from '../Profile/Profile';
 import PlaceDetails from '../Home/PlaceDetails';
-import addPlace from '../Plans/PlansScreen';
+import addPlace from '../Plans/PlanListScreen';
+
+import HomeStack from './HomeStack';
+import ProfileStack from './MyProfileStack';
 
 import AppPlanButton from '../../components/ShowListButton';
 
@@ -30,7 +33,7 @@ const TabNavigator = () => {
           }}>
           <Tab.Screen
             name="Home"
-            component={HomeScreen}
+            component={HomeStack}
             options={{
               tabBarIcon: ({color}) => (
                 <Icon name="home" size={24} color={color} />
@@ -39,7 +42,7 @@ const TabNavigator = () => {
           />
           <Tab.Screen
             name="Profile"
-            component={Profile}
+            component={ProfileStack}
             options={{
               tabBarIcon: ({color}) => (
                 <Icon name="person" size={24} color={color} />
