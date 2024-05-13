@@ -20,12 +20,11 @@ function RootStack() {
         component={MainTab}
         options={{headerShown: false}}
         initialRouteName={HomeScreen}
-        etachInactiveScreens={false}
+        // etachInactiveScreens={false}
       />
       <Stack.Screen
         name="addPlace"
         component={addPlace}
-        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
