@@ -52,7 +52,13 @@ const Profile = () => {
           }}>
           <Friends />
         </TouchableOpacity>
-        <Setting />
+        <TouchableOpacity
+          style={styles.setting}
+          onPress={() => {
+            navigation.navigate('Setting');
+          }}>
+          <Setting />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -110,6 +116,9 @@ const styles = StyleSheet.create({
     // width: 56,
     // height: 32,
     // borderRadius: 15,
+  },
+  setting: {
+    position: 'absolute',
   },
 });
 
