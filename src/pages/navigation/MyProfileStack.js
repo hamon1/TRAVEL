@@ -26,11 +26,11 @@ function HomeStack() {
         component={SettingScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-      name="Chatting"
-      component={Chatting}
-      options={{headerShown: false}}
-      />
+      {/* <Stack.Screen
+        name="Chatting"
+        component={Chatting}
+        options={{headerShown: false}}
+      /> */}
     </Stack.Navigator>
   );
 }

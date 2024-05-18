@@ -2,7 +2,7 @@
  * 사용자 프로필 + 생성한 여행 보드 리스트
  * + 친구 목록, 프로필 수정
  *
- *
+ * 아래 공간은 채팅 목록.
  */
 import People from '../../components/FriendsButton';
 
