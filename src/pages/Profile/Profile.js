@@ -128,8 +128,8 @@ const styles = StyleSheet.create({
   },
   friend: {
     position: 'absolute',
-    top: 24,
-    left: '80%',
+    top: 8,
+    left: '84%',
     // backgroundColor: '#df2571',
     // width: 56,
     // height: 32,
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   setting: {
     position: 'absolute',
-    left: 0,
+    left: 4,
   },
 });
 
