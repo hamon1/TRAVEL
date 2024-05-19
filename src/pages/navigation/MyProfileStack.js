@@ -4,7 +4,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Profile from '../Profile/Profile';
 import FriendListScreen from '../FriendsList/FriendsScreen';
 import SettingScreen from '../Profile/Setting';
-import Chatting from '../Chat/ChatScreen';
 
 const Stack = createNativeStackNavigator();
 
