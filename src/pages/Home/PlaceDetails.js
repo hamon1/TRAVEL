@@ -17,6 +17,7 @@ import {
   FlatList,
   Button,
   Image,
+  Pressable,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -28,16 +29,21 @@ const Place_detaile = ({route}) => {
     <>
       <ScrollView style={styles.container}>
         <Image style={styles.image} />
-        {/**아래 이미지 지도 */}
-        <Image style={styles.image_map} />
+        {/**아래 이미지 지도 - 클릭 시, 지도 확대*/}
+        <Pressable>
+          <Image style={styles.image_map} />
+        </Pressable>
         <View style={styles.textContainer}>
           <Text style={styles.nameText}>
             Place_detaile / Place: {route.params.name} {route.params.id}
           </Text>
           <Text style={styles.infoText}>{route.params.text}</Text>
         </View>
-        {/**아래부터 리뷰(별점) 컨테이너 */}
         <View />
+        {/**아래부터 리뷰(별점) 컨테이너 */}
+        <View style={styles.reviewContainer}>
+          <Text>review</Text>
+        </View>
       </ScrollView>
       <Button
         style={styles.addButton}
@@ -74,8 +80,14 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     width: '95%',
+    height: 500,
     top: 20,
     left: 10,
+    backgroundColor: 'red',
+  },
+  reviewContainer: {
+    backgroundColor: 'green',
+    top: 40,
   },
   nameText: {
     fontSize: 20,
