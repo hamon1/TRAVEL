@@ -19,16 +19,61 @@ import {
 } from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
-import PlanList from '../../components/PlanList';
 import Empty from '../../assets/Empty';
 
 import {useNavigation} from '@react-navigation/native';
-import PlaceList from '../../components/PlaceList';
 import Friends from '../../components/FriendsButton';
 import Setting from '../../components/SettingButton';
 
+import ChatList from '../../components/ChatList';
+
 const Profile = () => {
   const navigation = useNavigation();
+
+  const [chatroom] = useState([
+    {
+      id: 1,
+      text: 'user1',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+    {
+      id: 2,
+      text: 'user2',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+    {
+      id: 3,
+      text: 'user3',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+    {
+      id: 4,
+      text: 'user4',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+    {
+      id: 5,
+      text: 'user5',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+    {
+      id: 6,
+      text: 'user6',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+    {
+      id: 7,
+      text: 'user7',
+      text2:
+        'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    },
+  ]);
 
   return (
     <View style={styles.block}>
@@ -63,7 +108,7 @@ const Profile = () => {
       </View>
       {/** 채팅 목록 */}
       <View style={styles.chatList}>
-          <Text>Chat List</Text>
+        <ChatList chatList={chatroom} style={styles.chat} />
       </View>
     </View>
   );
@@ -95,6 +140,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'yellow',
     width: '100%',
     height: 314,
+  },
+  chat: {
+    backgroundColor: 'green',
+    position: 'absolute',
   },
   image: {
     backgroundColor: 'gray',

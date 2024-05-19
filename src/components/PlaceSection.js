@@ -1,6 +1,6 @@
 /**
  * mainTab - 여행지 리스트의 section.
- * 
+ *
  * 이 section의 id, text, tex2 -> placedetail로 넘어감.
  */
 
@@ -9,7 +9,7 @@ import {View, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const PlaceSection = ({id, text, text2}) => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
   return (
     <View style={styles.section}>
       <TouchableOpacity

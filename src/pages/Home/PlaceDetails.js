@@ -50,7 +50,7 @@ const Place_detaile = ({route}) => {
         title="add"
         onPress={() => navigation.navigate('addPlace')}
       />
-      <Button title="back" onPress={() => navigation.navigate('Home')} />
+      <Button title="back" onPress={() => navigation.goBack()} />
     </>
   );
 };
