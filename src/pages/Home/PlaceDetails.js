@@ -21,8 +21,6 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-// eslint-disable-next-line react-hooks/rules-of-hooks
-
 const Place_detaile = ({route}) => {
   const navigation = useNavigation();
   return (
@@ -34,23 +32,27 @@ const Place_detaile = ({route}) => {
           <Image style={styles.image_map} />
         </Pressable>
         <View style={styles.textContainer}>
-          <Text style={styles.nameText}>
-            Place_detaile / Place: {route.params.name} {route.params.id}
-          </Text>
+          <Text style={styles.nameText}>{route.params.name}</Text>
+          <Text style={styles.idText}>id: {route.params.id}</Text>
           <Text style={styles.infoText}>{route.params.text}</Text>
         </View>
         <View />
         {/**아래부터 리뷰(별점) 컨테이너 */}
         <View style={styles.reviewContainer}>
-          <Text>review</Text>
+          <Text style={styles.reviewHeader}>review</Text>
+          <Pressable
+            onPress={() => navigation.navigate('reviewScreen')}
+            style={styles.reviewPress}>
+            <Text>리뷰 미리보기</Text>
+          </Pressable>
         </View>
       </ScrollView>
-      <Button
+      {/* <Button
         style={styles.addButton}
         title="add"
         onPress={() => navigation.navigate('addPlace')}
       />
-      <Button title="back" onPress={() => navigation.goBack()} />
+      <Button title="back" onPress={() => navigation.goBack()} /> */}
     </>
   );
 };
@@ -83,24 +85,50 @@ const styles = StyleSheet.create({
     height: 500,
     top: 20,
     left: 10,
-    backgroundColor: 'red',
+    borderRadius: 15,
+    backgroundColor: 'white',
+    padding: 12,
+    // shadowColor: '#4d4d4d',
+    // shadowOffset: {width: 0, height: 4},
+    // shadowOpacity: 0.4,
+    // shadowRadius: 4,
   },
   reviewContainer: {
     backgroundColor: 'green',
     top: 40,
+    height: 120,
+    marginBottom: 42,
   },
   nameText: {
+    top: 8,
     fontSize: 20,
     fontWeight: 'bold',
     color: 'black',
+    // backgroundColor: 'blue',
   },
   infoText: {
     fontSize: 15,
     color: 'black',
-    top: 20,
+    top: 30,
+    // backgroundColor: 'green',
   },
   addButton: {
     position: 'absolute',
+  },
+  idText: {
+    top: 10,
+    fontSize: 16,
+    fontWeight: '300',
+    fontStyle: 'italic',
+    // backgroundColor: 'yellow',
+  },
+  reviewHeader: {
+    height: 32,
+    backgroundColor: 'blue',
+  },
+  reviewPress: {
+    backgroundColor: 'yellow',
+    height: 88,
   },
 });
 

@@ -6,10 +6,9 @@ import HomeScreen from '../Home/HomeScreen';
 import PlaceDetail from '../Home/PlaceDetails';
 import addPlace from '../Plans/PlanListScreen';
 import friends from '../FriendsList/FriendsScreen';
-
-import IconAdd from '../../components/IconPlus';
-
 import ChatScreen from '../Chat/ChatScreen';
+import reviewScreen from '../Home/ReviewScreen';
+import IconAdd from '../../components/IconPlus';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +24,7 @@ function RootStack() {
       />
       <Stack.Screen name="addPlace" component={addPlace} />
       <Stack.Screen name="chatScreen" component={ChatScreen} />
+      <Stack.Screen name="reviewScreen" component={reviewScreen} />
     </Stack.Navigator>
   );
 }

@@ -32,11 +32,13 @@ const PlaceSection = ({id, text, text2}) => {
 
 const styles = StyleSheet.create({
   section: {
+    padding: 10,
     backgroundColor: 'white',
-    marginLeft: 10,
-    marginTop: 20,
+    // marginLeft: 10,
+    // marginTop: 20,
     height: 500,
-    width: '95%',
+    width: '100%',
+    borderBottomWidth: 0.2,
     // justifyContent: 'center',
     // alignItems: 'center',
   },

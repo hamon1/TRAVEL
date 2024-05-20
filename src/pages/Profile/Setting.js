@@ -23,8 +23,8 @@ const style = StyleSheet.create({
     paddingTop: 32,
   },
   item: {
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    borderTopWidth: 0.2,
+    borderBottomWidth: 0.2,
     borderColoer: '#eeeeee',
     backgroundColor: 'white',
     paddingVertical: 16,

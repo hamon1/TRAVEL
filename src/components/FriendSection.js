@@ -1,7 +1,7 @@
 /**
  * 친구 목록 - 친구 박스
  *
- * 
+ *
  */
 
 import React from 'react';
@@ -48,7 +48,12 @@ const FriendSection = ({id, text, text2, onRemove}) => {
   return (
     <View>
       <TouchableOpacity style={styles.section}>
-        <Image style={styles.userImage}></Image>
+        <Image
+          style={styles.userImage}
+          /** 이미지 설정(기본 값)
+           * 이후 사용자가 선택한 이미지로 변경 가능하게.
+           */
+          source={require('../assets/Defualtuserimage.png')}></Image>
         <Text style={styles.text_Name}>{text}</Text>
         <Text style={styles.text}>{id}</Text>
         {/** 친구 삭제 */}
@@ -70,13 +75,14 @@ const FriendSection = ({id, text, text2, onRemove}) => {
 
 const styles = StyleSheet.create({
   section: {
-    top: 10,
-    bottom: 10,
+    // top: 10,
+    // bottom: 10,
     backgroundColor: 'white',
-    marginLeft: 10,
-    marginBottom: 10,
+    // marginLeft: 10,
+    // marginBottom: 10,
     height: 120,
-    width: '95%',
+    width: '100%',
+    borderBottomWidth: 0.2,
     // justifyContent: 'center',
     // alignItems: 'center',
   },
@@ -98,14 +104,14 @@ const styles = StyleSheet.create({
   icon_remove: {
     width: 24,
     height: 24,
-    top: 24,
+    top: 20,
     left: '92%',
     position: 'absolute',
   },
   icon_message: {
     width: 24,
     height: 24,
-    top: 24,
+    top: 20,
     left: '80%',
     position: 'absolute',
   },

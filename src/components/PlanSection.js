@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
-    top: -20,
+    position: 'absolute',
+    top: 10,
     left: '92%',
   },
 });

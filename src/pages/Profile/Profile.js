@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     width: '95%',
     // top: 80,
-    height: 340,
+    height: 320,
     backgroundColor: '#FFF8DE',
     borderRadius: 15,
     alignItems: 'center',
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     top: 20,
     // backgroundColor: 'yellow',
     width: '100%',
-    height: 314,
+    height: 334,
   },
   // chat: {
   //   backgroundColor: 'green',
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   },
   chatHeader: {
     backgroundColor: 'white',
-    height: 24,
+    height: 12,
     shadowColor: '#4d4d4d',
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.1,
