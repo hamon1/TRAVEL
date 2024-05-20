@@ -24,7 +24,7 @@ function ChatList({chatList}) {
 
 const style = StyleSheet.create({
   list: {
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
   },
 });
 

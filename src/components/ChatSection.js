@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const ChatSection = ({id, text, text2}) => {
   const navigation = useNavigation();
@@ -24,25 +24,23 @@ const ChatSection = ({id, text, text2}) => {
     <View>
       <TouchableOpacity style={styles.section}>
         <Text style={styles.text_Name}>{text}</Text>
-        <Text style={styles.text}>{id}</Text>
+        <Text style={styles.text}>마지막 메시지</Text>
+        <Icon style={styles.icon} name="people" size={24} color="#000000" />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.messageIcon}>
+      {/* <TouchableOpacity style={styles.messageIcon}>
         <Icon name="message" size={24} color="black" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   section: {
-    top: 10,
-    bottom: 10,
-    backgroundColor: '#FFE99C',
-    marginLeft: 10,
-    marginBottom: 10,
-    borderRadius: 15,
+    // backgroundColor: '#FFE99C',
+    backgroundColor: 'white',
     height: 100,
-    width: '95%',
+    width: '100%',
+    borderBottomWidth: 0.2,
     // justifyContent: 'center',
     // alignItems: 'center',
   },
@@ -59,8 +57,10 @@ const styles = StyleSheet.create({
     top: 30,
     left: 25,
   },
-  messageIcon: {
+  icon: {
     position: 'absolute',
+    top: 20,
+    left: '92%',
   },
 });
 

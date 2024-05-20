@@ -108,6 +108,9 @@ const Profile = () => {
       </View>
       {/** 채팅 목록 */}
       <View style={styles.chatList}>
+        <View style={styles.chatHeader}>
+          {/* <Text style={styles.chatText}>채팅 목록</Text> */}
+        </View>
         <ChatList chatList={chatroom} style={styles.chat} />
       </View>
     </View>
@@ -137,14 +140,14 @@ const styles = StyleSheet.create({
   },
   chatList: {
     top: 20,
-    backgroundColor: 'yellow',
+    // backgroundColor: 'yellow',
     width: '100%',
     height: 314,
   },
-  chat: {
-    backgroundColor: 'green',
-    position: 'absolute',
-  },
+  // chat: {
+  //   backgroundColor: 'green',
+  //   position: 'absolute',
+  // },
   image: {
     backgroundColor: 'gray',
     width: 72,
@@ -187,6 +190,21 @@ const styles = StyleSheet.create({
   setting: {
     position: 'absolute',
     left: 4,
+  },
+  chatHeader: {
+    backgroundColor: 'white',
+    height: 24,
+    shadowColor: '#4d4d4d',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    zIndex: 999,
+    justifyContent: 'center',
+  },
+  chatText: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: 'black',
   },
 });
 
