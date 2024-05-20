@@ -20,6 +20,7 @@ import {
   Pressable,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Place_detaile = ({route}) => {
   const navigation = useNavigation();
@@ -39,12 +40,21 @@ const Place_detaile = ({route}) => {
         <View />
         {/**아래부터 리뷰(별점) 컨테이너 */}
         <View style={styles.reviewContainer}>
-          <Text style={styles.reviewHeader}>review</Text>
+          {/* <Text style={styles.reviewHeader}>review</Text> */}
           <Pressable
             onPress={() => navigation.navigate('reviewScreen')}
-            style={styles.reviewPress}>
-            <Text>리뷰 미리보기</Text>
+            style={styles.reviewHeader}>
+              <Text>별점 평균</Text>
+            <Icon
+              name="arrow-forward-ios"
+              color={'black'}
+              size={24}
+              style={styles.reviewArrowicon}
+            />
           </Pressable>
+          <View style={styles.reviewPreview}>
+            <Text>리뷰 미리보기</Text>
+          </View>
         </View>
       </ScrollView>
       {/* <Button
@@ -124,11 +134,23 @@ const styles = StyleSheet.create({
   },
   reviewHeader: {
     height: 32,
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
+    shadowColor: '#4d4d4d',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    zIndex: 999,
+    justifyContent: 'center',
+    paddingLeft: 10,
   },
-  reviewPress: {
-    backgroundColor: 'yellow',
+  reviewPreview: {
+    backgroundColor: 'white',
     height: 88,
+    padding: 10,
+  },
+  reviewArrowicon: {
+    position: 'absolute',
+    left: '94%',
   },
 });
 
