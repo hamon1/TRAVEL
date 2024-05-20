@@ -22,14 +22,13 @@ const ChatSection = ({id, text, text2}) => {
 
   return (
     <View>
-      <TouchableOpacity style={styles.section}>
+      <TouchableOpacity
+        style={styles.section}
+        onPress={() => navigation.navigate('chatScreen')}>
         <Text style={styles.text_Name}>{text}</Text>
         <Text style={styles.text}>마지막 메시지</Text>
         <Icon style={styles.icon} name="people" size={24} color="#000000" />
       </TouchableOpacity>
-      {/* <TouchableOpacity style={styles.messageIcon}>
-        <Icon name="message" size={24} color="black" />
-      </TouchableOpacity> */}
     </View>
   );
 };

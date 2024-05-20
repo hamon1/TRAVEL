@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   userProfile: {
+    paddingLeft: 10,
     top: 10,
     // flex: 1,
     width: '95%',
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
     color: 'black',
     top: 80,
     width: '95%',
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
   },
   profile_id: {
     fontSize: 14,
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
     width: '95%',
     height: '30%',
     top: 116,
-    backgroundColor: 'blue',
+    // backgroundColor: 'blue',
   },
   friend: {
     position: 'absolute',

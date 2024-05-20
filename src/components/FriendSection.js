@@ -58,7 +58,7 @@ const FriendSection = ({id, text, text2, onRemove}) => {
         {/** 채팅창으로 이동 */}
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Chatting');
+            navigation.navigate('chatScreen');
           }}
           style={styles.icon_message}>
           <Icon2 name="message" size={24} color="#000000" />

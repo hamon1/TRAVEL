@@ -6,9 +6,10 @@ import HomeScreen from '../Home/HomeScreen';
 import PlaceDetail from '../Home/PlaceDetails';
 import addPlace from '../Plans/PlanListScreen';
 import friends from '../FriendsList/FriendsScreen';
-import chatroom from '../Chat/ChatScreen';
 
 import IconAdd from '../../components/IconPlus';
+
+import ChatScreen from '../Chat/ChatScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,10 +23,8 @@ function RootStack() {
         initialRouteName={HomeScreen}
         // etachInactiveScreens={false}
       />
-      <Stack.Screen
-        name="addPlace"
-        component={addPlace}
-      />
+      <Stack.Screen name="addPlace" component={addPlace} />
+      <Stack.Screen name="chatScreen" component={ChatScreen} />
     </Stack.Navigator>
   );
 }
