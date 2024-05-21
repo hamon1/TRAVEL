@@ -14,12 +14,14 @@ import {
   StyleSheet,
   Button,
   KeyboardAvoidingView,
+  useWindowDimensions,
 } from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 
 import FriendList from '../../components/FriendList';
 import Empty from '../../assets/Empty';
+import SearchHeader from '../../components/SearchHeader';
 
 const FriendScreen = () => {
   const [user, setUser] = useState([
@@ -86,11 +88,14 @@ const FriendScreen = () => {
 
   const navigation = useNavigation();
 
+  const {height} = useWindowDimensions();
+
   return (
     <>
       <SafeAreaProvider>
         <View style={styles.block}>
-          <SafeAreaView style={styles.List}>
+          <SearchHeader />
+          <SafeAreaView style={[styles.list]}>
             <KeyboardAvoidingView>
               {user.length === 0 ? (
                 <Empty />
@@ -112,12 +117,14 @@ const FriendScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  List: {
+  list: {
     backgroundColor: 'white',
+    // top: 76,
     flex: 1,
   },
   block: {
     flex: 1,
+    // backgroundColor: 'green',
   },
   container: {
     top: 128,

@@ -12,12 +12,13 @@ import {
   Text,
   Image,
   Alert,
+  Pressable,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Octicons';
 
-const PlanSection = ({id, text, text2, onRemove}) => {
+const PlanSection = ({id, text, text2, onRemove, onPress}) => {
   const navigation = useNavigation();
 
   const remove = () => {
@@ -46,14 +47,14 @@ const PlanSection = ({id, text, text2, onRemove}) => {
 
   return (
     <View>
-      <TouchableOpacity style={styles.section}>
-        {/**TouchableOpacity / onPress=> plans로 이동 */}
+      <TouchableOpacity
+        style={styles.section}
+        onPress={() => navigation.navigate('planScreen', {id: id})}>
         <Text style={styles.text_Name}>{text}</Text>
         <Text style={styles.text}>{id}</Text>
-
-        <TouchableOpacity onPress={remove} style={styles.icon}>
-          <Icon name="x" size={24} color="#ffffff" />
-        </TouchableOpacity>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={remove} style={styles.icon}>
+        <Icon name="x" size={24} color="black" />
       </TouchableOpacity>
     </View>
   );
@@ -69,6 +70,10 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     height: 112,
     width: '95%',
+    shadowColor: '#4d4d4d',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
     // justifyContent: 'center',
     // alignItems: 'center',
   },
@@ -89,8 +94,9 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     position: 'absolute',
-    top: 10,
-    left: '92%',
+    top: 16,
+    left: '91%',
+    // backgroundColor: 'blue',
   },
 });
 

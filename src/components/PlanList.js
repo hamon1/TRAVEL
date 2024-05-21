@@ -29,7 +29,9 @@ function PlanList({plan, onRemove}) {
 
 const style = StyleSheet.create({
   list: {
-    
+    // backgroundColor: 'red',
+    // flex: 1,
+    height: '100%',
   },
 });
 

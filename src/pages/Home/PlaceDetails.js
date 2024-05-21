@@ -55,7 +55,7 @@ const Place_detaile = ({route}) => {
           <AddIcon
             onPress={onPress}
             name="add"
-            color="black"
+            color="#fb8c00"
             style={styles.addButton}
           />
         </View>
@@ -69,7 +69,7 @@ const Place_detaile = ({route}) => {
             <Text>별점 평균</Text>
             <Icon
               name="arrow-forward-ios"
-              color={'black'}
+              color={'#fb8c00'}
               size={24}
               style={styles.reviewArrowicon}
             />

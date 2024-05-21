@@ -105,9 +105,9 @@ const PlansScreen = () => {
                   />
                 </>
               )}
-              <NewPlanbutton style={styles.button} />
             </KeyboardAvoidingView>
           </SafeAreaView>
+          <NewPlanbutton style={styles.button} />
         </View>
       </SafeAreaProvider>
     </>
@@ -117,17 +117,18 @@ const PlansScreen = () => {
 const styles = StyleSheet.create({
   PlaceList: {
     backgroundColor: 'white',
+    // backgroundColor: 'green',
     flex: 1,
   },
   block: {
     flex: 1,
+    backgroundColor: 'blue,',
   },
   container: {
     top: 128,
     backgroundColor: 'blue',
   },
-  button: {
-  }
+  button: {},
 });
 
 export default PlansScreen;

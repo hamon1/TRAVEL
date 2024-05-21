@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   icon_remove: {
     width: 24,
     height: 24,
-    top: 20,
+    top: 18,
     left: '92%',
     position: 'absolute',
   },
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     top: 20,
-    left: '80%',
+    left: '81%',
     position: 'absolute',
   },
   userImage: {

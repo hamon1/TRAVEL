@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   icon: {
     position: 'absolute',
     top: 20,
-    left: '92%',
+    left: '90%',
   },
 });
 
