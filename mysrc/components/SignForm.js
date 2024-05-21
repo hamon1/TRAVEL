@@ -9,7 +9,7 @@ function SignForm({isSignUp, onSubmit, form, createChangeTextHandler}) {
         <>
          <BorderedInput 
             hasMarginBottom 
-            placeholder="Email"
+            placeholder="이메일"
             value={form.email}
             onChangeText={createChangeTextHandler('email')}
             autoCapitalize="none"
@@ -20,7 +20,7 @@ function SignForm({isSignUp, onSubmit, form, createChangeTextHandler}) {
             onSubmitEditing={() => passwordRef.current.focus()}
           />
             <BorderedInput 
-                placeholder="Password" 
+                placeholder="비밀번호" 
                 hasMarginBottom={isSignUp}
                 value={form.password}
                 onChangeText={createChangeTextHandler('password')}
@@ -36,7 +36,7 @@ function SignForm({isSignUp, onSubmit, form, createChangeTextHandler}) {
             />
             {isSignUp &&  (
                 <BorderedInput 
-                 placeholder="Verify Password"
+                 placeholder="비밀번호 확인"
                  value={form.confirmPassword}
                  onChangeText={createChangeTextHandler('confirmPassword')}
                 />

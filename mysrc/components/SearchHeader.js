@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 function SearchHeader() {
     const {width} = useWindowDimensions();
     return  (
-    <View style={[styles.block, {width: width - 32, height:24}]}>
+    <View style={[styles.block, {width: width - 32, height:30}]}>
         <TextInput style={styles.input} placeholder="검색어를 입력하세요" autoFocus />
         <Pressable
          style={({pressed}) => [styles.button, pressed && {opacity: 0.5}]}>

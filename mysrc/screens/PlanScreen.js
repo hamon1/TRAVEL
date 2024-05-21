@@ -1,19 +1,23 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View} from "react-native";
+import SearchButton from "../components/SearchButton";
+import Plan_ChatButton from "../components/Plan_ChatButton";
 
-function PlanScreen({mavogation}) {
+function PlanScreen({navigation}) {
     return (
-        <View style={styles.container}>
-            <Text>Plan</Text>
+        <View style={styles.block}>
+            <Text>Planning</Text>
+            <SearchButton/>
+            <Plan_ChatButton />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+    block: {
+        flex: 1,
+        backgroundColor: 'gray',
+      },
 })
 
 export default PlanScreen;

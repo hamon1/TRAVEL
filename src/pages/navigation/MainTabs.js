@@ -47,9 +47,8 @@ const TabNavigator = () => {
             component={PlanScreen}
             options={{
               tabBarIcon: ({color}) => (
-                <Icon name="search" size={24} color={color} />
+                <Icon name="circle-plus" size={24} color={color} />
               ),
-              headerTitle: () => <SearchHeader />
             }}
           />
           <Tab.Screen
