@@ -22,8 +22,19 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import AddIcon from '../../components/IconPlus';
+
 const Place_detaile = ({route}) => {
   const navigation = useNavigation();
+
+  const onPress = () => {
+    navigation.navigate('addPlace');
+  };
+
+  // navigation.setOptions({
+  //   headerRight: () => <AddIcon onPress={onPress} name="add" color="black" />,
+  // });
+
   return (
     <>
       <ScrollView style={styles.container}>
@@ -36,6 +47,17 @@ const Place_detaile = ({route}) => {
           <Text style={styles.nameText}>{route.params.name}</Text>
           <Text style={styles.idText}>id: {route.params.id}</Text>
           <Text style={styles.infoText}>{route.params.text}</Text>
+          {/* <Button
+            style={styles.addButton}
+            title="add"
+            onPress={() => navigation.navigate('addPlace')}
+          /> */}
+          <AddIcon
+            onPress={onPress}
+            name="add"
+            color="black"
+            style={styles.addButton}
+          />
         </View>
         <View />
         {/**아래부터 리뷰(별점) 컨테이너 */}
@@ -44,7 +66,7 @@ const Place_detaile = ({route}) => {
           <Pressable
             onPress={() => navigation.navigate('reviewScreen')}
             style={styles.reviewHeader}>
-              <Text>별점 평균</Text>
+            <Text>별점 평균</Text>
             <Icon
               name="arrow-forward-ios"
               color={'black'}
@@ -57,12 +79,6 @@ const Place_detaile = ({route}) => {
           </View>
         </View>
       </ScrollView>
-      {/* <Button
-        style={styles.addButton}
-        title="add"
-        onPress={() => navigation.navigate('addPlace')}
-      />
-      <Button title="back" onPress={() => navigation.goBack()} /> */}
     </>
   );
 };
@@ -97,6 +113,7 @@ const styles = StyleSheet.create({
     left: 10,
     borderRadius: 15,
     backgroundColor: 'white',
+    // backgroundColor: 'yellow',
     padding: 12,
     // shadowColor: '#4d4d4d',
     // shadowOffset: {width: 0, height: 4},
@@ -104,7 +121,7 @@ const styles = StyleSheet.create({
     // shadowRadius: 4,
   },
   reviewContainer: {
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
     top: 40,
     height: 120,
     marginBottom: 42,
@@ -124,6 +141,10 @@ const styles = StyleSheet.create({
   },
   addButton: {
     position: 'absolute',
+    // backgroundColor: 'red',
+    top: -100,
+    left: '92%',
+
   },
   idText: {
     top: 10,
