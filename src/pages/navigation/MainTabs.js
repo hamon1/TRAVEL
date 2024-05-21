@@ -17,6 +17,8 @@ import HomeStack from './HomeStack';
 import ProfileStack from './MyProfileStack';
 
 import AppPlanButton from '../../components/ShowListButton';
+import PlanScreen from '../../../mysrc/screens/PlanScreen';
+import SearchHeader from '../../../mysrc/components/SearchHeader';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,6 +40,16 @@ const TabNavigator = () => {
               tabBarIcon: ({color}) => (
                 <Icon name="home" size={24} color={color} />
               ),
+            }}
+          />
+          <Tab.Screen
+            name="Plan"
+            component={PlanScreen}
+            options={{
+              tabBarIcon: ({color}) => (
+                <Icon name="search" size={24} color={color} />
+              ),
+              headerTitle: () => <SearchHeader />
             }}
           />
           <Tab.Screen
