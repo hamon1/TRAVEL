@@ -14,12 +14,19 @@ import Search_Plan from '../../../mysrc/screens/Search_Plan';
 import Search_Rent from '../../../mysrc/screens/Search_Rent';
 import Search_Trans from '../../../mysrc/screens/Search_Trans';
 import Search_Rest from '../../../mysrc/screens/Search_Rest';
+import SignForm from '../../../mysrc/components/SignForm';
+import SignInScreen from '../../../mysrc/screens/SignInScreen';
 
 const Stack = createNativeStackNavigator();
 
 function RootStack() {
   return (
     <Stack.Navigator>
+      <Stack.Screen 
+      name='Login' 
+      component={SignInScreen} 
+      options={{headerShown: false}}
+      />
       <Stack.Screen
         name="MainTab"
         component={MainTab}

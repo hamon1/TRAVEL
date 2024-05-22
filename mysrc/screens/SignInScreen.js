@@ -38,6 +38,7 @@ function SignInScreen({navigation, route}) {
         try {
             const {user} = isSignUp ? await signUp(info) : await signIn(info)
             console.log(user);
+            navigation.navigate('MainTab');
         } catch (e) {
             const messages = {
             'auth/email-already-in-use' : '이미 가입된 이메일입니다.',
@@ -47,6 +48,7 @@ function SignInScreen({navigation, route}) {
         };
         const msg = messages[e.code];
         Alert.alert('실패', msg);
+        navigation.navigate('MainTab'); // 삭제 예정
         } finally {
             setLoading(false);
         }
@@ -54,22 +56,22 @@ function SignInScreen({navigation, route}) {
 
     return (
         <KeyboardAvoidingView
-         style={styles.KeyboardAvoidingView}
-         behavior={Platform.select({ios: 'padding'})}>
-         <SafeAreaView style={styles.fullscreen}>
-            <Text style={styles.text}>TRAVEL</Text>
-            <View style={styles.form}>
-                <SignInForm
-                 isSignUp={isSignUp}
-                 onSubmit={onSubmit}
-                 form={form}
-                 createChangeTextHandler={createChangeTextHandler}
-                 loading={loading}
-                />
-                <SignButtons isSignUp={isSignUp} onSubmit={onSubmit} />   
-            </View>
-        </SafeAreaView>
-     </KeyboardAvoidingView>
+            style={styles.KeyboardAvoidingView}
+            behavior={Platform.select({ios: 'padding'})}>
+            <SafeAreaView style={styles.fullscreen}>
+                <Text style={styles.text}>TRAVEL</Text>
+                    <View style={styles.form}>
+                        <SignInForm
+                            isSignUp={isSignUp}
+                            onSubmit={onSubmit}
+                             form={form}
+                             createChangeTextHandler={createChangeTextHandler}
+                            loading={loading}
+                         />
+                        <SignButtons isSignUp={isSignUp} onSubmit={onSubmit} />   
+                    </View>
+            </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 }
 
