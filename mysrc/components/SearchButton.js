@@ -16,7 +16,7 @@ function SearchButton() {
   return (
     <View style={styles.container}>
       <Pressable style={styles.button} onPress={onPress}>
-        <Icon name="search" color={'black'} size={36} />
+        <Icon name="keyboard-voice" color={'black'} size={36} />
       </Pressable>
     </View>
   );

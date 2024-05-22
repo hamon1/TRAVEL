@@ -10,6 +10,10 @@ import ChatScreen from '../Chat/ChatScreen';
 import IconAdd from '../../components/IconPlus';
 import PlanScreen from '../Plans/PlanScreen';
 import SearchScreen from '../../../mysrc/screens/SearchScreen';
+import Search_Plan from '../../../mysrc/screens/Search_Plan';
+import Search_Rent from '../../../mysrc/screens/Search_Rent';
+import Search_Trans from '../../../mysrc/screens/Search_Trans';
+import Search_Rest from '../../../mysrc/screens/Search_Rest';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +31,10 @@ function RootStack() {
       <Stack.Screen name="chatScreen" component={ChatScreen} />
       <Stack.Screen name="planScreen" component={PlanScreen} />
       <Stack.Screen name='SearchScreen' component={SearchScreen} />
+      <Stack.Screen name='Search_Plan' component={Search_Plan} />
+      <Stack.Screen name='Search_Rent' component={Search_Rent} />
+      <Stack.Screen name='Search_Rest' component={Search_Rest} />
+      <Stack.Screen name='Search_Trans' component={Search_Trans} />
     </Stack.Navigator>
   );
 }

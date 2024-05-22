@@ -1,6 +1,5 @@
 import React from 'react';
-import {Platform, Pressable, StyleSheet, View} from 'react-native';
-
+import {Pressable, StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
