@@ -22,10 +22,10 @@ const Stack = createNativeStackNavigator();
 function RootStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen 
-      name='Login' 
-      component={SignInScreen} 
-      options={{headerShown: false}}
+      <Stack.Screen
+        name="Login"
+        component={SignInScreen}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="MainTab"
@@ -37,11 +37,11 @@ function RootStack() {
       <Stack.Screen name="addPlace" component={addPlace} />
       <Stack.Screen name="chatScreen" component={ChatScreen} />
       <Stack.Screen name="planScreen" component={PlanScreen} />
-      <Stack.Screen name='SearchScreen' component={SearchScreen} />
-      <Stack.Screen name='Search_Plan' component={Search_Plan} />
-      <Stack.Screen name='Search_Rent' component={Search_Rent} />
-      <Stack.Screen name='Search_Rest' component={Search_Rest} />
-      <Stack.Screen name='Search_Trans' component={Search_Trans} />
+      <Stack.Screen name="SearchScreen" component={SearchScreen} />
+      <Stack.Screen name="Search_Plan" component={Search_Plan} />
+      <Stack.Screen name="Search_Rent" component={Search_Rent} />
+      <Stack.Screen name="Search_Rest" component={Search_Rest} />
+      <Stack.Screen name="Search_Trans" component={Search_Trans} />
     </Stack.Navigator>
   );
 }
