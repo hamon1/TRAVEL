@@ -8,17 +8,12 @@ import {Platform, Pressable, StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Octicons';
 
-function NewPlanButton({onPress}) {
+function NewPlanButton() {
   const navigation = useNavigation();
-
-  {/** 새로운 플랜 생성 */}
-  // const onPress = () => {
-  //   navigation.navigate('addPlace');
-  // };
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button} onPress={onPress}>
+      <Pressable style={styles.button}>
         <Icon name="plus" color={'white'} size={36} />
       </Pressable>
     </View>

@@ -88,6 +88,10 @@ const PlansScreen = () => {
 
   const navigation = useNavigation();
 
+  const onPress = () => {
+    navigation.navigate('planScreen');
+  };
+
   return (
     <>
       <SafeAreaProvider>
@@ -95,7 +99,9 @@ const PlansScreen = () => {
           <SafeAreaView style={styles.PlaceList}>
             <KeyboardAvoidingView>
               {plan.length === 0 ? (
-                <Empty />
+                <View style={styles.emptyView}>
+                  <Text>생성된 계획이 없습니다.</Text>
+                </View>
               ) : (
                 <>
                   <PlanList
@@ -107,7 +113,8 @@ const PlansScreen = () => {
               )}
             </KeyboardAvoidingView>
           </SafeAreaView>
-          <NewPlanbutton style={styles.button} />
+          {/** 새로운 계획 생성 */}
+          <NewPlanbutton style={styles.button} onPress={onPress} />
         </View>
       </SafeAreaProvider>
     </>
@@ -129,6 +136,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
   },
   button: {},
+  emptyView: {
+    // backgroundColor: 'yellow',
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 8,
+  },
 });
 
 export default PlansScreen;
