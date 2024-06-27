@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   Pressable,
   StyleSheet,
@@ -10,12 +10,23 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import SearchContext from '../context/SearchContext';
+
 function SearchHeader() {
+  const {keyword, onChangeText} = useContext(SearchContext);
+
   return (
     <View style={styles.block}>
-      <TextInput style={styles.input} placeholder="유저 아이디를 입력하세요" />
+      <TextInput
+        style={styles.input}
+        placeholder="유저 아이디를 입력하세요"
+        value={keyword}
+        onChangeText={onChangeText}
+        autoFocus
+      />
       <Pressable
-        style={({pressed}) => [styles.button, pressed && {opacity: 0.5}]}>
+        style={({pressed}) => [styles.button, pressed && {opacity: 0.5}]}
+        onPress={() => onChangeText('')}>
         <Icon name="cancel" size={18} color="#9e9e9e" />
       </Pressable>
       <Pressable

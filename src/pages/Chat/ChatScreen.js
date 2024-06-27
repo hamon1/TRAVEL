@@ -19,7 +19,7 @@
 // export default ChatScreen;
 
 import React, {useState, useCallback, useEffect} from 'react';
-import {SafeAreaProvider, StyleSheet} from 'react-native';
+import {SafeAreaProvider, StyleSheet, View} from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat';
 
 export default function Example() {
@@ -29,7 +29,7 @@ export default function Example() {
     setMessages([
       {
         _id: 1,
-        text: 'Hello developer',
+        text: 'Hello world!',
         createdAt: new Date(),
         user: {
           _id: 2,
@@ -48,11 +48,19 @@ export default function Example() {
 
   return (
     <GiftedChat
+      placeholder="메시지를 입력하세요."
+      showUserAvatar={false}
       messages={messages}
       onSend={messages => onSend(messages)}
       user={{
         _id: 1,
       }}
+      scrollToBottom={true}
+      renderUsername={() => {
+        true;
+      }}
+      multiline={false}
+      alwaysShowSend={true}
     />
   );
 }

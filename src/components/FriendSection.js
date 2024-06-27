@@ -47,7 +47,11 @@ const FriendSection = ({id, text, text2, onRemove}) => {
 
   return (
     <View>
-      <TouchableOpacity style={styles.section}>
+      <TouchableOpacity
+        style={styles.section}
+        onPress={() => {
+          navigation.navigate('FriendProfile');
+      }}>
         <Image
           style={styles.userImage}
           /** 이미지 설정(기본 값)

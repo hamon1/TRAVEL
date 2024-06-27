@@ -4,12 +4,15 @@ import React from 'react';
 // import AppStack from './src/pages/Home/Home';
 import RootStack from './src/pages/navigation/RootStack';
 import {NavigationContainer} from '@react-navigation/native';
-import SignInScreen from './mysrc/screens/SignInScreen';
+
+import {SearchContextProvider} from './src/context/SearchContext';
 
 const App = () => {
   return (
     <NavigationContainer>
-      <RootStack />
+      <SearchContextProvider>
+        <RootStack />
+      </SearchContextProvider>
     </NavigationContainer>
   );
 };
