@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   box: {
     width: '100%',
-    backgroundColor: 'magenta',
+    backgroundColor: 'violet',
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 24,

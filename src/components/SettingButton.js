@@ -7,11 +7,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 function SettingButton() {
   return (
     <View style={styles.container}>
-      <Icon name="settings-sharp" color={'#616161'} size={24} />
+      <Icon name="settings-sharp" color={'white'} size={24} />
     </View>
   );
 }
-
+//#616161
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
