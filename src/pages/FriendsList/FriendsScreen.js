@@ -99,7 +99,7 @@ const FriendScreen = () => {
             <KeyboardAvoidingView>
               {user.length === 0 ? (
                 <View style={styles.emptyView}>
-                <Text>추가된 친구가 없습니다.</Text>
+                <Text>친구 목록이 비어있습니다.</Text>
               </View>
               ) : (
                 <>
