@@ -13,6 +13,9 @@ const Setting = () => {
       <Pressable style={style.item}>
         <Text style={style.itemText}>로그아웃</Text>
       </Pressable>
+      <Pressable style={style.item}>
+        <Text style={style.itemText}>회원탈퇴</Text>
+      </Pressable>
     </View>
   );
 };
