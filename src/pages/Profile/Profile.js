@@ -111,7 +111,17 @@ const Profile = () => {
         <View style={styles.chatHeader}>
           {/* <Text style={styles.chatText}>채팅 목록</Text> */}
         </View>
-        <ChatList chatList={chatroom} style={styles.chat} />
+        {chatroom.length === 0 ? (
+          <View style={styles.emptyView}>
+            <Text style={styles.emptyViewText}>
+              생성된 채팅 목록이 없습니다.
+            </Text>
+          </View>
+        ) : (
+          <>
+            <ChatList chatList={chatroom} style={styles.chat} />
+          </>
+        )}
       </View>
     </View>
   );
@@ -208,6 +218,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     color: 'black',
+  },
+  emptyView: {
+    // backgroundColor: 'yellow',
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 8,
+  },
+  emptyViewText: {
+    color: 'gray',
   },
 });
 
