@@ -98,7 +98,9 @@ const FriendScreen = () => {
           <SafeAreaView style={[styles.list]}>
             <KeyboardAvoidingView>
               {user.length === 0 ? (
-                <Empty />
+                <View style={styles.emptyView}>
+                <Text>추가된 친구가 없습니다.</Text>
+              </View>
               ) : (
                 <>
                   <FriendList
@@ -129,6 +131,12 @@ const styles = StyleSheet.create({
   container: {
     top: 128,
     backgroundColor: 'blue',
+  },
+  emptyView: {
+    // backgroundColor: 'yellow',
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 8,
   },
 });
 
