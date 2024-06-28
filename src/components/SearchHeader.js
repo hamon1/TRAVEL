@@ -6,6 +6,7 @@ import {
   useWindowDimensions,
   View,
   Text,
+  Keyboard,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -22,7 +23,8 @@ function SearchHeader() {
         placeholder="유저 아이디를 입력하세요"
         value={keyword}
         onChangeText={onChangeText}
-        autoFocus
+        // autoFocus
+        // onSubmitEditing={onPress} -> 엔터키를 이용하여 전송(onPress 함수 완성 후 사용
       />
       <Pressable
         style={({pressed}) => [styles.button, pressed && {opacity: 0.5}]}
