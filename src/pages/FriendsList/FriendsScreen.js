@@ -99,8 +99,10 @@ const FriendScreen = () => {
             <KeyboardAvoidingView>
               {user.length === 0 ? (
                 <View style={styles.emptyView}>
-                <Text>친구 목록이 비어있습니다.</Text>
-              </View>
+                  <Text style={styles.emptyViewText}>
+                    친구 목록이 비어있습니다.
+                  </Text>
+                </View>
               ) : (
                 <>
                   <FriendList
@@ -137,6 +139,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     top: 8,
+  },
+  emptyViewText: {
+    color: 'gray',
   },
 });
 

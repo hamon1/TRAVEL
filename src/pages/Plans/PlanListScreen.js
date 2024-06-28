@@ -100,7 +100,9 @@ const PlansScreen = () => {
             <KeyboardAvoidingView>
               {plan.length === 0 ? (
                 <View style={styles.emptyView}>
-                  <Text>생성된 계획이 없습니다.</Text>
+                  <Text style={styles.emptyViewText}>
+                    생성된 계획이 없습니다.
+                  </Text>
                 </View>
               ) : (
                 <>
@@ -141,6 +143,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     top: 8,
+  },
+  emptyViewText: {
+    color: 'gray',
   },
 });
 
