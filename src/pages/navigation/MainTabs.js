@@ -17,9 +17,6 @@ import HomeStack from './HomeStack';
 import ProfileStack from './MyProfileStack';
 
 import AppPlanButton from '../../components/ShowListButton';
-import PlanScreen from '../../../mysrc/screens/PlanScreen';
-import SearchHeader from '../../../mysrc/components/SearchHeader';
-
 import {useNavigation} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
@@ -44,15 +41,6 @@ const TabNavigator = () => {
               ),
             }}
           />
-          {/* <Tab.Screen
-            name="Plan"
-            component={PlanScreen}
-            options={{
-              tabBarIcon: ({color}) => (
-                <Icon name="circle-plus" size={24} color={color} />
-              ),
-            }}
-          /> */}
           <Tab.Screen
             name="Profile"
             component={ProfileStack}

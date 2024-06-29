@@ -14,6 +14,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		5ADFB3C8A67BB29B23E76FB0 /* Pods_TRAVEL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E11994A24D67F8771926917A /* Pods_TRAVEL.framework */; };
+		71F11D9FF371929414E4AA5E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 41E8176F1D548E7FF8D48E5B /* PrivacyInfo.xcprivacy */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		CA66C8A8F36FD512C180B6BD /* Pods_TRAVEL_TRAVELTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48551BB3544B0C18858F3234 /* Pods_TRAVEL_TRAVELTests.framework */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TRAVEL/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TRAVEL/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = TRAVEL/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		41E8176F1D548E7FF8D48E5B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = TRAVEL/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		48551BB3544B0C18858F3234 /* Pods_TRAVEL_TRAVELTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TRAVEL_TRAVELTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B7C72D55357757438935382 /* Pods-TRAVEL-TRAVELTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAVEL-TRAVELTests.debug.xcconfig"; path = "Target Support Files/Pods-TRAVEL-TRAVELTests/Pods-TRAVEL-TRAVELTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6BB8824D16F209C464BF910A /* Pods-TRAVEL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAVEL.debug.xcconfig"; path = "Target Support Files/Pods-TRAVEL/Pods-TRAVEL.debug.xcconfig"; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				41E8176F1D548E7FF8D48E5B /* PrivacyInfo.xcprivacy */,
 			);
 			name = TRAVEL;
 			sourceTree = "<group>";
@@ -191,7 +194,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				8D0B73660D345488B23D773B /* [CP] Embed Pods Frameworks */,
 				65E079E7156B298B0BFD7838 /* [CP] Copy Pods Resources */,
-				7A37A05E7F28EDC7A80048F0 /* [CP-User] [RNFB] Core Configuration */,
+				826C1C1E1701EE69985F129B /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -258,6 +261,7 @@
 				11A6FBF82BEE52B500B21A4D /* GoogleService-Info.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				71F11D9FF371929414E4AA5E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,7 +362,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TRAVEL/Pods-TRAVEL-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7A37A05E7F28EDC7A80048F0 /* [CP-User] [RNFB] Core Configuration */ = {
+		826C1C1E1701EE69985F129B /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
