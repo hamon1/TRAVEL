@@ -4,7 +4,7 @@
  * 각 스크린(장소, 숙박, 이동 수단, 식단, 기타) 검색, 추가 기능
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 import Addbutton from '../../components/AddNewPlanDetail';
@@ -12,7 +12,11 @@ import Addbutton from '../../components/AddNewPlanDetail';
 //임시
 import PlanDetail from './PlanDetailList';
 
+
+
 const PlanScreen = ({route}) => {
+  const [show, setShow] = useState(false);
+
   return (
     <View style={styles.block}>
       <Text>plan screen</Text>

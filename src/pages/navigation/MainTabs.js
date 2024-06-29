@@ -17,10 +17,6 @@ import HomeStack from './HomeStack';
 import ProfileStack from './MyProfileStack';
 
 import AppPlanButton from '../../components/ShowListButton';
-import PlanScreen from '../../../mysrc/screens/PlanScreen';
-import SearchHeader from '../../../mysrc/components/SearchHeader';
-
-import {useNavigation} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 

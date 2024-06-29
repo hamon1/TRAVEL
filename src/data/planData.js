@@ -1,4 +1,6 @@
-export const {planData, setPlan} = [
+import React, {useState} from 'react';
+
+export const [plan, setPlan] = useState([
   {
     id: 1,
     text: 'place1',
@@ -41,4 +43,4 @@ export const {planData, setPlan} = [
     text2:
       'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
   },
-];
+]);
