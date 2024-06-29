@@ -2372,19 +2372,19 @@ PODS:
     - React
   - RNDeviceInfo (10.13.2):
     - React-Core
-  - RNFBApp (19.2.2):
+  - RNFBApp (19.3.0):
     - Firebase/CoreOnly (= 10.24.0)
     - React-Core
-  - RNFBAuth (19.2.2):
+  - RNFBAuth (19.3.0):
     - Firebase/Auth (= 10.24.0)
     - React-Core
     - RNFBApp
-  - RNFBFirestore (19.2.2):
+  - RNFBFirestore (19.3.0):
     - Firebase/Firestore (= 10.24.0)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - React-Core
     - RNFBApp
-  - RNFBStorage (19.2.2):
+  - RNFBStorage (19.3.0):
     - Firebase/Storage (= 10.24.0)
     - React-Core
     - RNFBApp
@@ -2409,7 +2409,11 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+<<<<<<< HEAD
   - RNReanimated (3.10.0):
+=======
+  - RNReanimated (3.12.1):
+>>>>>>> 7a5813310f38f07f4dbbcab0607a5b2b5c708c5f
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2805,12 +2809,21 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNDeviceInfo: 42aadf1282ffa0a88dc38a504a7be145eb010dfa
+<<<<<<< HEAD
   RNFBApp: 614f1621b49db54ebd258df8c45427370d8d84a2
   RNFBAuth: fbfd567c34579b2a081b9ae5d6f0e33c2f4d1205
   RNFBFirestore: de8ff36f5f98456b1cf136fb58a3068112bd3975
   RNFBStorage: f7aa6c0a0cfcfd84606828f4dea8c7f4e221e30b
   RNGestureHandler: ad030559c93b4fa018c35e84466021a03a71198c
   RNReanimated: 817382c8a48e198bd081e946694981c7e68bec59
+=======
+  RNFBApp: dd35ba8340b89c36e42c4c137915c01d3c792143
+  RNFBAuth: 5e12865e64ffc58f83790f9bc764b0470ce07b1b
+  RNFBFirestore: 425687d12e81d6577782ea7833b9c4bddfc0b09d
+  RNFBStorage: 6b9e050fa9d7b84f6c164e1c7ffe829086568ae2
+  RNGestureHandler: ad030559c93b4fa018c35e84466021a03a71198c
+  RNReanimated: be44c56aefb04cd83dfe6dcfaff5b909ef627a1d
+>>>>>>> 7a5813310f38f07f4dbbcab0607a5b2b5c708c5f
   RNScreens: 3b123205167166ac51936897b804eea9c6ffb8f5
   RNSVG: 43b64ed39c14ce830d840903774154ca0c1f27ec
   RNVectorIcons: 7ac7aaa83f8f3d4c7c0f7daea5a431e91a29b0cd
