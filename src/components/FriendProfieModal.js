@@ -14,13 +14,13 @@ import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const FriendProfile = ({onPress}) => {
+const FriendProfile = ({onPress, id, text, text2}) => {
   // const navigation = useNavigation();
   return (
     <View style={styles.block}>
       <View style={styles.box}>
         <TouchableOpacity onPress={onPress} style={styles.iconBack}>
-          <Icon name="right" size={24} color="#000000" />
+          <Icon name="right" size={24} color="#ffffff" />
         </TouchableOpacity>
         <Image
           style={styles.image}
@@ -30,10 +30,10 @@ const FriendProfile = ({onPress}) => {
           source={require('../assets/Defualtuserimage.png')}
         />
         <View style={styles.nameBlock}>
-          <Text style={styles.nameText}>Name</Text>
+          <Text style={styles.nameText}>{text}</Text>
         </View>
         <View style={styles.introduce_block}>
-          <Text style={styles.introduce_text}>introduce_text</Text>
+          <Text style={styles.introduce_text}>{text2}t</Text>
         </View>
       </View>
     </View>
@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fb8c00',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 24,
-    paddingBottom: 24,
+    paddingTop: 32,
+    paddingBottom: 32,
     borderRadius: 10,
   },
   iconBack: {
@@ -74,17 +74,17 @@ const styles = StyleSheet.create({
   nameBlock: {
     padding: 8,
     // backgroundColor: 'blue',
-    marginBottom: 24,
+    marginBottom: 12,
   },
   nameText: {
     // backgroundColor: 'red',
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'black',
+    color: 'white',
   },
   introduce_block: {
     padding: 8,
-    width: '80%',
+    width: '84%',
     height: 80,
     // backgroundColor: 'blue',
   },
@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'black',
     height: 64,
+    fontStyle: 'italic',
   },
 });
 

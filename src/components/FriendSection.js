@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -12,14 +12,28 @@ import {
   Text,
   Image,
   Alert,
+  Modal,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+
+import FriendProfileModal from './FriendProfieModal';
 
 import Icon from 'react-native-vector-icons/Octicons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const FriendSection = ({id, text, text2, onRemove, onPress}) => {
   const navigation = useNavigation();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  useEffect(() => {}, []);
+
+  const onPressModalOpen = () => {
+    console.log('팝업을 여는 중입니다.');
+    setIsModalVisible(true);
+  };
+
+  const onPressModalClose = () => {
+    setIsModalVisible(false);
+  };
 
   const remove = () => {
     Alert.alert(
@@ -47,7 +61,7 @@ const FriendSection = ({id, text, text2, onRemove, onPress}) => {
 
   return (
     <View>
-      <TouchableOpacity style={styles.section} onPress={onPress}>
+      <TouchableOpacity style={styles.section} onPress={onPressModalOpen}>
         <Image
           style={styles.userImage}
           /** 이미지 설정(기본 값)
@@ -69,6 +83,16 @@ const FriendSection = ({id, text, text2, onRemove, onPress}) => {
           <Icon2 name="message" size={24} color="#000000" />
         </TouchableOpacity>
       </TouchableOpacity>
+      <Modal animationType="fade" visible={isModalVisible} transparent={true}>
+        <View style={styles.modalView}>
+          <FriendProfileModal
+            onPress={onPressModalClose}
+            id={id}
+            text={text}
+            text2={text2}
+          />
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -123,6 +147,12 @@ const styles = StyleSheet.create({
     left: 16,
     top: '50%',
     transform: [{translateY: -32}],
+  },
+  modalView: {
+    position: 'absolute',
+    flex: 1,
+    width: '100%',
+    height: '100%',
   },
 });
 
