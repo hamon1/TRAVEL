@@ -8,7 +8,7 @@
 --> 이 여행지를 만들어 놓은 혹은 새로 만들 플랜에 집어 넣기 가능. (AddPlace)
  */
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -18,6 +18,7 @@ import {
   Button,
   Image,
   Pressable,
+  Modal,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -31,6 +32,18 @@ const Place_detaile = ({route}) => {
     navigation.navigate('addPlace');
   };
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  useEffect(() => {}, []);
+
+  const onPressModalOpen = () => {
+    console.log('팝업을 여는 중입니다.');
+    setIsModalVisible(true);
+  };
+
+  const onPressModalClose = () => {
+    setIsModalVisible(false);
+  };
+
   // navigation.setOptions({
   //   headerRight: () => <AddIcon onPress={onPress} name="add" color="black" />,
   // });
@@ -40,7 +53,7 @@ const Place_detaile = ({route}) => {
       <ScrollView style={styles.container}>
         <Image style={styles.image} />
         {/**아래 이미지 지도 - 클릭 시, 지도 확대*/}
-        <Pressable>
+        <Pressable onPress={onPressModalOpen}>
           <Image style={styles.image_map} />
         </Pressable>
         <View style={styles.textContainer}>
@@ -79,6 +92,15 @@ const Place_detaile = ({route}) => {
           </View>
         </View>
       </ScrollView>
+      <Modal animationType="fade" transparent={true} visible={isModalVisible}>
+        <View style={styles.ModalView}>
+          <Pressable
+            onPress={onPressModalClose}
+            style={styles.ModalViewTouch}
+          />
+          <Image style={styles.ModalMap} />
+        </View>
+      </Modal>
     </>
   );
 };
@@ -144,7 +166,6 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     top: -100,
     left: '92%',
-
   },
   idText: {
     top: 10,
@@ -172,6 +193,29 @@ const styles = StyleSheet.create({
   reviewArrowicon: {
     position: 'absolute',
     left: '94%',
+  },
+  ModalView: {
+    flex: 1,
+    justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    // backgroundColor: 'blue',
+  },
+  ModalViewTouch: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+  },
+  ModalMap: {
+    backgroundColor: '#D9D9D9',
+    width: '95%',
+    height: 400,
+    alignItems: 'center',
+    top: 10,
+    left: 10,
+    borderRadius: 15,
+    marginTop: 10,
   },
 });
 
