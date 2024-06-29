@@ -9,9 +9,9 @@ import {
     View,   
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SignButtons from "../components/SIgnButtons";
-import SignInForm from "../components/SignForm";
-import {signIn, signUp} from '../lib/auth';
+import SignButtons from "../../components/SIgnButtons";
+import SignInForm from "../../components/SignForm";
+import {signIn, signUp} from '../../lib/auth';
 
 function SignInScreen({navigation, route}) {
     const {isSignUp} = route.params || {};
