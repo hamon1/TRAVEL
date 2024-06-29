@@ -7,7 +7,7 @@ import {FlatList, View, Text, StyleSheet} from 'react-native';
 
 import FriendSection from './FriendSection';
 
-function FriendList({user, onRemove}) {
+function FriendList({user, onRemove, onPress}) {
   return (
     <>
       <FlatList
@@ -19,6 +19,7 @@ function FriendList({user, onRemove}) {
             text={item.text}
             text2={item.text2}
             onRemove={onRemove}
+            onPress={onPress}
           />
         )}
         keyExtractor={item => item.id.toString()}

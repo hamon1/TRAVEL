@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Profile from '../Profile/Profile';
 import FriendListScreen from '../FriendsList/FriendsScreen';
 import SettingScreen from '../Profile/Setting';
-import FriendProfile from '../FriendsList/FriendProfie';
+// import FriendProfile from '../../components/FriendProfie';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,11 +26,11 @@ function HomeStack() {
         component={SettingScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="FriendProfile"
         component={FriendProfile}
         options={{headerShown: false}}
-      />
+      /> */}
       {/* <Stack.Screen
         name="Chatting"
         component={Chatting}

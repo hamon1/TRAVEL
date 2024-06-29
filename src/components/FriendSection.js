@@ -18,7 +18,7 @@ import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Octicons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const FriendSection = ({id, text, text2, onRemove}) => {
+const FriendSection = ({id, text, text2, onRemove, onPress}) => {
   const navigation = useNavigation();
 
   const remove = () => {
@@ -47,11 +47,7 @@ const FriendSection = ({id, text, text2, onRemove}) => {
 
   return (
     <View>
-      <TouchableOpacity
-        style={styles.section}
-        onPress={() => {
-          navigation.navigate('FriendProfile');
-      }}>
+      <TouchableOpacity style={styles.section} onPress={onPress}>
         <Image
           style={styles.userImage}
           /** 이미지 설정(기본 값)

@@ -15,6 +15,8 @@ import {
   Button,
   KeyboardAvoidingView,
   useWindowDimensions,
+  Modal,
+  Pressable,
 } from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
@@ -22,6 +24,7 @@ import {useNavigation} from '@react-navigation/native';
 import FriendList from '../../components/FriendList';
 import Empty from '../../assets/Empty';
 import SearchHeader from '../../components/SearchHeader';
+import FriendProfileModal from '../../components/FriendProfie';
 
 const FriendScreen = () => {
   const [user, setUser] = useState([
@@ -90,6 +93,18 @@ const FriendScreen = () => {
 
   const {height} = useWindowDimensions();
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  useEffect(() => {}, []);
+
+  const onPressModalOpen = () => {
+    console.log('팝업을 여는 중입니다.');
+    setIsModalVisible(true);
+  };
+
+  const onPressModalClose = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <>
       <SafeAreaProvider>
@@ -109,9 +124,19 @@ const FriendScreen = () => {
                     user={user}
                     onInsert={onInsert}
                     onRemove={onRemove}
+                    onPress={onPressModalOpen}
                   />
                 </>
               )}
+              <Modal
+                animationType="fade"
+                visible={isModalVisible}
+                transparent={true}>
+                <View style={styles.modalView}>
+                  <Text>hi</Text>
+                  <FriendProfileModal onPress={onPressModalClose} />
+                </View>
+              </Modal>
             </KeyboardAvoidingView>
           </SafeAreaView>
         </View>
@@ -142,6 +167,12 @@ const styles = StyleSheet.create({
   },
   emptyViewText: {
     color: 'gray',
+  },
+  modalView: {
+    position: 'absolute',
+    flex: 1,
+    width: '100%',
+    height: '100%',
   },
 });
 
