@@ -22,6 +22,7 @@ import {useNavigation} from '@react-navigation/native';
 import PlanList from '../../components/PlanList';
 import Empty from '../../assets/Empty';
 import NewPlanbutton from '../../components/NewPlanButton';
+import ListButton from '../../components/ListButton';
 
 const PlansScreen = () => {
   const [plan, setPlan] = useState([
@@ -117,6 +118,7 @@ const PlansScreen = () => {
           </SafeAreaView>
           {/** 새로운 계획 생성 */}
           <NewPlanbutton style={styles.button} onPress={onPress} />
+          <ListButton />
         </View>
       </SafeAreaProvider>
     </>
@@ -137,7 +139,9 @@ const styles = StyleSheet.create({
     top: 128,
     backgroundColor: 'blue',
   },
-  button: {},
+  button: {
+    backgroundColor: 'green',
+  },
   emptyView: {
     // backgroundColor: 'yellow',
     justifyContent: 'center',

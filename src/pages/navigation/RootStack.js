@@ -30,7 +30,9 @@ function RootStack() {
         initialRouteName={HomeScreen}
         // etachInactiveScreens={false}
       />
-      <Stack.Screen name="addPlace" component={addPlace} />
+      <Stack.Screen name="addPlace" component={addPlace} 
+      options={{animationTypeForReplace: 'pop'}, {title: '계획 목록'}}
+      />
       <Stack.Screen name="chatScreen" component={ChatScreen} />
       <Stack.Screen name="planScreen" component={PlanScreen} />
       <Stack.Screen

@@ -17,7 +17,7 @@ function NewPlanButton() {
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button} onPress={onPress}>
+      <Pressable style={({pressed}) => [styles.button, pressed && {opacity: 0.5}]} onPress={onPress}>
         <Icon name="list" color={'white'} size={36} />
       </Pressable>
     </View>

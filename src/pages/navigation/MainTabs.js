@@ -40,7 +40,8 @@ const TabNavigator = () => {
               tabBarIcon: ({color}) => (
                 <Icon name="home" size={24} color={color} />
               ),
-            }}
+            }
+          }
           />
           <Tab.Screen
             name="Profile"

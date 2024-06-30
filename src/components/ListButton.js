@@ -6,19 +6,19 @@ import React from 'react';
 import {Platform, Pressable, StyleSheet, View} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Octicons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 function NewPlanButton() {
   const navigation = useNavigation();
 
   const onPress = () => {
-    navigation.navigate('planScreen');
+    navigation.pop();
   };
 
   return (
     <View style={styles.container}>
       <Pressable style={({pressed}) => [styles.button, pressed && {opacity: 0.5}]} onPress={onPress}>
-        <Icon name="plus" color={'white'} size={36} />
+        <Icon name="arrow-forward-ios" color={'white'} size={24} />
       </Pressable>
     </View>
   );
@@ -27,8 +27,8 @@ function NewPlanButton() {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 18,
-    left: '85%',
+    bottom: 16,
+    left: '50%',
     transform: [{translateX: -28}],
     zIndex: 5,
     width: 56,
