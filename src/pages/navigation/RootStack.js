@@ -31,10 +31,13 @@ function RootStack() {
         // etachInactiveScreens={false}
       />
       <Stack.Screen name="addPlace" component={addPlace} 
-      options={{animationTypeForReplace: 'pop'}, {title: '계획 목록'}}
+      options={{title: '계획 목록'}}
       />
-      <Stack.Screen name="chatScreen" component={ChatScreen} />
-      <Stack.Screen name="planScreen" component={PlanScreen} />
+      <Stack.Screen name="chatScreen" component={ChatScreen} 
+      options={{title: '채팅창'}}
+      />
+      <Stack.Screen name="planScreen" component={PlanScreen} 
+      options={{title: ''}}/>
       <Stack.Screen
         name="Plan_Place_Setting"
         component={Plan_Place_Setting}

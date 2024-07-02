@@ -1,10 +1,11 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-const ReviewScreen = () => {
+const ReviewScreen = ({route}) => {
   return (
     <View>
-      <Text>review</Text>
+      <Text>Review Screen</Text>
+      <Text>place id: {route.params.id}</Text>
     </View>
   );
 };

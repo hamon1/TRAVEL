@@ -77,7 +77,7 @@ const Place_detaile = ({route}) => {
         <View style={styles.reviewContainer}>
           {/* <Text style={styles.reviewHeader}>review</Text> */}
           <Pressable
-            onPress={() => navigation.navigate('reviewScreen')}
+            onPress={() => navigation.navigate('reviewScreen', {id: route.params.id})}
             style={styles.reviewHeader}>
             <Text>별점 평균</Text>
             <Icon
