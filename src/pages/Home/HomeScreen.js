@@ -24,9 +24,11 @@ import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import PlaceList from '../../components/PlaceList';
 import Empty from '../../assets/Empty';
 
-import {placeData} from '../../data/placeData';
+import placeData from '../../data/placeData.json';
+
 
 function HomeScreen() {
+  const [place] = useState(placeData);
   return (
     <SafeAreaProvider>
       <SafeAreaView style={style.block}>
