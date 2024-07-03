@@ -2,10 +2,11 @@ import firestore from '@react-native-firebase/firestore';
 
 export const usersCollection = firestore().collection('users');
 
-export function creteUser({id, displayName}) {
+export function createUser({id, displayName}) {
     return usersCollection.doc(id).set({
         id,
         displayName,
+        photoURL,
     });
 }
 

@@ -12,6 +12,7 @@ import PlanScreen from '../Plans/PlanScreen';
 import SignInScreen from '../Login/SignInScreen';
 import Plan_Place_Setting from '../Plans/Plan_Place_Setting';
 import CalendarView from '../../components/CalendarView';
+import WelcomeScreen from '../../welcome/screens/WelcomeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,11 @@ function RootStack() {
       <Stack.Screen
         name="Login"
         component={SignInScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen
