@@ -14,7 +14,7 @@ function SignButtons({isSignUp, onSubmit, loading}) {
         if (isSignUp) {
             navigation.goBack();
         } else {
-            navigation.push('SignIn',{isSignUp: true});
+            navigation.push('Login',{isSignUp: true});
         }
     };
 
