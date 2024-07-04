@@ -8,12 +8,12 @@ import {Platform, Pressable, StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Octicons';
 
-function NewPlanButton() {
+function NewPlanButton({onPress}) {
   const navigation = useNavigation();
 
-  const onPress = () => {
-    navigation.navigate('planScreen');
-  };
+  // const onPress = () => {
+  //   navigation.navigate('planScreen');
+  // };
 
   return (
     <View style={styles.container}>

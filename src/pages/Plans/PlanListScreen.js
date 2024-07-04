@@ -84,6 +84,7 @@ pid: 생성된 순 번호 부여 (1~) */}
   //   navigation.navigate('planScreen');
   // };
 
+  // 플러스 버튼 클릭시 새로운 플랜 생성 + 바로 그 플랜으로 이동.
   const handlePress = () => {
     onInsert();
     navigation.navigate('planScreen');
@@ -94,10 +95,6 @@ pid: 생성된 순 번호 부여 (1~) */}
       <SafeAreaProvider>
         <View style={styles.block}>
           <SafeAreaView style={styles.PlaceList}>
-            {/** 임시 계획 추가 버튼 -> 이후 + 버튼에 insert 삽입 예정 */}
-            <Pressable onPress = {onInsert} >
-              <Text> add </Text>
-            </Pressable>
             <KeyboardAvoidingView>
               {plan.length === 0 ? (
                 <View style={styles.emptyView}>
