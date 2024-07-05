@@ -16,9 +16,11 @@ function PlanList({plan, onRemove}) {
         renderItem={({item}) => (
           <PlanSection
             pid={item.pid}
+            title={item.title}
             text={item.text}
             text2={item.text2}
             id={item.id}
+            date={item.timestamp}
             onRemove={onRemove}
           />
         )}

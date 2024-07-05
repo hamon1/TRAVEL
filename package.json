@@ -23,6 +23,7 @@
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
     "cors": "^2.8.5",
+    "date-fns": "^3.6.0",
     "expo": "^50.0.17",
     "express": "^4.19.2",
     "icons": "^1.0.0",

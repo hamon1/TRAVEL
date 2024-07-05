@@ -18,7 +18,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Octicons';
 
-const PlanSection = ({pid, text, text2, id, onRemove, onPress}) => {
+const PlanSection = ({pid, title, text, text2, id, date, onRemove, onPress}) => {
   const navigation = useNavigation();
 
   const remove = () => {
@@ -45,12 +45,14 @@ const PlanSection = ({pid, text, text2, id, onRemove, onPress}) => {
     );
   };
 
+  // const formattedDate = `${{date}.getMonth() + 1} 월 ${{date}.getDate()}일`;
+
   return (
     <View>
       <TouchableOpacity
         style={styles.section}
         onPress={() => navigation.navigate('planScreen', {id: pid})}>
-        <Text style={styles.text_Name}>{text}</Text>
+        <Text style={styles.text_Name}>{title}</Text>
         <Text style={styles.text}>{pid}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={remove} style={styles.icon}>
