@@ -5,20 +5,24 @@ import { StyleSheet, View } from "react-native";
 import BorderedInput from "../../components/BorderedInput";
 import CustomButton from "../../components/CustomButton";
 import { createUser } from "../../lib/users";
+import { useUserContext } from "../../components/UserContext";
 
 function SetupProfile() {
     const [displayName, setDisplayName] = useState('');
     const navigation = useNavigation();
+    const {setUser} = useUserContext();
 
     const {params} = useRoute();
     const {uid} = params || {};
 
     const onSubmit = () => {
-        createUser({
-            id: uid,
+        const user = {
+            id : uid,
             displayName,
             photoURL: null,
-        });
+        };
+        createUser(user);
+        setUser(user);
     };
     const onCancel = () => {
         signOut();

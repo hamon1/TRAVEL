@@ -12,7 +12,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import SignButtons from "../../components/SIgnButtons";
 import SignInForm from "../../components/SignForm";
 import {signIn, signUp} from '../../lib/auth';
-import { getUser } from "../../lib/users";
+import { createUser, getUser } from "../../lib/users";
+import { useUserContext } from "../../components/UserContext";
 
 function SignInScreen({navigation, route}) {
     const {isSignUp} = route.params || {};
@@ -22,6 +23,7 @@ function SignInScreen({navigation, route}) {
         confirmPassword: '',
     });
     const [loading, setLoading] = useState();
+    const {setUser} = useUserContext();
     
     const createChangeTextHandler = (name) => (value) => {
         setForm({...form, [name]: value});
@@ -45,7 +47,7 @@ function SignInScreen({navigation, route}) {
             if (!profile) {
                 navigation.navigate('Welcome', {uid: user.uid});
             } else {
-                // 구현 예정
+                setUser(profile);
             }
         } catch (e) {
             const messages = {
@@ -56,8 +58,8 @@ function SignInScreen({navigation, route}) {
         };
         const msg = messages[e.code];
         Alert.alert('실패', msg);
-        navigation.navigate('MainTab'); // 삭제 예정
-        //navigation.navigate('Welcome');
+        //navigation.navigate('MainTab'); // 삭제 예정
+        navigation.navigate('Welcome');
         } finally {
             setLoading(false);
         }

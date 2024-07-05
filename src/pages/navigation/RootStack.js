@@ -13,12 +13,21 @@ import SignInScreen from '../Login/SignInScreen';
 import Plan_Place_Setting from '../Plans/Plan_Place_Setting';
 import CalendarView from '../../components/CalendarView';
 import WelcomeScreen from '../../welcome/screens/WelcomeScreen';
+import { useUserContext } from '../../components/UserContext';
 
 const Stack = createNativeStackNavigator();
 
 function RootStack() {
+  const {user} = useUserContext();
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="MainTab"
+        component={MainTab}
+        options={{headerShown: false}}
+        initialRouteName={HomeScreen}
+        // etachInactiveScreens={false}
+      />
       <Stack.Screen
         name="Login"
         component={SignInScreen}
@@ -28,13 +37,6 @@ function RootStack() {
         name="Welcome"
         component={WelcomeScreen}
         options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="MainTab"
-        component={MainTab}
-        options={{headerShown: false}}
-        initialRouteName={HomeScreen}
-        // etachInactiveScreens={false}
       />
       <Stack.Screen name="addPlace" component={addPlace} 
       options={{title: '계획 목록'}}
