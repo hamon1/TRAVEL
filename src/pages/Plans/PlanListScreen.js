@@ -19,7 +19,7 @@ import {
 } from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
-import firestore, {doc, deleteDoc} from '@react-native-firebase/firestore';
+import firestore, {query, orderBy, doc, deleteDoc} from '@react-native-firebase/firestore';
 
 import PlanList from '../../components/PlanList';
 import Empty from '../../assets/Empty';
@@ -36,6 +36,7 @@ const PlansScreen = () => {
   useEffect(() => {
     const unsubscribe = firestore()
       .collection('plans')
+      .orderBy('timestamp', 'desc')
       .onSnapshot(snapshot => {
         const fetchedPlans = snapshot.docs.map(doc => ({
           id: doc.id,
@@ -45,7 +46,6 @@ const PlansScreen = () => {
       }, error => {
         console.error("Error fetching plans: " + error);
       });
-      // .doc('plans').set({id: 0, text: 1});
 
     // Clean up the subscription
     return () => unsubscribe();
@@ -59,6 +59,7 @@ pid: 생성된 순 번호 부여 (1~) */}
       const newPlan = {
         pid: nextId.toString(),
         userId: 0,
+        title: '새로운 계획${nextId}',
         text: `place${nextId}`,
         text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
         timestamp: new Date(),
