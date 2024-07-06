@@ -87,15 +87,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: 'black',
-    top: 20,
+    top: 22,
     left: 20,
   },
-  text: {
-    fontSize: 14,
-    color: '#616161',
-    top: 30,
-    left: 20,
-  },
+  // text: {
+  //   fontSize: 14,
+  //   color: '#616161',
+    // top: 30,
+    // left: 20,
+  // },
   icon: {
     width: 24,
     height: 24,

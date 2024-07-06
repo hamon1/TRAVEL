@@ -39,10 +39,10 @@ function RootStack() {
         options={{headerShown: false}}
       />
       <Stack.Screen name="addPlace" component={addPlace} 
-      options={{title: '계획 목록'}}
+      options={{title: '계획 목록', headerBackVisible: false}}
       />
       <Stack.Screen name="chatScreen" component={ChatScreen} 
-      options={{title: '채팅창'}}
+      options={{title: '채팅창', headerBackTitleVisible: false}}
       />
       <Stack.Screen name="planScreen" component={PlanScreen} 
       options={{title: ''}}/>
