@@ -20,7 +20,9 @@ function PlanList({plan, onRemove}) {
             text={item.text}
             text2={item.text2}
             id={item.id}
-            date={item.timestamp}
+            date={item.date}
+            time={item.time}
+            // timestamp={item.timestamp}
             onRemove={onRemove}
           />
         )}

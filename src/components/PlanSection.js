@@ -18,7 +18,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Octicons';
 
-const PlanSection = ({pid, title, text, text2, id, date, onRemove, onPress}) => {
+const PlanSection = ({pid, title, text, text2, id, date, time, onRemove, onPress}) => {
   const navigation = useNavigation();
 
   const remove = () => {
@@ -45,7 +45,7 @@ const PlanSection = ({pid, title, text, text2, id, date, onRemove, onPress}) => 
     );
   };
 
-  // const formattedDate = `${{date}.getMonth() + 1} 월 ${{date}.getDate()}일`;
+  // const formattedDate = new Date({date});
 
   return (
     <View>
@@ -53,7 +53,10 @@ const PlanSection = ({pid, title, text, text2, id, date, onRemove, onPress}) => 
         style={styles.section}
         onPress={() => navigation.navigate('planScreen', {id: pid})}>
         <Text style={styles.text_Name}>{title}</Text>
-        <Text style={styles.text}>{pid}</Text>
+        <View style={styles.dateBox}>
+          <Icon name="calendar" size={20} color="black" style={styles.iconCalender}/>
+          <Text style={styles.dateText}>{date} {time}</Text>
+        </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={remove} style={styles.icon}>
         <Icon name="x" size={24} color="black" />
@@ -99,6 +102,22 @@ const styles = StyleSheet.create({
     top: 16,
     left: '91%',
     // backgroundColor: 'blue',
+  },
+  dateBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // backgroundColor: 'red',
+    paddingLeft: 22,
+    top: 30,
+  },
+  iconCalender: {
+
+  },
+  dateText: {
+    fontWeight: '400',
+    fontSize: 14,
+    marginLeft: 10,
+    color: '#616161',
   },
 });
 
