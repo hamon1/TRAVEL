@@ -75,6 +75,8 @@ const Profile = () => {
     },
   ]);
 
+  const friendCount = 1;
+
   return (
     <View style={styles.block}>
       {/** 사용자 프로필 (프로필 사진, 이름, id, 개인 소개글) */}
@@ -96,7 +98,7 @@ const Profile = () => {
           onPress={() => {
             navigation.navigate('FriendList');
           }}>
-          <Friends />
+          <Friends friendCount={friendCount}/>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.setting}

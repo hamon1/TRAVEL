@@ -2,12 +2,12 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const NumOfPeople = () => {
+const NumOfPeople = ({friendCount}) => {
   return (
     <View styles={styles.container}>
       <Icon style={styles.icon} name="people" size={24} color="#000000" />
       {/** 친구목록.length */}
-      <Text style={styles.num}>1</Text>
+      <Text style={styles.num}>{friendCount}</Text>
     </View>
   );
 };
@@ -15,7 +15,6 @@ const NumOfPeople = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: '#df2571',
     width: 56,
     height: 32,
     borderRadius: 15,
