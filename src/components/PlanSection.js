@@ -56,7 +56,7 @@ const PlanSection = ({pid, title, text, text2, id, date, time, onRemove, onPress
         <View style={styles.dateBox}>
           {/* <Icon name="calendar" size={20} color="black" style={styles.iconCalender}/> */}
           {/* <Text>생성된 날짜: </Text> */}
-          <Text style={styles.dateText}>{date} {time}</Text>
+          <Text style={styles.dateText}>{date}   {time}</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={remove} style={styles.icon}>
@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     position: 'absolute',
-    top: 16,
-    left: '91%',
+    top: 24,
+    right: 20,
     // backgroundColor: 'blue',
   },
   dateBox: {
@@ -110,9 +110,6 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     paddingLeft: 14,
     top: 30,
-  },
-  iconCalender: {
-
   },
   dateText: {
     fontWeight: '400',
