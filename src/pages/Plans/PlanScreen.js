@@ -30,7 +30,7 @@ const PlanScreen = ({route}) => {
 const styles = StyleSheet.create({
   block: {
     flex: 1,
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
 });
 

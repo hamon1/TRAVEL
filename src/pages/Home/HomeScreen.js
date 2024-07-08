@@ -28,6 +28,29 @@ import placeData from '../../data/placeData.json';
 
 
 function HomeScreen() {
+  
+  state = 
+    {
+    data: [],
+    page: 1,
+    };
+
+  console.log('HomeScreen: ' + state.data + ' / ' + state.page);
+
+  _getData = async () => {
+    const url = 'https://jsonplaceholder.typicode.com/photos?_limit=10&_page=' + this.state.page;
+      fetch(url)
+        .then(r => r.json())
+        .then(data => {
+          this.setState({ 
+            data: this.state.data.concat(data), // 기존 data에 추가.
+            page: this.state.page + 1
+          });
+        });
+    }
+
+  _getData();
+
   const [place] = useState(placeData);
   return (
     <SafeAreaProvider>

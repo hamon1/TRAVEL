@@ -1,3 +1,4 @@
+/*
 import React, {useContext, createContext, useState} from "react";
 
 const UserContext = createContext(null);
@@ -22,3 +23,4 @@ export function useUserContext() {
     }
     return UserContext;
 }
+*/

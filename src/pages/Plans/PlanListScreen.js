@@ -33,24 +33,6 @@ import plansData from '../../data/planData.json';
 const PlansScreen = () => {
   const [plan, setPlan] = useState([]);
   const navigation = useNavigation();
-
-  function formatDate() {
-    const d = new Date(); // 게시물 포스트 시간
-    const now = Date.now(); // 현재 시간
-    const diff = (now - d.getTime()) / 1000;
-  
-    if (diff < 60 * 1) {
-      return '방금 전';
-    }
-    if (diff < 60 * 60 * 24 * 3) {
-      // addSuffix - 포맷팅된 문자열 뒤에 ‘전’ 또는 ‘후’ 접미사를 붙이는 옵션
-      // locale - 언어. 문자열이 아니라 'date-fns/locale'에서 불러온 객체임에 주의할 것
-      return formatDistanceToNow(d, {addSuffix: true, locale: ko});
-    }
-    
-    // PPP - 날짜, EEE - 요일, p - 시간
-    return format(d, 'PPP EEE p', {locale: ko});
-  }
   
   useEffect(() => {
     const unsubscribe = firestore()

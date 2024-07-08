@@ -12,7 +12,7 @@ function NewPlanButton() {
   const navigation = useNavigation();
 
   const onPress = () => {
-    navigation.navigate('addPlace');
+    navigation.navigate('addPlan');
   };
 
   return (

@@ -5,7 +5,7 @@
  *
  */
 
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   View,
   Image,
@@ -24,6 +24,7 @@ import {useNavigation} from '@react-navigation/native';
 import FriendList from '../../components/FriendList';
 // import Empty from '../../assets/Empty';
 import SearchHeader from '../../components/SearchHeader';
+import SearchContext from '../../context/SearchContext';
 
 const FriendScreen = () => {
   const [user, setUser] = useState([
@@ -90,12 +91,15 @@ const FriendScreen = () => {
 
   const navigation = useNavigation();
 
+  const {keyword} = useContext(SearchContext);
+
   // const {height} = useWindowDimensions();
 
   return (
     <>
       <SafeAreaProvider>
         <View style={styles.block}>
+          {/* <Text>{keyword}</Text> */}
           <SearchHeader />
           <SafeAreaView style={[styles.list]}>
             <KeyboardAvoidingView>
