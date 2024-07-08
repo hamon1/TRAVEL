@@ -1,3 +1,4 @@
+/*
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useState } from "react";
 import { signOut } from "../../lib/auth";
@@ -72,3 +73,4 @@ const styles = StyleSheet.create({
 });
 
 export default SetupProfile;
+*/

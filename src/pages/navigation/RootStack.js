@@ -18,43 +18,43 @@ import { useUserContext } from '../../components/UserContext';
 const Stack = createNativeStackNavigator();
 
 function RootStack() {
-  const {user} = useUserContext();
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="MainTab"
-        component={MainTab}
-        options={{headerShown: false}}
-        initialRouteName={HomeScreen}
-        // etachInactiveScreens={false}
-      />
-      <Stack.Screen
-        name="Login"
-        component={SignInScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Welcome"
-        component={WelcomeScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen name="addPlace" component={addPlace} 
-      options={{title: '계획 목록'}}
-      />
-      <Stack.Screen name="chatScreen" component={ChatScreen} 
-      options={{title: '채팅창'}}
-      />
-      <Stack.Screen name="planScreen" component={PlanScreen} 
-      options={{title: ''}}/>
-      <Stack.Screen
-        name="Plan_Place_Setting"
-        component={Plan_Place_Setting}
-        options={{title: 'PlanPlace'}}
-      />
-      <Stack.Screen
-        name="CalendarView"
-        component={CalendarView}
-      />
+          <Stack.Screen
+            name="Login"
+            component={SignInScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="MainTab"
+            component={MainTab}
+            options={{headerShown: false}}
+            initialRouteName={HomeScreen}
+            // etachInactiveScreens={false}
+          />
+          <Stack.Screen
+            name="Welcome"
+            component={WelcomeScreen}
+            options={{headerShown: false}}
+          />
+          
+          <Stack.Screen name="addPlace" component={addPlace} 
+            options={{title: '계획 목록'}}
+          />
+          <Stack.Screen name="chatScreen" component={ChatScreen} 
+            options={{title: '채팅창'}}
+          />
+          <Stack.Screen name="planScreen" component={PlanScreen} 
+            options={{title: ''}}/>
+          <Stack.Screen
+            name="Plan_Place_Setting"
+            component={Plan_Place_Setting}
+            options={{title: 'PlanPlace'}}
+          />
+          <Stack.Screen
+            name="CalendarView"
+            component={CalendarView}
+          />
     </Stack.Navigator>
   );
 }

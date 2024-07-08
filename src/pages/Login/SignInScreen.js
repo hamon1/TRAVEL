@@ -1,3 +1,4 @@
+/*
 import React, { useState } from "react";
 import { 
     Alert,
@@ -13,7 +14,7 @@ import SignButtons from "../../components/SIgnButtons";
 import SignInForm from "../../components/SignForm";
 import {signIn, signUp} from '../../lib/auth';
 import { createUser, getUser } from "../../lib/users";
-import { useUserContext } from "../../components/UserContext";
+//import { useUserContext } from "../../components/UserContext";
 
 function SignInScreen({navigation, route}) {
     const {isSignUp} = route.params || {};
@@ -58,8 +59,8 @@ function SignInScreen({navigation, route}) {
         };
         const msg = messages[e.code];
         Alert.alert('실패', msg);
-        //navigation.navigate('MainTab'); // 삭제 예정
-        navigation.navigate('Welcome');
+        navigation.navigate('MainTab'); // 삭제 예정
+        //navigation.navigate('Welcome');
         } finally {
             setLoading(false);
         }
@@ -108,3 +109,4 @@ const styles = StyleSheet.create({
 });
 
 export default SignInScreen;
+*/

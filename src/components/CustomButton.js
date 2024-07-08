@@ -8,10 +8,10 @@ function CustomButton({onPress, title, hasMarginBottom, theme}) {
         <View style={[styles.block, styles.overflow, hasMarginBottom && styles.margin]}>
             <Pressable
                 onPress={onPress}
-             style={({pressed}) => [
-                styles.wrapper,
-                isPrimary ? styles.primaryWrapper : styles.secondaryWrapper,
-                Platform.OS === 'ios' && pressed && {opacity: 0.5},
+                style={({pressed}) => [
+                    styles.wrapper,
+                    isPrimary ? styles.primaryWrapper : styles.secondaryWrapper,
+                    Platform.OS === 'ios' && pressed && {opacity: 0.5},
              ]}
              android_ripple={{
                 color: isPrimary ? '#ffffff' : '#6200ee',
@@ -20,7 +20,7 @@ function CustomButton({onPress, title, hasMarginBottom, theme}) {
                 style={[
                     styles.text,
                     isPrimary ? styles.primaryText : styles.secondaryText,
-                 ]}>
+                ]}>
                  {title}
              </Text>
             </Pressable>
