@@ -29,14 +29,14 @@ const Place_detaile = ({route}) => {
   const navigation = useNavigation();
 
   const onPress = () => {
-    navigation.navigate('addPlace');
+    navigation.navigate('addPlan');
   };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   useEffect(() => {}, []);
 
   const onPressModalOpen = () => {
-    console.log('팝업을 여는 중입니다.');
+    console.log('enlarge a map');
     setIsModalVisible(true);
   };
 
@@ -57,21 +57,16 @@ const Place_detaile = ({route}) => {
           <Image style={styles.image_map} />
         </Pressable>
         <View style={styles.textContainer}>
-          <Text style={styles.nameText}>{route.params.name}</Text>
+          <Text style={styles.nameText}>{route.params.text}</Text>
           <Text style={styles.idText}>id: {route.params.id}</Text>
-          <Text style={styles.infoText}>{route.params.text}</Text>
-          {/* <Button
-            style={styles.addButton}
-            title="add"
-            onPress={() => navigation.navigate('addPlace')}
-          /> */}
+          <Text style={styles.infoText} >{route.params.text2}</Text>
+        </View>
           <AddIcon
             onPress={onPress}
             name="add"
             color="#fb8c00"
             style={styles.addButton}
           />
-        </View>
         <View />
         {/**아래부터 리뷰(별점) 컨테이너 */}
         <View style={styles.reviewContainer}>
@@ -163,9 +158,9 @@ const styles = StyleSheet.create({
   },
   addButton: {
     position: 'absolute',
-    // backgroundColor: 'red',
-    top: -100,
-    left: '92%',
+    // backgroundColor: 'red', 
+    top: -460,
+    left: '85%',
   },
   idText: {
     top: 10,

@@ -6,7 +6,7 @@
 //  * @format
 //  */
 
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Image,
@@ -16,47 +16,75 @@ import {
   Button,
   ActivityIndicator,
   KeyboardAvoidingView,
+  Pressable,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
-import PlaceList from '../../components/PlaceList';
+import PlaceList from './components/PlaceList';
 import Empty from '../../assets/Empty';
 
-import placeData from '../../data/placeData.json';
+import placeData from '../../data/placeData';
+import placeJSON from '../../data/place.json';
+
 
 
 function HomeScreen() {
+  const [page, setPage] = useState(1);
+  const [place, setPlace] = useState([]);
+  const [isFetchingMore, setIsFetchingMore] = useState(true);
+  const [loading, setLoading] = useState(true);
+
+    const getData = async() => {
+      console.log('f loading?: ' + loading);
+      console.log('f isFetchingMore?: ' + isFetchingMore);
+      if(isFetchingMore) {
+        try {
+          const pageSize = 10;
+          const startIndex = (page - 1) * pageSize;
+          const endIndex = startIndex + pageSize;
+         const placeData = placeJSON.records.slice(startIndex, endIndex);
   
-  state = 
-    {
-    data: [],
-    page: 1,
-    };
-
-  console.log('HomeScreen: ' + state.data + ' / ' + state.page);
-
-  _getData = async () => {
-    const url = 'https://jsonplaceholder.typicode.com/photos?_limit=10&_page=' + this.state.page;
-      fetch(url)
-        .then(r => r.json())
-        .then(data => {
-          this.setState({ 
-            data: this.state.data.concat(data), // 기존 data에 추가.
-            page: this.state.page + 1
-          });
-        });
+          console.log('i' + placeData);
+  
+         setPlace((prevPlace) => [...prevPlace,...placeData]);
+         console.log('item: ' + place[0].관광지명);
+      }
+      catch (error) {
+        console.error('Error fetching data:', error);
+      }finally{
+        setLoading(false);
+        setIsFetchingMore(false);
+      }
+      }
+  };
+  
+  
+  const handleLoadMore = () => {
+    console.log('load more');
+    setIsFetchingMore(true);
+    if (!isFetchingMore) {
+      setLoading(true);
+      setPage((prevPage) => prevPage + 1);
     }
+    setIsFetchingMore(false);
+  };
 
-  _getData();
-
-  const [place] = useState(placeData);
+useEffect(() => {
+    getData();
+  })
+  console.log('loading?: ' + loading);
+  console.log('isFetchingMore?: ' + isFetchingMore);
   return (
+  
     <SafeAreaProvider>
       <SafeAreaView style={style.block}>
         <KeyboardAvoidingView style={style.avoid}>
-          {placeData.length === 0 ? <Empty /> : <PlaceList place={placeData} />}
+          {/* <Pressable onPress={handleLoadMore}>
+            <Text>hi</Text>
+          </Pressable> */}
+          {placeData.length === 0 ? (<Text>빈 화면</Text>) : <PlaceList place={placeData} onEndReached={handleLoadMore}/>}
         </KeyboardAvoidingView>
       </SafeAreaView>
     </SafeAreaProvider>

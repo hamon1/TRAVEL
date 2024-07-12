@@ -4,7 +4,8 @@
  *
  * 아래 공간은 채팅 목록.
  */
-import People from '../../components/FriendsButton';
+import People from './components/FriendsButton';
+import { getAuth } from '@react-native-firebase/auth';
 
 import React, {useState} from 'react';
 import {
@@ -22,7 +23,7 @@ import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import Empty from '../../assets/Empty';
 
 import {useNavigation} from '@react-navigation/native';
-import Friends from '../../components/FriendsButton';
+import Friends from './components/FriendsButton';
 import Setting from '../../components/SettingButton';
 
 import ChatList from '../../components/ChatList';
@@ -75,7 +76,12 @@ const Profile = () => {
     },
   ]);
 
-  const friendCount = 1;
+  const friendCount = chatroom.length;
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  console.log('user: ' + user);
 
   return (
     <View style={styles.block}>

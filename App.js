@@ -77,7 +77,7 @@ function AuthenticatedStack() {
         // etachInactiveScreens={false}
       />
       <Stack.Screen name="addPlan" component={addPlan} 
-        options={{title: '계획 목록'}}
+        options={{title: '계획 목록', headerBackTitleVisible: (false)}}
       />
       <Stack.Screen name="chatScreen" component={ChatScreen} 
         options={{title: '채팅창'}}

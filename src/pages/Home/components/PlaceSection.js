@@ -8,18 +8,18 @@ import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-const PlaceSection = ({id, text, text2}) => {
+const PlaceSection = ({text, id, text2}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.section}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('PlaceDetails', {name: text, id: id, text: text2})
+          navigation.navigate('PlaceDetails', {text: text, id: id, text2: text2})
         }>
         <Image style={styles.image} />
         <Text style={styles.text_Name}>{text}</Text>
-        <Text style={styles.text}>{id}</Text>
-        <Text style={styles.text}>
+        <Text style={styles.text_id}>{id}</Text>
+        <Text style={styles.text} numberOfLines={5} ellipsizeMode='middle'>
           Ut nisi consequat ea qui veniam dolor laborum dolor quis eiusmod
           irure. Voluptate culpa voluptate laboris aute nisi velit magna ea ut
           anim consequat mollit. Exercitation proident magna magna et sit enim
@@ -54,14 +54,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: 'black',
-    top: 20,
+    top: 24,
     left: 10,
+  },
+  text_id: {
+    fontSize: 14,
+    color: '#616161',
+    margin: 10,
+    top: 20,
   },
   text: {
     fontSize: 15,
     color: 'black',
     top: 30,
-    left: 10,
+    // left: 10,
+    // backgroundColor: 'red',
+    margin: 10,
   },
 });
 

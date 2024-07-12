@@ -4,7 +4,7 @@
  *
  *
  */
-import People from '../../components/FriendsButton';
+import People from '../Profile/components/FriendsButton';
 
 import React, {useState, useEffect} from 'react';
 import {
