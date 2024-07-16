@@ -14,14 +14,13 @@ function PlaceList({place}, {onEndReached}) {
       style={style.list}
       data={place}
       renderItem={({item}) => (
-        // <PlaceSection title={item.관광지명} id={item.관광지구분} text={item.관광지소개} tel={item.관리기관전화번호}/>
         <PlaceSection id={item.id} text={item.text} text2={item.text2}/>
       )}
       keyExtractor={item => item.id}
-      onEndReached={onEndReached}
-      onEndReachedThreshold={0.6}
-      onRefresh={console.log('isLoading')}
-      refreshing={true}
+      // onEndReached={onEndReached}
+      // onEndReachedThreshold={0.6}
+      // onRefresh={console.log('isLoading')}
+      // refreshing={true}
       disableVirtualization={false} //비정상적인 스크롤 동작 방지
     />
   );
@@ -29,7 +28,7 @@ function PlaceList({place}, {onEndReached}) {
 
 const style = StyleSheet.create({
   list: {
-    flex: 1,
+    // flex: 1,
   },
 });
 

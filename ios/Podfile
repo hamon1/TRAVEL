@@ -25,6 +25,11 @@ target 'TRAVEL' do
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
+  pod 'GoogleMaps'
+  pod 'Google-Maps-iOS-Utils'
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
+  config = use_native_modules!
 
   use_react_native!(
     :path => config[:reactNativePath],

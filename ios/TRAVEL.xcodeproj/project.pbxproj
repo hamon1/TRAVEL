@@ -10,6 +10,7 @@
 		00E356F31AD99517003FC87E /* TRAVELTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TRAVELTests.m */; };
 		11A6FBF82BEE52B500B21A4D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11A6FBF72BEE52B500B21A4D /* GoogleService-Info.plist */; };
 		11C61A112BDE67590038127D /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 11C61A102BDE67580038127D /* main.jsbundle */; };
+		11C9F41E2C42995E00B97E18 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C9F41D2C42995E00B97E18 /* File.swift */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -36,6 +37,8 @@
 		0AAA295AB96B488E90473D80 /* Pods_TRAVEL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TRAVEL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A6FBF72BEE52B500B21A4D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		11C61A102BDE67580038127D /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		11C9F41C2C42995E00B97E18 /* TRAVEL-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TRAVEL-Bridging-Header.h"; sourceTree = "<group>"; };
+		11C9F41D2C42995E00B97E18 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* TRAVEL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TRAVEL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = TRAVEL/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = TRAVEL/AppDelegate.mm; sourceTree = "<group>"; };
@@ -43,7 +46,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TRAVEL/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TRAVEL/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = TRAVEL/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		41E8176F1D548E7FF8D48E5B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = TRAVEL/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		41E8176F1D548E7FF8D48E5B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = TRAVEL/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		6543450E8F905A2709A0D670 /* Pods-TRAVEL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAVEL.debug.xcconfig"; path = "Target Support Files/Pods-TRAVEL/Pods-TRAVEL.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TRAVEL/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FD155C149EA1E3210790A4C /* Pods-TRAVEL-TRAVELTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAVEL-TRAVELTests.release.xcconfig"; path = "Target Support Files/Pods-TRAVEL-TRAVELTests/Pods-TRAVEL-TRAVELTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -102,6 +105,8 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
 				41E8176F1D548E7FF8D48E5B /* PrivacyInfo.xcprivacy */,
+				11C9F41D2C42995E00B97E18 /* File.swift */,
+				11C9F41C2C42995E00B97E18 /* TRAVEL-Bridging-Header.h */,
 			);
 			name = TRAVEL;
 			sourceTree = "<group>";
@@ -219,7 +224,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1540;
 					};
 				};
 			};
@@ -425,6 +430,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				11C9F41E2C42995E00B97E18 /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -444,6 +450,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F15DBA2F1E649CDFE89098FE /* Pods-TRAVEL-TRAVELTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -471,6 +478,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9FD155C149EA1E3210790A4C /* Pods-TRAVEL-TRAVELTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = TRAVELTests/Info.plist;
@@ -517,6 +525,7 @@
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.TripBuddy.TRAVEL;
 				PRODUCT_NAME = TRAVEL;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TRAVEL-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -548,6 +557,7 @@
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.TripBuddy.TRAVEL;
 				PRODUCT_NAME = TRAVEL;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TRAVEL-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
