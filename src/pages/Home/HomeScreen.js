@@ -29,6 +29,7 @@ import PlaceList from './components/PlaceList';
 import Empty from '../../assets/Empty';
 import Icon from 'react-native-vector-icons/Octicons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
+import OffModal from './components/BackButton';
 
 import placeData from '../../data/placeData';
 import placeJSON from '../../data/place.json';
@@ -138,10 +139,7 @@ const onPressModalClose = () => {
        {/* <View style={style.box}> */}
        <Modal visible={isModalVisible} animationType='slide'>
        <Map/>
-       <Pressable onPress={onPressModalClose} style={{backgroundColor: 'red', position: 'absolute', top: 500, width: '100%',zIndex :100,}}>
-        <Text>back</Text>
-       </Pressable>
-
+       <OffModal onPress={onPressModalClose}/>
        </Modal>
     {/* </View> */}
 
@@ -174,13 +172,13 @@ const style = StyleSheet.create({
     // flex: 1/6,
     height: 112,
     // height: 'auto',
-    backgroundColor: 'blue',
+    // backgroundColor: 'blue',
     flexDirection: 'row',
   },
   topMenuColumn: {
     width: 100,
     height: 100,
-    backgroundColor: 'yellow',
+    // backgroundColor: 'yellow',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -188,7 +186,7 @@ const style = StyleSheet.create({
       width: 80,
       height: 80,
       borderRadius: 20,
-      backgroundColor: 'green',
+      // backgroundColor: 'green',
       justifyContent: 'center',
       alignItems: 'center',
   }
