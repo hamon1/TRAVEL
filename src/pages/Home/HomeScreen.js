@@ -20,6 +20,7 @@ import {
   Modal,
   ScrollView,
   Linking,
+  Platform,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -36,6 +37,7 @@ import placeJSON from '../../data/place.json';
 
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import Geolocation from 'react-native-geolocation-service';
 
 import Map from './components/ViewMap';
 
@@ -47,7 +49,11 @@ const KORAIL_LINK = 'https://www.letskorail.com';
 
 // 지도 검색 창 모달 화면
 const [isModalVisible, setIsModalVisible] = useState(false);
-useEffect(() => {}, []);
+useEffect(() => {
+  if(Platform.OS === 'ios') {
+    Geolocation.requestAuthorization('always');
+  }
+}, []);
 
 const onPressModalOpen = () => {
   console.log('enlarge a map_search');
@@ -72,6 +78,17 @@ const onPressModalClose = () => {
     console.log('search screen -> details screen')
     navigation.navigate('PlaceDetails', data);
   };
+
+  Geolocation.getCurrentPosition(
+    (position) => {
+        console.log(position);
+    },
+    (error) => {
+        // See error code charts below.
+        console.log(error.code, error.message);
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+);
 
   return (
   
