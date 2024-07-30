@@ -1,7 +1,7 @@
 // /**
 //  * 매인 화면 (로그인 시, 가장 먼저 보이는 화면)
 //  * 여행지 추천 목록  - 무한 스크롤. - flatlist 통해 구현.
-//  * 상단 리롤, 데이터 get -> 임시 data API를 통해 구현함. (이후 데이터 구축)
+//  * 
 //  *
 //  * @format
 //  */
@@ -40,59 +40,12 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import Map from './components/ViewMap';
 
 function HomeScreen() {
-  // const [page, setPage] = useState(1);
-  // const [place, setPlace] = useState([]);
-  // const [isFetchingMore, setIsFetchingMore] = useState(true);
-  // const [loading, setLoading] = useState(true);
-
-  //   const getData = async() => {
-  //     console.log('f loading?: ' + loading);
-  //     console.log('f isFetchingMore?: ' + isFetchingMore);
-  //     if(isFetchingMore) {
-  //       try {
-  //         const pageSize = 10;
-  //         const startIndex = (page - 1) * pageSize;
-  //         const endIndex = startIndex + pageSize;
-  //        const placeData = placeJSON.records.slice(startIndex, endIndex);
-  
-  //         console.log('i' + placeData);
-  
-  //        setPlace((prevPlace) => [...prevPlace,...placeData]);
-  //        console.log('item: ' + place[0].관광지명);
-  //     }
-  //     catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }finally{
-  //       setLoading(false);
-  //       setIsFetchingMore(false);
-  //     }
-  //     }
-  // };
-  
-  
-//   const handleLoadMore = () => {
-//     console.log('load more');
-//     setIsFetchingMore(true);
-//     if (!isFetchingMore) {
-//       setLoading(true);
-//       setPage((prevPage) => prevPage + 1);
-//     }
-//     setIsFetchingMore(false);
-//   };
-
-// useEffect(() => {
-//     getData();
-//   })
-//   console.log('loading?: ' + loading);
-//   console.log('isFetchingMore?: ' + isFetchingMore);
-
-//----------------------------------------------------------------
-//임시 데이터 로딩 코드
-
+// linking 링크 (임시 웹 주소)
 const BUS_LINK = 'https://txbus.t-money.co.kr/main.do';
 const TMONEYGO_LINK = 'https://apps.apple.com/kr/app/%ED%8B%B0%EB%A8%B8%EB%8B%88go-%EC%98%A8%EB%8B%A4%ED%83%9D%EC%8B%9C-%EA%B3%A0%EC%86%8D%EC%8B%9C%EC%99%B8-%EB%94%B0%EB%A6%89%EC%9D%B4-%ED%83%80%EC%8A%88-%ED%82%A5%EB%B3%B4%EB%93%9C/id1483433931';
 const KORAIL_LINK = 'https://www.letskorail.com';
 
+// 지도 검색 창 모달 화면
 const [isModalVisible, setIsModalVisible] = useState(false);
 useEffect(() => {}, []);
 
@@ -106,28 +59,43 @@ const onPressModalClose = () => {
   setIsModalVisible(false);
 };
 
+// const [mapData, setMapData] = useState([]);  // 데이터를 저장할 상태
+// const [isGetdata, setIsGetdata] = useState(false);
+
+  // ViewMap 컴포넌트에서 데이터를 받는 함수
+  // const handleDataFromMap = (data) => {
+  //   setMapData(data);
+  // };
+
+  const navigation = useNavigation();
+  const passDataToDetails = (data) => {
+    console.log('search screen -> details screen')
+    navigation.navigate('PlaceDetails', data);
+  };
+
   return (
   
     <SafeAreaProvider>
       <SafeAreaView style={style.block}>
         <KeyboardAvoidingView style={style.avoid}>
+          {/* 가로 스크롤 - 지도 검색, 버스 예메 등 화면 상단의 버튼 탭 */}
       <ScrollView style={style.topBlock} horizontal={true} showsHorizontalScrollIndicator={false}>
         <View style={style.topMenuColumn}>
       <Pressable onPress={onPressModalOpen} style={style.menuButton}>
-          <Icon name='search' size={48} color='black'/>
-        <Text>Search</Text>
+          <Icon name='search' size={48} color='#b0d800'/>
+        <Text style={{color:'#b0d800'}}>Search</Text>
       </Pressable>
         </View>
         <View style={style.topMenuColumn}>
         <Pressable style={style.menuButton} onPress={()=>Linking.openURL(BUS_LINK)} >
-          <Icon2 name='directions-bus' size={48} color='black'/>
-        <Text>Bus</Text>
+          <Icon2 name='directions-bus' size={48} color='#ff704c'/>
+        <Text style={{color:'#ff704c'}}>Bus</Text>
       </Pressable>
         </View>
         <View style={style.topMenuColumn}>
         <Pressable style={style.menuButton} onPress={()=>Linking.openURL(KORAIL_LINK)}>
-          <Icon2 name='train' size={48} color='black'/>
-        <Text>Korail</Text>
+          <Icon2 name='train' size={48} color='#5da3f8'/>
+        <Text style={{color:'#5da3f8'}}>Korail</Text>
       </Pressable>
         </View>
         <View style={style.topMenuColumn}>
@@ -136,14 +104,17 @@ const onPressModalClose = () => {
       </Pressable>
         </View>
       </ScrollView>
-       {/* <View style={style.box}> */}
+      {/* ----------------------------------------------------------------가로 스크롤  */}
+       {/* 지도에서 장소 검색하기 (모달 창으로 구현) -./components/ViewMap.js */}
        <Modal visible={isModalVisible} animationType='slide'>
-       <Map/>
+       <Map modalOff={onPressModalClose} passDataToDetails={passDataToDetails}/>
        <OffModal onPress={onPressModalClose}/>
        </Modal>
-    {/* </View> */}
-
+        {/* ----------------------------------------------------------------지도에서 장소 검색하기 모달 화면 */}
+        
+        {/* 장소 정보 리스트 */}
           {placeData.length === 0 ? (<Text>빈 화면</Text>) : <PlaceList place={placeData} />}
+          {/* ---------------------------------------------------------------- */}
         </KeyboardAvoidingView>
       </SafeAreaView>
     </SafeAreaProvider>

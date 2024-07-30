@@ -8,13 +8,13 @@ import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-const PlaceSection = ({text, id, text2}) => {
+const PlaceSection = ({text, id, text2, structured_formatting}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.section}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('PlaceDetails', {text: text, id: id, text2: text2})
+          navigation.navigate('PlaceDetails', {text: text, id: id, text2: text2, structured_formatting:structured_formatting})
         }>
         <Image style={styles.image} />
         <Text style={styles.text_Name}>{text}</Text>

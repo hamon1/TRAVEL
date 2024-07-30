@@ -8,13 +8,15 @@ import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 
 import PlaceSection from './PlaceSection';
 
+
 function PlaceList({place}, {onEndReached}) {
+  console.log('================================', {place});
   return (
     <OptimizedFlatList
       style={style.list}
       data={place}
       renderItem={({item}) => (
-        <PlaceSection id={item.id} text={item.text} text2={item.text2}/>
+        <PlaceSection id={item.id} text={item.text} text2={item.text2} structured_formatting={item.structured_formatting} />
       )}
       keyExtractor={item => item.id}
       // onEndReached={onEndReached}
