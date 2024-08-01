@@ -41,6 +41,15 @@ import Geolocation from 'react-native-geolocation-service';
 
 import Map from './components/ViewMap';
 
+async function requestPermission() {
+  try {
+    if (Platform.OS === "ios") {
+      return await Geolocation.requestAuthorization("always");
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
 function HomeScreen() {
 // linking 링크 (임시 웹 주소)
 const BUS_LINK = 'https://txbus.t-money.co.kr/main.do';
@@ -49,11 +58,36 @@ const KORAIL_LINK = 'https://www.letskorail.com';
 
 // 지도 검색 창 모달 화면
 const [isModalVisible, setIsModalVisible] = useState(false);
+const [location, setLocation] = useState([]);
+
+// useEffect(() => {
+//   if(Platform.OS === 'ios') {
+//     Geolocation.requestAuthorization('always');
+//   }
+// }, []);
+
 useEffect(() => {
-  if(Platform.OS === 'ios') {
-    Geolocation.requestAuthorization('always');
-  }
+  requestPermission().then(result => {
+    console.log({ result });
+    if (result === "granted") {
+      Geolocation.getCurrentPosition(
+        pos => {
+          console.log(pos);
+          setLocation(pos.coords);
+        },
+        error => {
+          console.log(error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 3600,
+          maximumAge: 3600,
+        },
+      );
+    }
+  });
 }, []);
+
 
 const onPressModalOpen = () => {
   console.log('enlarge a map_search');
@@ -65,30 +99,24 @@ const onPressModalClose = () => {
   setIsModalVisible(false);
 };
 
-// const [mapData, setMapData] = useState([]);  // 데이터를 저장할 상태
-// const [isGetdata, setIsGetdata] = useState(false);
-
-  // ViewMap 컴포넌트에서 데이터를 받는 함수
-  // const handleDataFromMap = (data) => {
-  //   setMapData(data);
-  // };
-
   const navigation = useNavigation();
-  const passDataToDetails = (data) => {
+
+  const passDataToDetails = (data, details) => {
     console.log('search screen -> details screen')
-    navigation.navigate('PlaceDetails', data);
+    navigation.navigate('PlaceDetails', data, details);
   };
 
-  Geolocation.getCurrentPosition(
-    (position) => {
-        console.log(position);
-    },
-    (error) => {
-        // See error code charts below.
-        console.log(error.code, error.message);
-    },
-    { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-);
+//   Geolocation.getCurrentPosition(
+//     (position) => {
+//       setLocation(position.coords);
+//       console.log('latitude: ', location);
+//     },
+//     (error) => {
+//         // See error code charts below.
+//         console.log(error.code, error.message);
+//     },
+//     { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+// );
 
   return (
   
@@ -124,7 +152,7 @@ const onPressModalClose = () => {
       {/* ----------------------------------------------------------------가로 스크롤  */}
        {/* 지도에서 장소 검색하기 (모달 창으로 구현) -./components/ViewMap.js */}
        <Modal visible={isModalVisible} animationType='slide'>
-       <Map modalOff={onPressModalClose} passDataToDetails={passDataToDetails}/>
+       <Map modalOff={onPressModalClose} passDataToDetails={passDataToDetails} locationInput={location}/>
        <OffModal onPress={onPressModalClose}/>
        </Modal>
         {/* ----------------------------------------------------------------지도에서 장소 검색하기 모달 화면 */}

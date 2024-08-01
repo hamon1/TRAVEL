@@ -7,11 +7,14 @@ import {
 } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import Geolocation from "react-native-geolocation-service";
 
 // import {useNavigation} from '@react-navigation/native';
 
-const ViewMap = ({modalOff, passDataToDetails}) => {
+const ViewMap = ({modalOff, passDataToDetails, locationInput}) => {
     const [data, setData] = useState([]);
+    const [dataDetail, setDataDetail] = useState([]);
+    const [location, setLocation] = useState([]);
 
     // const handlePress = (newData) => {
     //     const updatedData = [...data, newData]; // Spread existing data and add newData
@@ -19,9 +22,11 @@ const ViewMap = ({modalOff, passDataToDetails}) => {
     //     onSaveData(updatedData);  // Pass updated data to parent component
     //   };
 
-    useEffect(() => {
-        console.log('data: ', data);
-    }, [data]);
+    // useEffect(() => {
+    //     console.log('data: ', data);
+    // }, [data]);
+
+    console.log('location input: ', locationInput);
 
     return (
         <View style={style.box}>
@@ -30,10 +35,14 @@ const ViewMap = ({modalOff, passDataToDetails}) => {
               style={style.map}
               provider={PROVIDER_GOOGLE}
               initialRegion={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
+                // latitude: 37.78825,
+                // longitude: -122.4324,
+                latitude: locationInput.latitude,
+                longitude: locationInput.longitude,
+                // latitudeDelta: 0.0922,
+                latitudeDelta: 0.05,
+                // longitudeDelta: 0.0421,
+                longitudeDelta: 0.05,
               }}
               />
             <GooglePlacesAutocomplete
@@ -51,7 +60,7 @@ const ViewMap = ({modalOff, passDataToDetails}) => {
                 // setData(prevData => [...prevData, data]);
                 // handlePress(data);
                 modalOff();
-                passDataToDetails(data);
+                passDataToDetails(data, details);
               }}
               onFail={(error) => console.log(error)}
               onNotFound={() => console.log("no results")}
