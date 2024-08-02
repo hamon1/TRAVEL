@@ -12,9 +12,9 @@ import Geolocation from "react-native-geolocation-service";
 // import {useNavigation} from '@react-navigation/native';
 
 const ViewMap = ({modalOff, passDataToDetails, locationInput}) => {
-    const [data, setData] = useState([]);
-    const [dataDetail, setDataDetail] = useState([]);
-    const [location, setLocation] = useState([]);
+    // const [data, setData] = useState([]);
+    // const [dataDetail, setDataDetail] = useState([]);
+    // const [location, setLocation] = useState([]);
 
     // const handlePress = (newData) => {
     //     const updatedData = [...data, newData]; // Spread existing data and add newData

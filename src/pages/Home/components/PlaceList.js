@@ -10,17 +10,18 @@ import PlaceSection from './PlaceSection';
 
 
 function PlaceList({place}, {onEndReached}) {
-  console.log('================================', {place});
+  console.log('================================', {place}.place[0].types[0]);
   return (
     <OptimizedFlatList
       style={style.list}
       data={place}
       renderItem={({item}) => (
-        <PlaceSection id={item.id} text={item.text} text2={item.text2} structured_formatting={item.structured_formatting} />
+        <PlaceSection name={item.name} address={item.vicinity} photo_url={item.photos} types={item.types} lat={item.geometry.location.lat} lng={item.geometry.location.lng}/>
+        // <PlaceSection id={item.id} text={item.text} text2={item.text2} structured_formatting={item.structured_formatting} />
       )}
       keyExtractor={item => item.id}
-      // onEndReached={onEndReached}
-      // onEndReachedThreshold={0.6}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.6}
       // onRefresh={console.log('isLoading')}
       // refreshing={true}
       disableVirtualization={false} //비정상적인 스크롤 동작 방지

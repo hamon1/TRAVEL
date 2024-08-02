@@ -40,7 +40,9 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import Geolocation from 'react-native-geolocation-service';
 
 import Map from './components/ViewMap';
+import fetchPlace from './util/FetchPlaces';
 
+// 위치 권한 요청 함수
 async function requestPermission() {
   try {
     if (Platform.OS === "ios") {
@@ -56,15 +58,16 @@ const BUS_LINK = 'https://txbus.t-money.co.kr/main.do';
 const TMONEYGO_LINK = 'https://apps.apple.com/kr/app/%ED%8B%B0%EB%A8%B8%EB%8B%88go-%EC%98%A8%EB%8B%A4%ED%83%9D%EC%8B%9C-%EA%B3%A0%EC%86%8D%EC%8B%9C%EC%99%B8-%EB%94%B0%EB%A6%89%EC%9D%B4-%ED%83%80%EC%8A%88-%ED%82%A5%EB%B3%B4%EB%93%9C/id1483433931';
 const KORAIL_LINK = 'https://www.letskorail.com';
 
-// 지도 검색 창 모달 화면
+// 지도 검색 창 모달
 const [isModalVisible, setIsModalVisible] = useState(false);
-const [location, setLocation] = useState([]);
+// 현재 위치 정보
+const [location, setLocation] = useState(null);
 
-// useEffect(() => {
-//   if(Platform.OS === 'ios') {
-//     Geolocation.requestAuthorization('always');
-//   }
-// }, []);
+const [places, setPlaces] = useState([]);
+const [nextPageToken, setNextPageToken] = useState(null);
+const [loading, setLoading] = useState(false);
+
+
 
 useEffect(() => {
   requestPermission().then(result => {
@@ -88,6 +91,29 @@ useEffect(() => {
   });
 }, []);
 
+useEffect(() => {
+  if (location) {
+    loadPlaces(location, nextPageToken);
+  }
+}, [location]);
+
+const loadPlaces = async (coords, pageToken = null) => {
+  setLoading(true);
+  const data = await fetchPlace(coords, pageToken);
+  if (data) {
+    console.log('loadPlace: ', data);
+    setPlaces(prevPlaces => [...prevPlaces, ...data.results]);
+    setNextPageToken(data.next_page_token || null);
+  }
+  setLoading(false);
+};
+
+const onEndReached = () => {
+  if (nextPageToken && !loading) {
+    loadPlaces(location, nextPageToken);
+  }
+};
+
 
 const onPressModalOpen = () => {
   console.log('enlarge a map_search');
@@ -101,22 +127,19 @@ const onPressModalClose = () => {
 
   const navigation = useNavigation();
 
+  // placeDetails로 데이터와 함께 화면 이동
   const passDataToDetails = (data, details) => {
     console.log('search screen -> details screen')
     navigation.navigate('PlaceDetails', data, details);
   };
 
-//   Geolocation.getCurrentPosition(
-//     (position) => {
-//       setLocation(position.coords);
-//       console.log('latitude: ', location);
-//     },
-//     (error) => {
-//         // See error code charts below.
-//         console.log(error.code, error.message);
-//     },
-//     { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-// );
+  // useEffect(() => {
+  //   if (places.length == 0) {
+  //     loadPlaces(location, nextPageToken);
+  //   }
+
+  // },[places])
+
 
   return (
   
@@ -158,7 +181,7 @@ const onPressModalClose = () => {
         {/* ----------------------------------------------------------------지도에서 장소 검색하기 모달 화면 */}
         
         {/* 장소 정보 리스트 */}
-          {placeData.length === 0 ? (<Text>빈 화면</Text>) : <PlaceList place={placeData} />}
+          {places.length === 0 ? (<Text>빈 화면</Text>) : <PlaceList place={places} onEndReached={onEndReached}/>}
           {/* ---------------------------------------------------------------- */}
         </KeyboardAvoidingView>
       </SafeAreaView>

@@ -48,8 +48,8 @@ const Place_detaile = ({route}) => {
   //   headerRight: () => <AddIcon onPress={onPress} name="add" color="black" />,
   // });
   
-  console.log('data: ', route.params.structured_formatting.main_text);
-  console.log('data: ', route.params);
+  // console.log('data: ', route.params.structured_formatting.main_text);
+  // console.log('data: ', route.params);
 
   return (
     <>
@@ -60,7 +60,8 @@ const Place_detaile = ({route}) => {
           <Image style={styles.image_map} />
         </Pressable>
         <View style={styles.textContainer}>
-          <Text style={styles.nameText}>{route.params.structured_formatting.main_text}</Text>
+          <Text style={styles.nameText}>name</Text>
+          {/* <Text style={styles.nameText}>{route.params.structured_formatting.main_text}</Text> */}
           <Text style={styles.idText}>id: id</Text>
           <Text style={styles.infoText} >aa</Text>
           {/* <Text style={styles.nameText}>{route.params.text}</Text>
