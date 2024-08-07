@@ -15,17 +15,17 @@ const PlaceSection = ({name, address, photo_url, types, lat, lng}) => {
   const navigation = useNavigation();
   const typesCount = types.length;
 
-  if (typesCount > 0) {
+  // if (typesCount > 0) {
 
-  }
-
+  // }
+  // console.log("photo: ", photo_url);
   return (
     <View style={styles.section}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('PlaceDetails')
+          navigation.navigate('PlaceDetails', {name: name, address: address, photo_url: photo_url, types: types, lat: lat, lng: lng})
         }>
-        <Image style={styles.image} />
+        <Image source={{uri: photo_url}} style={styles.image} />
         <Text style={styles.text_Name} numberOfLines={1} ellipsizeMode='end'>{name}</Text>
         <Text style={styles.text_id}>{address}</Text>
         <Text style={styles.text} numberOfLines={5} ellipsizeMode='middle'>

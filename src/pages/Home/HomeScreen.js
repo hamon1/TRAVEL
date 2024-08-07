@@ -35,12 +35,13 @@ import OffModal from './components/BackButton';
 import placeData from '../../data/placeData';
 import placeJSON from '../../data/place.json';
 
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+// import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+// import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Geolocation from 'react-native-geolocation-service';
 
 import Map from './components/ViewMap';
-import fetchPlace from './util/FetchPlaces';
+import fetchPlace from './api/FetchPlaces';
+import fetchPlaceDetails from './api/FetchPlaceDetails';
 
 // 위치 권한 요청 함수
 async function requestPermission() {
@@ -101,8 +102,12 @@ const loadPlaces = async (coords, pageToken = null) => {
   setLoading(true);
   const data = await fetchPlace(coords, pageToken);
   if (data) {
+    const detailedPlaces = await Promise.all(data.results.map(async (place) => {
+      const details = await fetchPlaceDetails(place.place_id);
+      return { ...place, details };
+    }));
     console.log('loadPlace: ', data);
-    setPlaces(prevPlaces => [...prevPlaces, ...data.results]);
+    setPlaces(prevPlaces => [...prevPlaces, ...detailedPlaces]);
     setNextPageToken(data.next_page_token || null);
   }
   setLoading(false);
@@ -129,8 +134,15 @@ const onPressModalClose = () => {
 
   // placeDetails로 데이터와 함께 화면 이동
   const passDataToDetails = (data, details) => {
-    console.log('search screen -> details screen')
-    navigation.navigate('PlaceDetails', data, details);
+    console.log('search screen -> details screen');
+    console.log('data: ', data);
+    console.log('data details: ', details);
+    navigation.navigate('PlaceDetails',{
+      name: data.structured_formatting.main_text, 
+      address: data.structured_formatting.secondary_text,
+      lat: details.geometry.location.lat, 
+      lng: details.geometry.location.lng
+    });
   };
 
   // useEffect(() => {
@@ -181,7 +193,7 @@ const onPressModalClose = () => {
         {/* ----------------------------------------------------------------지도에서 장소 검색하기 모달 화면 */}
         
         {/* 장소 정보 리스트 */}
-          {places.length === 0 ? (<Text>빈 화면</Text>) : <PlaceList place={places} onEndReached={onEndReached}/>}
+          {places.length === 0 ? (<View><Text>빈 화면</Text></View>) : <PlaceList place={places} onEndReached={onEndReached}/>}
           {/* ---------------------------------------------------------------- */}
         </KeyboardAvoidingView>
       </SafeAreaView>

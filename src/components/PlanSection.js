@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
   section: {
     top: 10,
     bottom: 10,
-    backgroundColor: '#FFE99C',
+    // backgroundColor: '#FFE99C',
+    backgroundColor:'#fb8c00',
     marginLeft: 10,
     marginBottom: 10,
     borderRadius: 15,
@@ -115,7 +116,8 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 12,
     marginLeft: 10,
-    color: '#616161',
+    // color: '#616161',
+    color: 'white',
   },
 });
 

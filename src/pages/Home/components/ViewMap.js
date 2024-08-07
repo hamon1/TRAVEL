@@ -49,14 +49,14 @@ const ViewMap = ({modalOff, passDataToDetails, locationInput}) => {
               minLength={2}
               placeholder="장소를 검색해보세요!"
               query={{
-                  key: 'AIzaSyBMBWn8d1NJ-TMirBm8GYPfpEKDMBqf8k4',
+                  key: 'AIzaSyDRdIybBpN0aO6gJal9skDd0VG6KMrgqJk',
                   language: "ko",
                   components: "country:kr",
               }}
               keyboardShouldPersistTaps={"handled"}
               fetchDetails={true}
               onPress={(data, details) => {
-                // console.log(data, details);
+                console.log(data, details);
                 // setData(prevData => [...prevData, data]);
                 // handlePress(data);
                 modalOff();

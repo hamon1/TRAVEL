@@ -17,7 +17,7 @@
 		71F11D9FF371929414E4AA5E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 41E8176F1D548E7FF8D48E5B /* PrivacyInfo.xcprivacy */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A51506BBC25F056A9B367D1B /* Pods_TRAVEL_TRAVELTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5F71A242B105A1405336F33 /* Pods_TRAVEL_TRAVELTests.framework */; };
-		DDC7B4F63AF9FFB1B4991B78 /* Pods_TRAVEL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AAA295AB96B488E90473D80 /* Pods_TRAVEL.framework */; };
+		A791CD5E9A8E4282B9040D3F /* Pods_TRAVEL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AAA295AB96B488E90473D80 /* Pods_TRAVEL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +36,8 @@
 		00E356F21AD99517003FC87E /* TRAVELTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TRAVELTests.m; sourceTree = "<group>"; };
 		0AAA295AB96B488E90473D80 /* Pods_TRAVEL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TRAVEL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		11A6FBF72BEE52B500B21A4D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		11B7789F2C5E5575006BA007 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		11B778A02C5E5FA9006BA007 /* hermes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = hermes.xcframework; path = "Pods/hermes-engine/destroot/Library/Frameworks/universal/hermes.xcframework"; sourceTree = "<group>"; };
 		11C61A102BDE67580038127D /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		11C9F41C2C42995E00B97E18 /* TRAVEL-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TRAVEL-Bridging-Header.h"; sourceTree = "<group>"; };
 		11C9F41D2C42995E00B97E18 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -69,7 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDC7B4F63AF9FFB1B4991B78 /* Pods_TRAVEL.framework in Frameworks */,
+				A791CD5E9A8E4282B9040D3F /* Pods_TRAVEL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +98,8 @@
 		13B07FAE1A68108700A75B9A /* TRAVEL */ = {
 			isa = PBXGroup;
 			children = (
+				11B7789F2C5E5575006BA007 /* Config.xcconfig */,
+				11C61A102BDE67580038127D /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -114,6 +118,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11B778A02C5E5FA9006BA007 /* hermes.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				0AAA295AB96B488E90473D80 /* Pods_TRAVEL.framework */,
 				A5F71A242B105A1405336F33 /* Pods_TRAVEL_TRAVELTests.framework */,
@@ -131,7 +136,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				11C61A102BDE67580038127D /* main.jsbundle */,
 				13B07FAE1A68108700A75B9A /* TRAVEL */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* TRAVELTests */,
@@ -565,6 +569,7 @@
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11B7789F2C5E5575006BA007 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CC = "";
@@ -648,7 +653,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -657,6 +665,7 @@
 		};
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11B7789F2C5E5575006BA007 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CC = "";
@@ -732,7 +741,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
