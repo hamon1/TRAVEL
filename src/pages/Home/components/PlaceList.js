@@ -64,8 +64,8 @@ function PlaceList({place}, {onEndReached}) {
       keyExtractor={item => item.place_id}
       onEndReached={onEndReached}
       onEndReachedThreshold={0}
-      onRefresh={refreshing}
-      refreshing={true}
+      onRefresh={onRefresh}
+      refreshing={refreshing}
       disableVirtualization={false} //비정상적인 스크롤 동작 방지
     />
   );
