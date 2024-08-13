@@ -2,7 +2,7 @@
  * 여행지 정보 무한스크롤. (flatlist)
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {FlatList, View, Text, StyleSheet} from 'react-native';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 
@@ -12,13 +12,29 @@ const GOOGLE_PLACES_API_KEY = 'AIzaSyDRdIybBpN0aO6gJal9skDd0VG6KMrgqJk';
 
 
 function PlaceList({place}, {onEndReached}) {
-  console.log('================================', {place}.place[0].photos);
+  // console.log('================================', {place}.place[0].photos);
   // photo_reference를 사용하여 사진 URL 생성
   // const photoUrl = place.photos
   // ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${place[0].photos.photo_reference}&key=${GOOGLE_PLACES_API_KEY}`
   // : null;
 
   // console.log("photoUrl: ", photoUrl);
+
+  const [refreshing, setRefreshing] = useState(false);
+    
+    const getRefreshData = async () => {
+     	setRefreshing(true);
+        // await RefreshDataFetch();
+        console.log('refreshing');
+        setRefreshing(false);
+    }
+    
+    const onRefresh = () => {
+    	if(!refreshing) {
+        	getRefreshData();
+        }
+    }
+    
 
   return (
     <OptimizedFlatList
@@ -30,7 +46,7 @@ function PlaceList({place}, {onEndReached}) {
           ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${item.photos[0].photo_reference}&key=${GOOGLE_PLACES_API_KEY}`
           : null;
 
-        console.log("photoUrl: ", photoUrl);
+        // console.log("photoUrl: ", photoUrl);
 
         return (
           <PlaceSection 
@@ -47,9 +63,9 @@ function PlaceList({place}, {onEndReached}) {
       }
       keyExtractor={item => item.place_id}
       onEndReached={onEndReached}
-      onEndReachedThreshold={0.6}
-      // onRefresh={console.log('isLoading')}
-      // refreshing={true}
+      onEndReachedThreshold={0}
+      onRefresh={refreshing}
+      refreshing={true}
       disableVirtualization={false} //비정상적인 스크롤 동작 방지
     />
   );
@@ -57,6 +73,7 @@ function PlaceList({place}, {onEndReached}) {
 
 const style = StyleSheet.create({
   list: {
+    // top: 20,
     // flex: 1,
   },
 });

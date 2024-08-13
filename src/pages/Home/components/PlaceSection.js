@@ -10,6 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import Tag from './tag/TagContainer';
 
+
 // text, id, text2, structured_formatting
 const PlaceSection = ({name, address, photo_url, types, lat, lng}) => {
   const navigation = useNavigation();
@@ -34,7 +35,9 @@ const PlaceSection = ({name, address, photo_url, types, lat, lng}) => {
           anim consequat mollit. Exercitation proident magna magna et sit enim
           ea exercitation consequat aliqua culpa.
         </Text>
+        {/* <View style={styles.tag_box}> */}
         <Tag types={types}/>
+        {/* </View> */}
       </TouchableOpacity>
     </View>
   );
@@ -88,6 +91,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 20,
     right: 10,
+  },
+  tag_box: {
+    top: 60,
+        margin: 10,
+        flexDirection: 'row',
   },
 });
 

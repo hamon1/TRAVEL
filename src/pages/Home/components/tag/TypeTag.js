@@ -4,12 +4,11 @@ import {View, Text, StyleSheet} from 'react-native';
 
 const Tag = ({types}) => {
     return (
-        <View>
 
         <View style={styles.block}>
             <Text>#{types}</Text>
         </View>
-        </View>
+
     )
 }
 

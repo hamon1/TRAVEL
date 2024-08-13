@@ -13,18 +13,18 @@ const GOOGLE_PLACES_API_KEY = 'AIzaSyDRdIybBpN0aO6gJal9skDd0VG6KMrgqJk';
  * @returns {Object|null} - API 응답 데이터 (성공 시) 또는 null (실패 시)
  */
 
-async function fetchPlaces(location, pageToken = null) {
+async function fetchPlaces(location, pageToken = null, type) {
+  console.log(type);
   try {
     const response = await axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', {
       params: {
         location: `${location.latitude},${location.longitude}`,
         radius: 1500,  // 검색 반경 (미터 단위)
-        type: 'tourist_attraction',  // 검색할 장소 유형 (관광 명소)
+        type: `${type}`,  // 검색할 장소 유형 (관광 명소)
         key: GOOGLE_PLACES_API_KEY,
         pagetoken: pageToken,
       },
     });
-
     return response.data;
   } catch (error) {
     console.error(error);

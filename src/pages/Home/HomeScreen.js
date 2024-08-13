@@ -43,6 +43,10 @@ import Map from './components/ViewMap';
 import fetchPlace from './api/FetchPlaces';
 import fetchPlaceDetails from './api/FetchPlaceDetails';
 
+import SelectTypeButton from './components/select_type/SelectTypeButton';
+import TypeSelectList from './components/select_type/Type.json';
+import { serializer } from '../../../metro.config';
+
 // 위치 권한 요청 함수
 async function requestPermission() {
   try {
@@ -68,7 +72,8 @@ const [places, setPlaces] = useState([]);
 const [nextPageToken, setNextPageToken] = useState(null);
 const [loading, setLoading] = useState(false);
 
-
+// fetch data 타입 (기본 = '관광 명소')
+const [searchType, setSearchType] = useState("tourist_attraction");
 
 useEffect(() => {
   requestPermission().then(result => {
@@ -93,14 +98,15 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
+  setPlaces([]);
   if (location) {
-    loadPlaces(location, nextPageToken);
+    loadPlaces(location, null, searchType);
   }
-}, [location]);
+}, [location, searchType]);
 
 const loadPlaces = async (coords, pageToken = null) => {
   setLoading(true);
-  const data = await fetchPlace(coords, pageToken);
+  const data = await fetchPlace(coords, pageToken, searchType);
   if (data) {
     const detailedPlaces = await Promise.all(data.results.map(async (place) => {
       const details = await fetchPlaceDetails(place.place_id);
@@ -113,9 +119,24 @@ const loadPlaces = async (coords, pageToken = null) => {
   setLoading(false);
 };
 
+// const loadPlaces = useCallback(async (coords, pageToken = null) => {
+//   setLoading(true);
+//   const data = await fetchPlace(coords, pageToken, searchType);
+//   if (data) {
+//     const detailedPlaces = await Promise.all(data.results.map(async (place) => {
+//       const details = await fetchPlaceDetails(place.place_id);
+//       return { ...place, details };
+//     }));
+//     console.log('loadPlace: ', data);
+//     setPlaces(prevPlaces => [...prevPlaces, ...detailedPlaces]);
+//     setNextPageToken(data.next_page_token || null);
+//   }
+//   setLoading(false);
+// }, [searchType]); 
+
 const onEndReached = () => {
   if (nextPageToken && !loading) {
-    loadPlaces(location, nextPageToken);
+    loadPlaces(location, nextPageToken, searchType);
   }
 };
 
@@ -142,6 +163,7 @@ const onPressModalClose = () => {
       address: data.structured_formatting.secondary_text,
       lat: details.geometry.location.lat, 
       lng: details.geometry.location.lng
+      // photo_url: ,
     });
   };
 
@@ -151,6 +173,16 @@ const onPressModalClose = () => {
   //   }
 
   // },[places])
+
+  // fetch data 타입 변경
+  const changeType = (newType) => {
+    // if (searchType !== newType) { // 이전 타입과 다른 경우에만 상태 변경
+      setSearchType(newType); // 검색 타입 변경
+    //   setPlaces([]); // 기존 장소 데이터 초기화
+    //   setNextPageToken(null); // 페이지 토큰 초기화
+    // }
+    console.log(searchType);
+  };
 
 
   return (
@@ -191,7 +223,7 @@ const onPressModalClose = () => {
        <OffModal onPress={onPressModalClose}/>
        </Modal>
         {/* ----------------------------------------------------------------지도에서 장소 검색하기 모달 화면 */}
-        
+        <SelectTypeButton TypeNow={searchType} sections={TypeSelectList} changeType={changeType}/>
         {/* 장소 정보 리스트 */}
           {places.length === 0 ? (<View><Text>빈 화면</Text></View>) : <PlaceList place={places} onEndReached={onEndReached}/>}
           {/* ---------------------------------------------------------------- */}
