@@ -48,6 +48,8 @@ import SelectTypeButton from './components/select_type/SelectTypeButton';
 import TypeSelectList from './components/select_type/Type.json';
 import { serializer } from '../../../metro.config';
 
+const GOOGLE_PLACES_API_KEY = 'AIzaSyDRdIybBpN0aO6gJal9skDd0VG6KMrgqJk';
+
 // 위치 권한 요청 함수
 async function requestPermission() {
   try {
@@ -164,14 +166,17 @@ const onPressModalClose = () => {
   // placeDetails로 데이터와 함께 화면 이동
   const passDataToDetails = (data, details) => {
     console.log('search screen -> details screen');
-    console.log('data: ', data);
-    console.log('data details: ', details);
+    // console.log('data: ', data);
+    // console.log('data details: ', details.photos[0]);
+    const photoUrl = details.photos
+          ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${details.photos[0].photo_reference}&key=${GOOGLE_PLACES_API_KEY}`
+          : null;
     navigation.navigate('PlaceDetails',{
       name: data.structured_formatting.main_text, 
       address: data.structured_formatting.secondary_text,
       lat: details.geometry.location.lat, 
-      lng: details.geometry.location.lng
-      // photo_url: ,
+      lng: details.geometry.location.lng,
+      photo_url: photoUrl,
     });
   };
 

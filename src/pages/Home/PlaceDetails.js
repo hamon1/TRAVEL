@@ -52,7 +52,8 @@ const Place_detaile = ({route}) => {
   return (
     <>
       <ScrollView style={styles.container}>
-        <Image style={styles.image} />
+        {/* <Image style={styles.image} /> */}
+        <Image source={{uri: route.params.photo_url}} style={styles.image} />
         {/* <Pressable onPress={onPressModalOpen}> */}
           {/* <Image style={styles.image_map} /> */}
           <MapView
