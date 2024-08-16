@@ -125,13 +125,13 @@ const styles = StyleSheet.create({
     modal_background: {
         flex: 1,
         // backgroundColor: 'white',
-        backgroundColor: "rgb(0, 0, 0, 0.5)",
+        // backgroundColor: "rgb(0, 0, 0, 0.5)",
     },
     type_select_modal: {
         position: 'absolute',
         // flex: 1,
         // height: 150,
-        // backgroundColor: 'red',
+        backgroundColor: 'red',
         borderBottomEndRadius: 6,
         borderBottomStartRadius: 6,
         top: 223,
