@@ -112,7 +112,7 @@ const loadPlaces = async (coords, pageToken = null) => {
       const details = await fetchPlaceDetails(place.place_id);
       return { ...place, details };
     }));
-    console.log('loadPlace: ', data);
+    // console.log('loadPlace: ', data);
     setPlaces(prevPlaces => [...prevPlaces, ...detailedPlaces]);
     setNextPageToken(data.next_page_token || null);
   }
@@ -140,6 +140,13 @@ const onEndReached = () => {
   }
 };
 
+const onRefresh = () => {
+  console.log('refresh data');
+  setPlaces([]);
+  if (location) {
+    loadPlaces(location, null, searchType);
+  }
+};
 
 const onPressModalOpen = () => {
   console.log('enlarge a map_search');
@@ -225,7 +232,7 @@ const onPressModalClose = () => {
         {/* ----------------------------------------------------------------지도에서 장소 검색하기 모달 화면 */}
         <SelectTypeButton TypeNow={searchType} sections={TypeSelectList} changeType={changeType}/>
         {/* 장소 정보 리스트 */}
-          {places.length === 0 ? (<View><Text>빈 화면</Text></View>) : <PlaceList place={places} onEndReached={onEndReached}/>}
+          {places.length === 0 ? (<View style={style.emptyView}><Text>빈 화면</Text></View>) : <PlaceList place={places} onEndReached={onEndReached} refreshDataFetch={onRefresh} />}
           {/* ---------------------------------------------------------------- */}
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -272,7 +279,10 @@ const style = StyleSheet.create({
       // backgroundColor: 'green',
       justifyContent: 'center',
       alignItems: 'center',
-  }
+  },
+  emptyView: {
+
+  },
 });
 
 export default HomeScreen;

@@ -11,8 +11,8 @@ import PlaceSection from './PlaceSection';
 const GOOGLE_PLACES_API_KEY = 'AIzaSyDRdIybBpN0aO6gJal9skDd0VG6KMrgqJk';
 
 
-function PlaceList({place}, {onEndReached}) {
-  // console.log('================================', {place}.place[0].photos);
+function PlaceList({place, onEndReached, refreshDataFetch}) {
+  console.log('================================', {place}.place[0]);
   // photo_reference를 사용하여 사진 URL 생성
   // const photoUrl = place.photos
   // ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${place[0].photos.photo_reference}&key=${GOOGLE_PLACES_API_KEY}`
@@ -24,7 +24,7 @@ function PlaceList({place}, {onEndReached}) {
     
     const getRefreshData = async () => {
      	setRefreshing(true);
-        // await RefreshDataFetch();
+        refreshDataFetch();
         console.log('refreshing');
         setRefreshing(false);
     }
@@ -45,9 +45,6 @@ function PlaceList({place}, {onEndReached}) {
         const photoUrl = item.photos
           ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${item.photos[0].photo_reference}&key=${GOOGLE_PLACES_API_KEY}`
           : null;
-
-        // console.log("photoUrl: ", photoUrl);
-
         return (
           <PlaceSection 
             name={item.name} 
