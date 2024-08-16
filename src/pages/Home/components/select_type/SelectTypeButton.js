@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {View, Button, StyleSheet, Text, TouchableOpacity, Modal, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/Feather';
+import LinearGradient from 'react-native-linear-gradient';
 
 import Section from './SelectSection';
 
@@ -131,7 +132,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         // flex: 1,
         // height: 150,
-        backgroundColor: 'red',
+        // backgroundColor: 'red',
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: 1},
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
         borderBottomEndRadius: 6,
         borderBottomStartRadius: 6,
         top: 223,
