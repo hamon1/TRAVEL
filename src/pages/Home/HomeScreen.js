@@ -27,10 +27,11 @@ import {useNavigation} from '@react-navigation/native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 
 import PlaceList from './components/PlaceList';
-import Empty from '../../assets/Empty';
+// import Empty from '../../assets/Empty';
 import Icon from 'react-native-vector-icons/Octicons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import OffModal from './components/BackButton';
+import EmptyView from './components/EmptyView';
 
 import placeData from '../../data/placeData';
 import placeJSON from '../../data/place.json';
@@ -232,7 +233,13 @@ const onPressModalClose = () => {
         {/* ----------------------------------------------------------------지도에서 장소 검색하기 모달 화면 */}
         <SelectTypeButton TypeNow={searchType} sections={TypeSelectList} changeType={changeType}/>
         {/* 장소 정보 리스트 */}
-          {places.length === 0 ? (<View style={style.emptyView}><Text>빈 화면</Text></View>) : <PlaceList place={places} onEndReached={onEndReached} refreshDataFetch={onRefresh} />}
+          {places.length === 0 ? (
+          // <View style={style.emptyView}><Text>빈 화면</Text></View>
+          <EmptyView/>
+          ) : 
+          // <EmptyView/>
+          <PlaceList place={places} onEndReached={onEndReached} refreshDataFetch={onRefresh} />
+          }
           {/* ---------------------------------------------------------------- */}
         </KeyboardAvoidingView>
       </SafeAreaView>
