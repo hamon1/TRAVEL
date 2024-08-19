@@ -53,6 +53,7 @@ function PlaceList({place, onEndReached, refreshDataFetch}) {
             types={item.types} 
             lat={item.geometry.location.lat} 
             lng={item.geometry.location.lng} 
+            rating={item.rating}
           />
         );}
         // <PlaceSection name={item.name} address={item.vicinity} photo_url={photoUrl} types={item.types} lat={item.geometry.location.lat} lng={item.geometry.location.lng} />

@@ -27,6 +27,8 @@
 		<string>itms-apps</string>
 		<string>instagram</string>
 		<string>twitter</string>
+		<string>googlechrome</string>
+		<string>SleepTimeApp</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

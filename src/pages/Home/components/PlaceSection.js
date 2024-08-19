@@ -12,7 +12,7 @@ import Tag from './tag/TagContainer';
 
 
 // text, id, text2, structured_formatting
-const PlaceSection = ({name, address, photo_url, types, lat, lng}) => {
+const PlaceSection = ({name, address, photo_url, types, lat, lng, rating}) => {
   const navigation = useNavigation();
   const typesCount = types.length;
 
@@ -24,7 +24,7 @@ const PlaceSection = ({name, address, photo_url, types, lat, lng}) => {
     <View style={styles.section}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('PlaceDetails', {name: name, address: address, photo_url: photo_url, types: types, lat: lat, lng: lng})
+          navigation.navigate('PlaceDetails', {name: name, address: address, photo_url: photo_url, types: types, lat: lat, lng: lng, rating: rating})
         }>
         <Image source={{uri: photo_url}} style={styles.image} />
         <Text style={styles.text_Name} numberOfLines={1} ellipsizeMode='end'>{name}</Text>
@@ -78,7 +78,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
-    color: 'black',
+    // color: 'black',
+    color: 'white',
     top: 30,
     // left: 10,
     // backgroundColor: 'red',

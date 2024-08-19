@@ -98,7 +98,12 @@ const Place_detaile = ({route}) => {
           <Pressable
             onPress={() => navigation.navigate('reviewScreen', {id: route.params.id})}
             style={styles.reviewHeader}>
-            <Text>별점 평균</Text>
+              {route.params.rating ? (
+
+                <Text>별점 평균: {route.params.rating}</Text>
+              ):
+              <Text>-</Text>
+              }
             <Icon
               name="arrow-forward-ios"
               color={'#fb8c00'}
@@ -173,6 +178,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     // backgroundColor: 'blue',
+    marginRight: 52,
   },
   infoText: {
     fontSize: 15,

@@ -177,6 +177,7 @@ const onPressModalClose = () => {
       lat: details.geometry.location.lat, 
       lng: details.geometry.location.lng,
       photo_url: photoUrl,
+      rating: details.rating,
     });
   };
 
@@ -197,6 +198,27 @@ const onPressModalClose = () => {
     console.log(searchType);
   };
 
+  const goByTMap = useCallback(async () => {
+    console.log('linking');
+    const destinationURL = 'tmap://route?goalname=분당서울대병원&goalx=127.122930&goaly=37.351987' 
+    if (await Linking.canOpenURL(destinationURL)) await Linking.openURL(destinationURL)
+  }, [])
+
+  const openBrowser = async () => {
+    const url = 'https://www.google.com';
+    const appUrl = Platform.OS === 'ios' ? 'googlechrome://' : 'googlechrome://google.com';
+  
+    const supported = await Linking.canOpenURL(appUrl);
+  
+    if (supported) {
+      console.log("!!!");
+      Linking.openURL(appUrl); // Chrome이 설치된 경우 앱에서 열기
+    } else {
+      console.log('http')
+      Linking.openURL(url); // 앱이 없으면 웹사이트로 이동
+    }
+  };
+  
 
   return (
   
@@ -224,8 +246,13 @@ const onPressModalClose = () => {
       </Pressable>
         </View>
         <View style={style.topMenuColumn}>
-        <Pressable style={style.menuButton} >
-        <Text>?</Text>
+        <Pressable style={style.menuButton} onPress={openBrowser}>
+        <Text>구글 크롬 앱 스키마</Text>
+      </Pressable>
+        </View>
+        <View style={style.topMenuColumn}>
+        <Pressable style={style.menuButton} onPress={()=>Linking.openURL('shareddocuments://')}>
+        <Text>파일 앱</Text>
       </Pressable>
         </View>
       </ScrollView>
