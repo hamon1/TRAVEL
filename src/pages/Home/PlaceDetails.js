@@ -29,9 +29,9 @@ const Place_detaile = ({route}) => {
   const navigation = useNavigation();
 
   const onPress = () => {
-    navigation.navigate('addPlan');
-  };
-
+    //navigation.navigate('addPlan');
+    navigation.push('PlanStack');
+  }
   const [isModalVisible, setIsModalVisible] = useState(false);
   useEffect(() => {}, []);
 

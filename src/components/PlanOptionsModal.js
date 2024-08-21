@@ -27,6 +27,10 @@ function PlanOptionsModal({visible, onClose}) {
                  style={styles.actionButton}>
                  <Text style={styles.actionText}>Restaurant</Text>
                 </Pressable>
+                <Pressable
+                 style={styles.actionButton}>
+                 <Text style={styles.actionText}>Others</Text>
+                </Pressable>
             </View>
          </Pressable>
 

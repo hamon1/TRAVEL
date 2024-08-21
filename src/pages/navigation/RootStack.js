@@ -9,7 +9,7 @@ import ChatScreen from '../Chat/ChatScreen';
 import IconAdd from '../../components/IconPlus';
 import PlanScreen from '../Plans/PlanScreen';
 import SignInScreen from '../Login/SignInScreen';
-import Plan_Place_Setting from '../Plans/Plan_Place_Setting';
+import Plan_Place_Setting from '../Plans/screens/Plan_Place_Setting';
 import CalendarView from '../../components/CalendarView';
 import WelcomeScreen from '../../welcome/screens/WelcomeScreen';
 import { useUserContext } from '../../components/UserContext';

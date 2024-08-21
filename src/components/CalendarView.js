@@ -1,20 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import {Calendar} from 'react-native-calendars';
 import { StyleSheet } from "react-native";
+import { format } from "date-fns";
 
 function CalendarView() {
     const markedDates = {
-        '2024-06-28': {
+        '2024-07-21': {
             selected: true,
         },
-        '2024-06-29': {
-            marked: true,
-        },
-    }
+    };
+    
     return (
         <Calendar 
             style={styles.calendar} 
-            markedDates={markedDates}
+            markedDates={markedDates} 
             theme={{
                 selectedDayBackgroundColor: '#009688',
                 arrowColor: '#009688',
