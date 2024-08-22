@@ -245,11 +245,11 @@ const onPressModalClose = () => {
         <Text style={{color:'#5da3f8'}}>Korail</Text>
       </Pressable>
         </View>
-        <View style={style.topMenuColumn}>
+        {/* <View style={style.topMenuColumn}>
         <Pressable style={style.menuButton} onPress={openBrowser}>
         <Text>구글 크롬 앱 스키마</Text>
       </Pressable>
-        </View>
+        </View> */}
         <View style={style.topMenuColumn}>
         <Pressable style={style.menuButton} onPress={()=>Linking.openURL('shareddocuments://')}>
         <Text>파일 앱</Text>

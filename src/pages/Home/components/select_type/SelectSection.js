@@ -2,7 +2,7 @@ import React from 'react';
 
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-const SelectSection = ({key, section, changeType, value, closeModal}) => {
+const SelectSection = ({section, changeType, value, closeModal}) => {
     function onPress() {
         changeType(value);
         closeModal();

@@ -86,6 +86,7 @@ const SelectTypeButton = ({TypeNow, sections, changeType}) => {
 const styles = StyleSheet.create({
     container: {
         // backgroundColor: 'yellow',
+        backgroundColor: 'rgba(0, 0, 0, 0)',
         // justifyContent: 'center',
         // alignItems: 'center',
     },

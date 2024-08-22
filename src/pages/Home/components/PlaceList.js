@@ -71,7 +71,8 @@ function PlaceList({place, onEndReached, refreshDataFetch}) {
 
 const style = StyleSheet.create({
   list: {
-    // top: 20,
+    top: -38,
+    zIndex: -1,
     // flex: 1,
   },
 });
