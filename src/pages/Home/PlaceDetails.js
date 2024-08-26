@@ -23,6 +23,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import AddIcon from '../../components/IconPlus';
 
 const Place_detaile = ({route}) => {
@@ -47,21 +48,38 @@ const Place_detaile = ({route}) => {
   // navigation.setOptions({
   //   headerRight: () => <AddIcon onPress={onPress} name="add" color="black" />,
   // });
-  
-  console.log('data: ', route.params.structured_formatting.main_text);
-  console.log('data: ', route.params);
 
   return (
     <>
       <ScrollView style={styles.container}>
-        <Image style={styles.image} />
-        {/**아래 이미지 지도 - 클릭 시, 지도 확대*/}
-        <Pressable onPress={onPressModalOpen}>
-          <Image style={styles.image_map} />
-        </Pressable>
+        {/* <Image style={styles.image} /> */}
+        <Image source={{uri: route.params.photo_url}} style={styles.image} />
+        {/* <Pressable onPress={onPressModalOpen}> */}
+          {/* <Image style={styles.image_map} /> */}
+          <MapView
+              style={styles.image_map}
+              provider={PROVIDER_GOOGLE}
+              initialRegion={{
+                // latitude: 37.78825,
+                // longitude: -122.4324,
+                latitude: route.params.lat,
+                longitude: route.params.lng,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01,
+              }}
+              >
+                <Marker
+            coordinate={{latitude: route.params.lat,
+            longitude: route.params.lng}}
+            // title={route.params.name}
+            // description={"description"}
+         />
+                </MapView>
+        {/* </Pressable> */}
         <View style={styles.textContainer}>
-          <Text style={styles.nameText}>{route.params.structured_formatting.main_text}</Text>
-          <Text style={styles.idText}>id: id</Text>
+          {/* <Text style={styles.nameText}>name</Text> */}
+          <Text style={styles.nameText}>{route.params.name}</Text>
+          <Text style={styles.idText}>{route.params.address}</Text>
           <Text style={styles.infoText} >aa</Text>
           {/* <Text style={styles.nameText}>{route.params.text}</Text>
           <Text style={styles.idText}>id: {route.params.id}</Text>
@@ -80,7 +98,12 @@ const Place_detaile = ({route}) => {
           <Pressable
             onPress={() => navigation.navigate('reviewScreen', {id: route.params.id})}
             style={styles.reviewHeader}>
-            <Text>별점 평균</Text>
+              {route.params.rating ? (
+
+                <Text>별점 평균: {route.params.rating}</Text>
+              ):
+              <Text>-</Text>
+              }
             <Icon
               name="arrow-forward-ios"
               color={'#fb8c00'}
@@ -93,7 +116,7 @@ const Place_detaile = ({route}) => {
           </View>
         </View>
       </ScrollView>
-      <Modal animationType="fade" transparent={true} visible={isModalVisible}>
+      {/* <Modal animationType="fade" transparent={true} visible={isModalVisible}>
         <View style={styles.ModalView}>
           <Pressable
             onPress={onPressModalClose}
@@ -101,7 +124,7 @@ const Place_detaile = ({route}) => {
           />
           <Image style={styles.ModalMap} />
         </View>
-      </Modal>
+      </Modal> */}
     </>
   );
 };
@@ -155,6 +178,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     // backgroundColor: 'blue',
+    marginRight: 52,
   },
   infoText: {
     fontSize: 15,
@@ -199,7 +223,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     // alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.7)',
     // backgroundColor: 'blue',
   },
   ModalViewTouch: {

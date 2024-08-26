@@ -1,0 +1,13 @@
+// "tourist_attraction": "관광 명소", "cafe": "카페", "lodging": "숙박", "restaurant": "식당", "campground": "캠핑장",
+
+// [
+//     "관광 명소",
+//     "카페",
+//     "숙박",
+//     "식당",
+//     "캠핑장"
+// ]
+
+{
+    "tourist_attraction": "관광 명소", "cafe": "카페", "lodging": "숙박", "restaurant": "식당", "campground": "캠핑장"
+}

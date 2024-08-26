@@ -8,23 +8,36 @@ import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-const PlaceSection = ({text, id, text2, structured_formatting}) => {
+import Tag from './tag/TagContainer';
+
+
+// text, id, text2, structured_formatting
+const PlaceSection = ({name, address, photo_url, types, lat, lng, rating}) => {
   const navigation = useNavigation();
+  const typesCount = types.length;
+
+  // if (typesCount > 0) {
+
+  // }
+  // console.log("photo: ", photo_url);
   return (
     <View style={styles.section}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('PlaceDetails', {text: text, id: id, text2: text2, structured_formatting:structured_formatting})
+          navigation.navigate('PlaceDetails', {name: name, address: address, photo_url: photo_url, types: types, lat: lat, lng: lng, rating: rating})
         }>
-        <Image style={styles.image} />
-        <Text style={styles.text_Name}>{text}</Text>
-        <Text style={styles.text_id}>{id}</Text>
+        <Image source={{uri: photo_url}} style={styles.image} />
+        <Text style={styles.text_Name} numberOfLines={1} ellipsizeMode='end'>{name}</Text>
+        <Text style={styles.text_id}>{address}</Text>
         <Text style={styles.text} numberOfLines={5} ellipsizeMode='middle'>
           Ut nisi consequat ea qui veniam dolor laborum dolor quis eiusmod
           irure. Voluptate culpa voluptate laboris aute nisi velit magna ea ut
           anim consequat mollit. Exercitation proident magna magna et sit enim
           ea exercitation consequat aliqua culpa.
         </Text>
+        {/* <View style={styles.tag_box}> */}
+        <Tag types={types}/>
+        {/* </View> */}
       </TouchableOpacity>
     </View>
   );
@@ -39,6 +52,7 @@ const styles = StyleSheet.create({
     height: 500,
     width: '100%',
     borderBottomWidth: 0.2,
+    borderColor: 'black',
     // justifyContent: 'center',
     // alignItems: 'center',
   },
@@ -65,11 +79,25 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
-    color: 'black',
+    // color: 'black',
+    color: 'white',
     top: 30,
     // left: 10,
     // backgroundColor: 'red',
     margin: 10,
+  },
+  icon: {
+    backgroundColor: 'red',
+    width: 24,
+    height: 24,
+    position: 'absolute',
+    top: 20,
+    right: 10,
+  },
+  tag_box: {
+    top: 60,
+        margin: 10,
+        flexDirection: 'row',
   },
 });
 

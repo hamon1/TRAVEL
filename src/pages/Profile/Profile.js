@@ -5,9 +5,10 @@
  * 아래 공간은 채팅 목록.
  */
 import People from './components/FriendsButton';
-import { getAuth } from '@react-native-firebase/auth';
+import auth, { getAuth } from '@react-native-firebase/auth';
+// import auth from '@react-native-firebase/auth';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Image,
@@ -74,9 +75,27 @@ const Profile = () => {
   const friendCount = chatroom.length;
 
   // 현재 사용자 인증 정보 가져오기
+//   const [LoggedIn, setLoggedIn] = useState(false);
+
+//   const checkLoggedIn = () => {
+//     auth().onAuthStateChanged((user) => {
+//         if (user) {
+//             setLoggedIn(true)
+//             console.log("loggedIn")
+//         } else {
+//             setLoggedIn(false)
+//             console.log("loggedOut")
+//         }
+//     }
+//     )
+// }
+
+// checkLoggedIn();
+
   const auth = getAuth();
   const user = auth.currentUser;
 
+  console.log(auth);
   console.log('user: ' + user);
 
   return (
