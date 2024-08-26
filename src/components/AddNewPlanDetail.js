@@ -34,19 +34,20 @@ function NewPlanButton() {
 
     ActionSheetIOS.showActionSheetWithOptions(
       {
-        options: ['Place', 'Transportation', 'Rantal Home', 'Restaurant', 'Cancle'],
-        cancelButtonIndex: 4.
+        options: ['Place', 'Transportation', 'Rantal Home', 'Restaurant','Others', 'Cancle'],
+        cancelButtonIndex: 5.
       },
       (buttonIndex) => {
         if (buttonIndex === 0) {
-          console.log('Place');
-          movePlace();
+            navigation.push('Plan_Place_Setting');
         } else if (buttonIndex === 1) {
-          console.log('Transportation');
+          navigation.push('PlanTransScreen');
         } else if (buttonIndex === 2) {
-          console.log('Rantal Home');
+          navigation.push('PlanRantalScreen');
         } else if (buttonIndex === 3) {
-          console.log('Restaurant');
+          navigation.push('PlanRestScreen');
+        } else if (buttonIndex === 4) {
+          navigation.push('PlanOtherScreen');
         }
       },
     );

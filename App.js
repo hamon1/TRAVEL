@@ -39,9 +39,13 @@ import addPlan from './src/pages/Plans/PlanListScreen';
 import ChatScreen from './src/pages/Chat/ChatScreen';
 import PlanScreen from './src/pages/Plans/PlanScreen';
 import Plan_Place_Setting from './src/pages/Plans/Plan_Place_Setting';
-import CalendarView from './src/components/CalendarView';
 import MainTab from './src/pages/navigation/MainTabs';
-//import WelcomeScreen from '../../welcome/screens/WelcomeScreen';
+import PlanStack from './src/pages/navigation/PlanStack';
+import PlanOherScreen from './src/pages/Plans/screens/PlanOtherScreen';
+import PlanRestScreen from './src/pages/Plans/screens/PlanRestScreen';
+import PlanTransScreen from './src/pages/Plans/screens/PlanTransScreen';
+import PlanRantalScreen from './src/pages/Plans/screens/PlanRantalScreen';
+import CalendarView from './src/components/CalendarView';
 
 const Stack = createNativeStackNavigator();
 
@@ -76,14 +80,49 @@ function AuthenticatedStack() {
         initialRouteName={HomeScreen}
         // etachInactiveScreens={false}
       />
-      <Stack.Screen name="addPlan" component={addPlan} 
-        options={{title: '계획 목록', headerBackTitleVisible: (false)}}
-      />
       <Stack.Screen name="chatScreen" component={ChatScreen} 
         options={{title: '채팅창'}}
       />
+      <Stack.Screen
+        name='PlanStack'
+        component={PlanStack}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen name="addPlan" component={addPlan} 
+        options={{title: '계획 목록', headerBackTitleVisible: (false)}}
+      />
       <Stack.Screen name="planScreen" component={PlanScreen} 
-         options={{title: ''}}/>
+         options={{title: ''}}
+      />
+      <Stack.Screen 
+        name="PlanOtherScreen" 
+        component={PlanOherScreen} 
+        options={{title: ''}}
+      />
+      <Stack.Screen
+        name="PlanRantalScreen"
+        component={PlanRantalScreen}
+        options={{title: 'PlanRantal'}}
+      />
+        <Stack.Screen
+        name="PlanRestScreen"
+        component={PlanRestScreen}
+        options={{title: 'PlanRest'}}  
+      />
+      <Stack.Screen
+        name="PlanTransScreen"
+        component={PlanTransScreen}
+        options={{title: 'PlanTransScreen'}}
+      />
+      <Stack.Screen
+        name="CalendarView"
+        component={CalendarView}
+      />
+      {/*
+      <Stack.Screen name="planScreen" component={PlanScreen} 
+         options={{title: ''}}
+      />
+      
       <Stack.Screen
         name="Plan_Place_Setting"
         component={Plan_Place_Setting}
@@ -93,6 +132,7 @@ function AuthenticatedStack() {
         name="CalendarView"
         component={CalendarView}
       />
+      */}
     </Stack.Navigator>
   );
 }
@@ -112,8 +152,8 @@ export default function App() {
   return (
     <>
       <AuthContextProvider>
-      <SearchContextProvider>
-        <Navigation />
+        <SearchContextProvider>
+          <Navigation />
         </SearchContextProvider>
       </AuthContextProvider>
     </>
