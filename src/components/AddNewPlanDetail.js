@@ -12,7 +12,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const TABBAR_HEIGHT = 49;
 
-function NewPlanButton() {
+function NewPlanButton({docId}) {
   const insets = useSafeAreaInsets();
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
@@ -31,6 +31,7 @@ function NewPlanButton() {
   const movePlace = () => {
     navigation.push('Plan_Place_Setting');
   };
+  console.log('anp docId', docId);
 
     ActionSheetIOS.showActionSheetWithOptions(
       {
@@ -41,7 +42,7 @@ function NewPlanButton() {
         if (buttonIndex === 0) {
             navigation.push('Plan_Place_Setting');
         } else if (buttonIndex === 1) {
-          navigation.push('PlanTransScreen');
+          navigation.push('PlanTransScreen', {docId: docId});
         } else if (buttonIndex === 2) {
           navigation.push('PlanRantalScreen');
         } else if (buttonIndex === 3) {

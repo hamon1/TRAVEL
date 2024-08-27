@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 16,
         alignItems: 'center',
+        backgroundColor: 'blue',
     },
     circle: {
         width: 24,

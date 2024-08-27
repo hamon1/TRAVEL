@@ -85,7 +85,7 @@ const PlansScreen = () => {
   // 플러스 버튼 클릭시 새로운 플랜 생성 + 바로 그 플랜으로 이동.
   const handlePress = () => {
     onInsert();
-    navigation.navigate('planScreen');
+    navigation.navigate('planScreen', {id: plan.pid});
   }
 
   return (
