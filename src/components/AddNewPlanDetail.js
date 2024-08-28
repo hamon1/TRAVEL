@@ -40,15 +40,15 @@ function NewPlanButton({docId}) {
       },
       (buttonIndex) => {
         if (buttonIndex === 0) {
-            navigation.push('Plan_Place_Setting');
+            navigation.push('PlanPlaceScreen', {docId: docId});
         } else if (buttonIndex === 1) {
           navigation.push('PlanTransScreen', {docId: docId});
         } else if (buttonIndex === 2) {
-          navigation.push('PlanRantalScreen');
+          navigation.push('PlanRantalScreen', {docId: docId});
         } else if (buttonIndex === 3) {
-          navigation.push('PlanRestScreen');
+          navigation.push('PlanRestScreen', {docId: docId});
         } else if (buttonIndex === 4) {
-          navigation.push('PlanOtherScreen');
+          navigation.push('PlanOtherScreen', {docId: docId});
         }
       },
     );

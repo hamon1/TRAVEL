@@ -38,9 +38,10 @@ import addPlace from './src/pages/Plans/PlanScreen'
 import addPlan from './src/pages/Plans/PlanListScreen';
 import ChatScreen from './src/pages/Chat/ChatScreen';
 import PlanScreen from './src/pages/Plans/PlanScreen';
-import Plan_Place_Setting from './src/pages/Plans/Plan_Place_Setting';
 import MainTab from './src/pages/navigation/MainTabs';
 import PlanStack from './src/pages/navigation/PlanStack';
+
+import PlanPlaceScreen from './src/pages/Plans/screens/Plan_Place_Setting';
 import PlanOherScreen from './src/pages/Plans/screens/PlanOtherScreen';
 import PlanRestScreen from './src/pages/Plans/screens/PlanRestScreen';
 import PlanTransScreen from './src/pages/Plans/screens/PlanTransScreen';
@@ -93,6 +94,11 @@ function AuthenticatedStack() {
       />
       <Stack.Screen name="planScreen" component={PlanScreen} 
          options={{title: ''}}
+      />
+      <Stack.Screen 
+      name="PlanPlaceScreen" 
+      component={PlanPlaceScreen}
+      options={'planPlace'}
       />
       <Stack.Screen 
         name="PlanOtherScreen" 

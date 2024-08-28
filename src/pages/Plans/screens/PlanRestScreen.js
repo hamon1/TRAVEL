@@ -1,15 +1,23 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { StyleSheet, View , TextInput, Text} from "react-native";
+import { StyleSheet, View , TextInput, Text, Pressable} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { createBox, createRestBox } from "../lib/boxes";
 import IconRightButton from "../components/IconRightButton";
 import { Icon } from "react-native-vector-icons/MaterialIcons";
-import { Pressable } from "react-native";
+
 import CalendarButton from "../../../components/CalendarButton";
-const PlanRestScreen = () => {
+
+import firestore, {query, orderBy, doc, deleteDoc} from '@react-native-firebase/firestore';
+
+import moment from 'moment';
+
+const PlanRestScreen = ({route}) => {
     const [description, setDescription] = useState('');
     const [checkIn, setCheckIn] = useState('');
     const [checkOut, setCheckOut] = useState('');
+
+    const [plan, setPlan] = useState([]);
+
     const navigation = useNavigation();
     const onSubmit = useCallback(async () => {
         //
@@ -17,11 +25,36 @@ const PlanRestScreen = () => {
         await createRestBox({checkIn, checkOut});
     }, [checkIn, checkOut, navigation]);
 
+    const onInsert = async () => {
+        try {
+          const nextId = plan.length > 0 ? Math.max(...plan.map(p => p.pid)) + 1 : 1;
+          const newPlan = {
+            pid: nextId.toString(),
+            userId: 0,
+            type: 'restaurant',
+            place: 'a',
+            d_month: 1,
+            d_day: 22,
+            date: moment().format('l'),
+            time: moment().format('LT'),
+            timestamp: new Date(),
+          };
+          await firestore()
+          .collection('plans')
+          .doc(route.params.docId)
+          .collection('planDetails')
+          .add(newPlan);
+          console.log("Inserted plan: " + newPlan.id + "date: " + newPlan.timestamp + newPlan.date);
+        } catch (error) {
+          console.error("Error adding plan: " + error);
+        }
+      };
+
     useEffect(() => {
         navigation.setOptions({
-            headerRight: () => <IconRightButton onPress={onSubmit} name="send" />,
+            headerRight: () => <IconRightButton onPress={onInsert} name="send" />,
         });
-    }, [navigation, onSubmit]);
+    }, [navigation]);
     
     return (
         <View style={styles.background}>
