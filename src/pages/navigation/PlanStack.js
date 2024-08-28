@@ -4,7 +4,7 @@ import PlanOherScreen from '../Plans/screens/PlanOtherScreen';
 import PlanRantalScreen from '../Plans/screens/PlanRantalScreen';
 import PlanTransScreen from '../Plans/screens/PlanTransScreen';
 import PlanRestScreen from '../Plans/screens/PlanRestScreen';
-import Plan_Place_Setting from '../Plans/screens/Plan_Place_Setting';
+import Plan_Place_Setting from '../Plans/screens/PlanPlaceScreen';
 import CalendarView from '../../components/CalendarView';
 import addPlan from '../Plans/PlanListScreen';
 import PlanScreen from '../Plans/PlanScreen';

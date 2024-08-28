@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, Image, StyleSheet, TouchableOpacity, Dimensions} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, Pressable} from 'react-native';
 
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
@@ -24,7 +24,7 @@ const RantalBox = () => {
             </View>
 
 
-        <TouchableOpacity style={styles.Box}>
+        <Pressable style={styles.Box}>
             <View style={styles.text}>
                 <View style={styles.textline_1}>
                     <View style={styles.place_name_text_box}>
@@ -35,10 +35,10 @@ const RantalBox = () => {
                     </View>
                 </View>
                 <View style={styles.textline_2}>
-                    <Text>주소</Text>
+                    <Text>00-00-00</Text>
                 </View>
                 <View style={styles.textline_2}>
-                    <Text>주소</Text>
+                    <Text>~00-00-00</Text>
                 </View>
             </View>
             <View style={styles.image}>
@@ -55,7 +55,7 @@ const RantalBox = () => {
                 }}
                 />
             </View>
-        </TouchableOpacity>
+        </Pressable>
         </View>
     )
 }
@@ -79,10 +79,10 @@ const styles = StyleSheet.create({
     },
     line: {
         width: 10,
-        height: 200,
+        height: 250 + 40,
         backgroundColor: '#60A3D3',
         position: 'absolute',
-        top: -200 + 20,
+        top: 20,
         zIndex: 0,
     },
     dot_image: {

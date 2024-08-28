@@ -41,7 +41,7 @@ import PlanScreen from './src/pages/Plans/PlanScreen';
 import MainTab from './src/pages/navigation/MainTabs';
 import PlanStack from './src/pages/navigation/PlanStack';
 
-import PlanPlaceScreen from './src/pages/Plans/screens/Plan_Place_Setting';
+import PlanPlaceScreen from './src/pages/Plans/screens/PlanPlaceScreen';
 import PlanOherScreen from './src/pages/Plans/screens/PlanOtherScreen';
 import PlanRestScreen from './src/pages/Plans/screens/PlanRestScreen';
 import PlanTransScreen from './src/pages/Plans/screens/PlanTransScreen';

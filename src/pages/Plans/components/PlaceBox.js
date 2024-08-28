@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, Image, StyleSheet, TouchableOpacity, Dimensions} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, Pressable} from 'react-native';
 
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
@@ -24,7 +24,7 @@ const PlaceBox = () => {
             </View>
 
 
-        <TouchableOpacity style={styles.Box}>
+        <Pressable style={styles.Box}>
             <View style={styles.text}>
                 <View style={styles.textline_1}>
                     <View style={styles.place_name_text_box}>
@@ -52,7 +52,7 @@ const PlaceBox = () => {
                 }}
                 />
             </View>
-        </TouchableOpacity>
+        </Pressable>
         </View>
     )
 }
@@ -76,10 +76,10 @@ const styles = StyleSheet.create({
     },
     line: {
         width: 10,
-        height: 200,
+        height: 200 + 40,
         backgroundColor: '#FCD035',
         position: 'absolute',
-        top: -200 + 20,
+        top: 20,
         zIndex: 0,
     },
     dot_image: {
