@@ -41,12 +41,15 @@ import PlanScreen from './src/pages/Plans/PlanScreen';
 import MainTab from './src/pages/navigation/MainTabs';
 import PlanStack from './src/pages/navigation/PlanStack';
 
-import PlanPlaceScreen from './src/pages/Plans/screens/PlanPlaceScreen';
-import PlanOherScreen from './src/pages/Plans/screens/PlanOtherScreen';
-import PlanRestScreen from './src/pages/Plans/screens/PlanRestScreen';
-import PlanTransScreen from './src/pages/Plans/screens/PlanTransScreen';
-import PlanRantalScreen from './src/pages/Plans/screens/PlanRantalScreen';
-import CalendarView from './src/components/CalendarView';
+import PlaceSearchScreen from './src/pages/Plans/screens/PlaceSearchScreen';
+
+// import PlanPlaceScreen from './src/pages/Plans/screens/PlanPlaceScreen';
+// import PlanOherScreen from './src/pages/Plans/screens/PlanOtherScreen';
+// import PlanRestScreen from './src/pages/Plans/screens/PlanRestScreen';
+// import PlanTransScreen from './src/pages/Plans/screens/PlanTransScreen';
+// import PlanRantalScreen from './src/pages/Plans/screens/PlanRantalScreen';
+
+// import CalendarView from './src/components/CalendarView';
 
 const Stack = createNativeStackNavigator();
 
@@ -95,7 +98,12 @@ function AuthenticatedStack() {
       <Stack.Screen name="planScreen" component={PlanScreen} 
          options={{title: ''}}
       />
-      <Stack.Screen 
+       <Stack.Screen 
+      name="PlaceSearchScreen" 
+      component={PlaceSearchScreen}
+      options={''}
+      />
+      {/* <Stack.Screen 
       name="PlanPlaceScreen" 
       component={PlanPlaceScreen}
       options={'planPlace'}
@@ -123,7 +131,7 @@ function AuthenticatedStack() {
       <Stack.Screen
         name="CalendarView"
         component={CalendarView}
-      />
+      /> */}
       {/*
       <Stack.Screen name="planScreen" component={PlanScreen} 
          options={{title: ''}}

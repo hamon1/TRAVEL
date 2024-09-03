@@ -1,8 +1,8 @@
-import React from "react";
-import CalendarView from '../../components/CalendarView';
+// import React from "react";
+// import CalendarView from '../../components/CalendarView';
 
-function CalendarScreen() {
-    return <CalendarView />;
-}
+// function CalendarScreen() {
+//     return <CalendarView />;
+// }
 
-export default CalendarScreen;
+// export default CalendarScreen;

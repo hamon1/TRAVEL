@@ -137,6 +137,8 @@ const styles = StyleSheet.create({
         width: BOX_WIDTH - 26,
         height: 112,
         borderRadius: 15,
+        borderWidth: 0.2,
+        borderColor: 'gray',
         // marginBottom: 10,
     }
 

@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
         top: 20,
         left: 20,
         borderRadius: 15,
-        backgroundColor: 'white',
+        backgroundColor: '#E4E4E4',
         padding: 12,
     },
     addbutton: {
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
         padding: 12,
     },
     background: {
-        backgroundColor: 'gray',
+        backgroundColor: '#616161',
         height: '100%',
     },
     input: {

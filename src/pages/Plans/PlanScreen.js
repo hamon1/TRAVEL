@@ -1,89 +1,25 @@
-/*
-import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-
-import Addbutton from '../../components/AddNewPlanDetail';
-
-//임시
-import PlanDetail from './PlanDetailList';
-
-
-
-const PlanScreen = ({route}) => {
-  const [show, setShow] = useState(false);
-
-  return (
-    <View style={styles.block}>
-      <Text>plan screen</Text>
-      <PlanDetail />
-      <Addbutton />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  block: {
-    flex: 1,
-    // backgroundColor: 'red',
-  },
-});
-
-export default PlanScreen;
-*/
-
 /** 계획 스크린.
  * 
  * 장소, 숙박, 이동 수단 등 선택 -> 계획 리스트에 추가
  * 각 스크린(장소, 숙박, 이동 수단, 식단, 기타) 검색, 추가 기능
  */
-/*
-import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
 
-import Addbutton from '../../components/AddNewPlanDetail';
-
-//임시
-import PlanDetail from './PlanDetailList';
-
-
-
-const PlanScreen = ({route}) => {
-  const [show, setShow] = useState(false);
-
-  return (
-    <View style={styles.block}>
-      <Text>plan screen</Text>
-*/
-      {/* <Text>id: {route.params.id}</Text> */}
-/*
-      <PlanDetail />
-      <Addbutton />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  block: {
-    flex: 1,
-    // backgroundColor: 'red',
-  },
-});
-export default PlanScreen;
-*/
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 import Addbutton from '../../components/AddNewPlanDetail';
 
 //임시
 import PlanDetail from './PlanDetailList';
 import Emptyplan from './components/Emptyplan';
-import PlanBoxList from './components/PlanBoxList';
+// import PlanBoxList from './components/PlanBoxList';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { getBoxes, getNewerBoxes } from './lib/boxes';
+// import { getBoxes, getNewerBoxes } from './lib/boxes';
 import { FlatList, RefreshControl } from 'react-native-gesture-handler';
-import PlanBox from './components/PlanBox';
+// import PlanBox from './components/PlanBox';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+import {useNavigation} from '@react-navigation/native';
 
 import firestore, {query, orderBy, doc, deleteDoc} from '@react-native-firebase/firestore';
 
@@ -93,15 +29,23 @@ import RantalBox from './components/RantalhomeBox';
 import RastaurantBox from './components/RastaurantBox';
 
 const PlanScreen = ({route}) => {
-  const [refreshing, setRefreshing] = useState(false);
-  const [boxes, setBoxes] = useState(null);
+  // const [refreshing, setRefreshing] = useState(false);
+  // const [boxes, setBoxes] = useState(null);
   const [plans, setPlan] = useState([]);
   const [docId, setDocId] = useState(null);
-// console.log('plan pid', route.params.id);
+console.log('plan pid', route.params.docId);
+
+const navigation = useNavigation();
 
 useEffect(() => {
   const fetchPlanDetails = async () => {
     try {
+      console.log('fetching plan details:', route.params.docId);
+      
+      // if (!route.params || !route.params.id) {
+      //   throw new Error("Invalid or missing route parameter: id");
+      // }
+      // if (!route.params.id)
       const querySnapshot = await firestore()
         .collection('plans')
         .where('pid', '==', route.params.id)
@@ -154,6 +98,8 @@ useEffect(() => {
       case 'place':
         return (
           <PlaceBox
+            // docId={docId}
+            item={item}
             // id={item.id}
             // description={item.description}
           />
@@ -184,33 +130,8 @@ useEffect(() => {
     }
   }
 
-  useEffect(() => {
-    getBoxes().then(setBoxes);
-  }, []);
-
-  const onRefresh = async () => {
-    if (!boxes || boxes.length === 0 || refreshing) {
-      return;
-    }
-    const firstBox = boxes[0];
-    setRefreshing(true);
-    const newerBoxes = await getNewerBoxes(firstBox.id);
-    setRefreshing(false);
-    if (newerBoxes.length === 0) {
-      return;
-    }
-    setBoxes(newerBoxes.concat(boxes));
-  };
   return (
     <GestureHandlerRootView>
-    {/* <FlatList
-      data={boxes}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-      refreshControl={
-        <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
-      }
-    /> */}
     {
       plans.length === 0? (
         <View><Text>empty</Text></View>
@@ -223,21 +144,28 @@ useEffect(() => {
     }
       {/* <PlaceBox/> */}
     <Addbutton docId={docId}/>
+    {/* <TouchableOpacity style={styles.add} onPress={()=>{console.log('planScreen -> ', route.params.docId)}}/> */}
+    {route.params.docId ? (
+      <TouchableOpacity style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: route.params.docId})}}/>
+    ) : 
+    <TouchableOpacity style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: docId})}}/>
+      }
     </GestureHandlerRootView>
   );
 }
-
-// const renderItem = ({item}) => (
-//   <PlanBox
-//     description={item.description}
-//     id={item.id}
-//   />
-// );
 
 const styles = StyleSheet.create({
   block: {
     flex: 1,
     // backgroundColor: 'red',
+  },
+  add: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'green',
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
   },
 });
 

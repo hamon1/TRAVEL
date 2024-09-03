@@ -7,7 +7,7 @@ import {FlatList, View, Text, StyleSheet, EmptyView} from 'react-native';
 
 import PlanSection from './PlanSection';
 
-function PlanList({plan, onRemove}) {
+function PlanList({plan, onRemove, docId}) {
   return (
     <>
       <FlatList
@@ -24,6 +24,7 @@ function PlanList({plan, onRemove}) {
             time={item.time}
             // timestamp={item.timestamp}
             onRemove={onRemove}
+            docId={docId}
           />
         )}
         keyExtractor={item => item.id.toString()}

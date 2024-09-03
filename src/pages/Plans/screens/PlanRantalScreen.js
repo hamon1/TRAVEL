@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { StyleSheet, View , TextInput, Text, Pressable} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { createBox } from "../lib/boxes";
-import IconRightButton from "../components/IconRightButton";
+// import { createBox } from "../lib/boxes";
+// import IconRightButton from "../components/IconRightButton";
 import { Icon } from "react-native-vector-icons/MaterialIcons";
 
-import CalendarButton from "../../../components/CalendarButton";
+// import CalendarButton from "../../../components/CalendarButton";
 
 import firestore, {query, orderBy, doc, deleteDoc} from '@react-native-firebase/firestore';
 
