@@ -1,199 +1,3 @@
-// import React, {useState, useEffect} from "react";
-// import {View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, Pressable} from 'react-native';
-
-// import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-
-// import firestore, {query, orderBy, doc, deleteDoc} from '@react-native-firebase/firestore';
-
-// const WINDOW_WIDTH = Dimensions.get('screen').width;
-// const BOX_WIDTH = WINDOW_WIDTH * 2/3;
-// const EMPTYPLACE = WINDOW_WIDTH - BOX_WIDTH;
-
-// const PlaceBox = ({docId}) => {
-//     const [plan, setPlan] = useState(null);
-
-//     useEffect(() => {
-//         const fetchPlanDetails = async () => {
-//           try {
-//             // const querySnapshot = await firestore()
-//             //   .collection('plans')
-//             //   .where('pid', '==', route.params.id)
-//             //   .get();
-      
-//             // if (true) {
-//             //   const doc = querySnapshot.docs[0]; // 겹치는 문서는 없을 예정이기 때문에 첫 문서를 가져옴
-//             //   const docId = doc.id;
-//             //   setDocId(docId);
-//             //   console.log('docId', docId);
-      
-//               // 하위 컬렉션(planDetails)에서 데이터 가져오기
-//               const unsubscribe = firestore()
-//                 .collection('plans')
-//                 .doc(docId)
-//                 .collection('planDetails')
-//                 .onSnapshot(snapshot => {
-//                   const fetchedPlans = snapshot.docs.map(detailDoc => ({
-//                     id: detailDoc.id,
-//                     ...detailDoc.data(),
-//                   }));
-//                   setPlan(fetchedPlans); // 상태 업데이트
-//                   console.log('Fetched planDetails', fetchedPlans);
-//                 }, error => {
-//                   console.error("Error fetching planDetails: ", error);
-//                 });
-      
-//               // Clean up the subscription
-//               return () => unsubscribe();
-//             // } else {
-//             //   console.log("No document matches the query.");
-//             // }
-//           } catch (error) {
-//             console.error("Error fetching plans: ", error);
-//           }
-//         };
-      
-//         fetchPlanDetails();
-//         console.log('?', plan);
-//       }, []);
-      
-//     // console.log(docId);
-//     return (
-//         <View style={styles.container}>
-//             <View style={styles.line_section}>
-//                 <View style={styles.line}></View>
-//                 <View>
-//                 <View style={styles.time}>
-//                     <Text>00:00</Text>
-//                 </View>
-//             <Image
-//           style={styles.dot_image}
-//           source={require('../assets/place_dot.png')}
-//           />
-//           </View>
-//             </View>
-
-
-//         <Pressable style={styles.Box}>
-//             <View style={styles.text}>
-//                 <View style={styles.textline_1}>
-//                     <View style={styles.place_name_text_box}>
-//                         <Text style={styles.place_name_text}>{plan[0].placeName}</Text>
-//                     </View>
-//                     <View style={styles.date_box}>
-//                         <Text>24-00-00</Text>
-//                     </View>
-//                 </View>
-//                 <View style={styles.textline_2}>
-//                     <Text >{plan[0].address}</Text>
-//                 </View>
-//             </View>
-//             <View style={styles.image}>
-//             <MapView
-//               style={styles.image_map}
-//               provider={PROVIDER_GOOGLE}
-//               initialRegion={{
-//                 //   latitude: 37.78825,
-//                 //   longitude: -122.4324,
-//                   latitude: plan[0].lat,
-//                   longitude: plan[0].lng,
-//                   latitudeDelta: 0.9,
-//                   longitudeDelta: 0.9,
-//                 }}
-//                 />
-//             </View>
-//         </Pressable>
-//         </View>
-//     )
-// }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         width: '100%',
-//         // backgroundColor: 'green',
-//         flexDirection: 'row',
-//         paddingBottom: 16,
-//         paddingTop: 16,
-//     },
-//     line_section: {
-//         width: EMPTYPLACE,
-//         alignItems: 'center',
-//     },
-//     time: {
-//         position: 'absolute',
-//         top: 12,
-//         left: -34,
-//     },
-//     line: {
-//         width: 10,
-//         height: 200 + 40,
-//         backgroundColor: '#FCD035',
-//         position: 'absolute',
-//         top: 20,
-//         zIndex: 0,
-//     },
-//     dot_image: {
-//         width: 40,
-//         height: 40,
-//         zIndex: 1000,
-//     },
-//     Box: {
-//         backgroundColor: '#d9d9d9',
-//         width: BOX_WIDTH,
-//         height: 200,
-//         borderRadius: 15,
-//         padding: 10,
-//         right: 24,
-//         // justifyContent: 'center',
-//         // alignItems: 'center',
-//     },
-//     text: {
-//         // backgroundColor: 'yellow',
-//         margin: 8,
-//     },
-//     textline_1: {
-//         flexDirection: 'row',
-//         marginBottom: 10,
-//     },
-//     place_name_text_box: {
-//         // backgroundColor: 'magenta',
-//         marginRight: 10,
-//     },
-//     place_name_text: {
-//         fontWeight: 'bold',
-//         fontSize: 15,
-//     },
-//     date_box: {
-//         // backgroundColor: 'blue',
-//         left: 10,
-//     },
-//     date_text: {
-//         fontWeight: '100',
-//     },
-//     textline_2: {
-//         // backgroundColor: 'green',
-//     },
-//     image: {
-//         alignItems: 'center',
-//         margin: 8,
-//         // backgroundColor: 'red',
-//         // position: 'absolute',
-//         // bottom: -50,
-//         // backgroundColor: 'blue',
-//         // position: 'absolute',
-//         // top: -50,
-//     },
-//     image_map: {
-//         width: BOX_WIDTH - 26,
-//         height: 112,
-//         borderRadius: 15,
-//         // marginBottom: 10,
-//     }
-
-// })
-
-// export default PlaceBox;
-
-
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet, Pressable, Dimensions, ActivityIndicator } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
@@ -252,6 +56,8 @@ const PlaceBox = ({ item }) => {
     //         </View>
     //     );
     // }
+    const time_string = item.time;
+    const time_split = time_string.split(' ')[1];
 
     return (
         <View style={styles.container}>
@@ -259,7 +65,7 @@ const PlaceBox = ({ item }) => {
                 <View style={styles.line}></View>
                 <View>
                     <View style={styles.time}>
-                        <Text>00:00</Text>
+                        <Text style={styles.time_string_text}>{time_split}</Text>
                     </View>
                     <Image
                         style={styles.dot_image}
@@ -345,12 +151,18 @@ const styles = StyleSheet.create({
     text: {
         margin: 8,
     },
+    time_string_text: {
+        color: 'white',
+    },
     textline_1: {
         flexDirection: 'row',
         marginBottom: 10,
+        justifyContent: 'space-between',
+
+        marginRight: 10,
     },
     place_name_text_box: {
-        marginRight: 10,
+        // marginRight: 10,
     },
     place_name_text: {
         fontWeight: 'bold',
@@ -368,6 +180,7 @@ const styles = StyleSheet.create({
         margin: 8,
     },
     image_map: {
+        
         width: BOX_WIDTH - 26,
         height: 112,
         borderRadius: 15,

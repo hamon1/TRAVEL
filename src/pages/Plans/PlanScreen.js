@@ -131,30 +131,36 @@ useEffect(() => {
   }
 
   return (
-    <GestureHandlerRootView>
-    {
-      plans.length === 0? (
-        <View><Text>empty</Text></View>
-      ) : 
-      <FlatList
-        data={plans}
-        keyExtractor={item => item.id}
-        renderItem={renderItem}
-        />
-    }
-      {/* <PlaceBox/> */}
-    <Addbutton docId={docId}/>
-    {/* <TouchableOpacity style={styles.add} onPress={()=>{console.log('planScreen -> ', route.params.docId)}}/> */}
-    {route.params.docId ? (
-      <TouchableOpacity style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: route.params.docId})}}/>
-    ) : 
-    <TouchableOpacity style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: docId})}}/>
+    <View style={styles.bg}>
+      <GestureHandlerRootView>
+      {
+        plans.length === 0? (
+          <View><Text>empty</Text></View>
+        ) : 
+        <FlatList
+          data={plans}
+          keyExtractor={item => item.id}
+          renderItem={renderItem}
+          />
       }
-    </GestureHandlerRootView>
+        {/* <PlaceBox/> */}
+      {/* <Addbutton docId={docId}/> */}
+      {/* <TouchableOpacity style={styles.add} onPress={()=>{console.log('planScreen -> ', route.params.docId)}}/> */}
+      {route.params.docId ? (
+        <Addbutton style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: route.params.docId})}}/>
+      ) : 
+      <Addbutton style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: docId})}}/>
+        }
+      </GestureHandlerRootView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  bg: {
+    flex: 1,
+    backgroundColor: '#616161',
+  },
   block: {
     flex: 1,
     // backgroundColor: 'red',
