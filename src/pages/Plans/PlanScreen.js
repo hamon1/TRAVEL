@@ -37,6 +37,10 @@ console.log('plan pid', route.params.docId);
 
 const navigation = useNavigation();
 
+navigation.setOptions({
+  title: route.params.title,
+});
+
 useEffect(() => {
   const fetchPlanDetails = async () => {
     try {
@@ -98,15 +102,16 @@ useEffect(() => {
       case 'place':
         return (
           <PlaceBox
-            // docId={docId}
+            docId={docId}
             item={item}
             // id={item.id}
             // description={item.description}
           />
         );
-      case 'trans':
+      case 'transportation':
         return (
           <TransBox
+          item={item}
             // description={item.description}
             // id={item.id}
           />
@@ -114,6 +119,7 @@ useEffect(() => {
         case 'rantalHome':
         return (
           <RantalBox
+          item={item}
             // description={item.description}
             // id={item.id}
           />
@@ -121,6 +127,7 @@ useEffect(() => {
         case 'restaurant':
         return (
           <RastaurantBox
+          item={item}
             // description={item.description}
             // id={item.id}
           />
@@ -149,7 +156,7 @@ useEffect(() => {
       {route.params.docId ? (
         <Addbutton style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: route.params.docId})}}/>
       ) : 
-      <Addbutton style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: docId})}}/>
+      <Addbutton style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: docId, edit: false})}}/>
         }
       </GestureHandlerRootView>
     </View>

@@ -1,33 +1,35 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Modal, TouchableOpacity, Pressable} from 'react-native';
 
-const TypePicker = ({visible, setModalClose, changePlaceSelector}) => {
+const TypePicker = ({visible, setModalClose, changePlaceSelector, values, width, positon}) => {
     // const [isModalVisible, setModalVisible] = useState(false);
 
     const changeEditBox = (type) => {
         changePlaceSelector(type);
         setModalClose();
     };
+    console.log(values.length);
 
     return (
         <Modal style={styles.container} transparent={true} visible={visible} animationType='fade'>
             <Pressable style={styles.bg} onPress={()=>setModalClose()}>
-                <View style={styles.block}>
-                    <TouchableOpacity style={styles.row} onPress={()=>changeEditBox('A')}>
-                        <Text style={styles.rowText}>관광명소</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.row} onPress={()=>changeEditBox('B')}>
-                        <Text style={styles.rowText}>이동수단</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.row}>
-                        <Text style={styles.rowText}>숙소</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.row}>
-                        <Text style={styles.rowText}>식당/카페</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.row}>
-                        <Text style={styles.rowText}>기타</Text>
-                    </TouchableOpacity>
+                <View style={[styles.block, {width: width, top: 236 + positon}]}>
+                    {/* {['관광지', '이동수단', '숙소', '식당/카페', '기타'].map((item, index)=> {
+                        return (
+                            <TouchableOpacity key={index} style={styles.row} onPress={()=>changeEditBox(index)}>
+                                <Text style={styles.rowText}>{item}</Text>
+                            </TouchableOpacity>
+                        )
+                    })} */}
+                    {values.map((item, index)=> {
+                        
+                        // console.log(values);
+                        return (
+                            <TouchableOpacity key={index} style={styles.row} onPress={()=>changeEditBox(index)}>
+                                <Text style={styles.rowText}>{item}</Text>
+                            </TouchableOpacity>
+                        )
+                    })}
                 </View>
             </Pressable>
         </Modal>
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
     },
     block: {
         // backgroundColor: 'red',
-        width: 88,
+        // width: 88,
         // height: 100,
         top: 236,
         left: '5%',

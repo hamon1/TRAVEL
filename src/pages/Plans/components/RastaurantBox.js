@@ -7,14 +7,18 @@ const WINDOW_WIDTH = Dimensions.get('screen').width;
 const BOX_WIDTH = WINDOW_WIDTH * 2/3;
 const EMPTYPLACE = WINDOW_WIDTH - BOX_WIDTH;
 
-const RastaurantBox = () => {
+const RastaurantBox = ({ item }) => {
+
+    const time_string = item.d_time;
+    const time_split = time_string.split(' ')[1];
+
     return (
         <View style={styles.container}>
             <View style={styles.line_section}>
                 <View style={styles.line}></View>
                 <View>
                 <View style={styles.time}>
-                    <Text>00:00</Text>
+                    <Text style={styles.time_string_text}>{time_split}</Text>
                 </View>
             <Image
           style={styles.dot_image}
@@ -28,14 +32,14 @@ const RastaurantBox = () => {
             <View style={styles.text}>
                 <View style={styles.textline_1}>
                     <View style={styles.place_name_text_box}>
-                        <Text style={styles.place_name_text}>강원대학교</Text>
+                        <Text numberOfLines={1} ellipsizeMode='middle' style={styles.place_name_text}>{item.placeName}</Text>
                     </View>
                     <View style={styles.date_box}>
-                        <Text>24-00-00</Text>
+                        <Text>{item.d_date}</Text>
                     </View>
                 </View>
                 <View style={styles.textline_2}>
-                    <Text>주소</Text>
+                    <Text>{item.address}</Text>
                 </View>
             </View>
             <View style={styles.image}>
@@ -90,7 +94,7 @@ const styles = StyleSheet.create({
     Box: {
         backgroundColor: '#d9d9d9',
         width: BOX_WIDTH,
-        height: 200,
+        height: 200 + 16,
         borderRadius: 15,
         padding: 10,
         right: 24,
@@ -101,11 +105,16 @@ const styles = StyleSheet.create({
         // backgroundColor: 'yellow',
         margin: 8,
     },
+    time_string_text: {
+        color: 'white',
+    },
     textline_1: {
         flexDirection: 'row',
         marginBottom: 10,
+        justifyContent: 'space-between',
     },
     place_name_text_box: {
+        width: 142,
         // backgroundColor: 'magenta',
         marginRight: 10,
     },

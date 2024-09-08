@@ -52,7 +52,7 @@ const PlanSection = ({pid, title, text, text2, id, date, time, onRemove, onPress
     <View>
       <TouchableOpacity
         style={styles.section}
-        onPress={() => navigation.navigate('planScreen', {id: pid, docId: docId})}>
+        onPress={() => navigation.navigate('planScreen', {title: title, id: pid, docId: docId})}>
         <Text style={styles.text_Name}>{title}</Text>
         <View style={styles.dateBox}>
           {/* <Icon name="calendar" size={20} color="black" style={styles.iconCalender}/> */}

@@ -96,12 +96,12 @@ function AuthenticatedStack() {
         options={{title: '계획 목록', headerBackTitleVisible: (false)}}
       />
       <Stack.Screen name="planScreen" component={PlanScreen} 
-         options={{title: ''}}
+         options={{title: '', headerBackTitleVisible: (false)}}
       />
        <Stack.Screen 
       name="PlaceSearchScreen" 
       component={PlaceSearchScreen}
-      options={''}
+      options={{title:''}}
       />
       {/* <Stack.Screen 
       name="PlanPlaceScreen" 

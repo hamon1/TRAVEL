@@ -20,8 +20,7 @@ import Calendar from './Calendar';
 
 import { formatDate } from '../util/FormatDate';
 
-const EditPlace = ({docId, placeData, changePlaceSelector, box_type, edit, dd_date, dd_time, dataId}) => {
-
+const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type}) => {
     const [plan, setPlan] = useState([]);
 
     moment.locale('ko');
@@ -37,9 +36,8 @@ const EditPlace = ({docId, placeData, changePlaceSelector, box_type, edit, dd_da
 
     const navigation = useNavigation();
 
-    console.log('edit place:', docId);
+    // console.log('edit:', docId);
 
-    console.log('data: ', placeData);
     // console.log(moment.locale());
 
     const onInsert = async () => {
@@ -49,8 +47,7 @@ const EditPlace = ({docId, placeData, changePlaceSelector, box_type, edit, dd_da
             const newPlan = {
             pid: nextId.toString(),
             userId: 0,
-            type: 'place',
-            data: placeData,
+            type: 'rantalHome',
             placeName: placeData.data.structured_formatting.main_text,
             address: placeData.data.description,
             lat: placeData.details.geometry.location.lat,
@@ -81,62 +78,15 @@ const EditPlace = ({docId, placeData, changePlaceSelector, box_type, edit, dd_da
             .update({ DataId: docRef.id }); // ID를 문서 데이터에 업데이트
 
             console.log("Document ID added to the data: ", docRef.id);
-
         } catch (error) {
         console.error("Error adding plan: " + error);
         }
     };
 
-    const onUpdate = async () => {
-        try {
-            console.log('updating ', dataId)
-            if (dataId) {
-                console.log('updating -> ', docId);
-                const updatedPlan = {
-                    placeName: placeData.data.structured_formatting.main_text,
-                    address: placeData.data.description,
-                    lat: placeData.details.geometry.location.lat,
-                    lng: placeData.details.geometry.location.lng,
-                    d_date: date,
-                    d_time: time,
-                    timestamp: new Date(),
-                };
-
-                await firestore()
-                    .collection('plans')
-                    .doc(docId)
-                    .collection('planDetails')
-                    .doc(dataId)
-                    .update(updatedPlan);
-                
-                console.log("Updated plan: " + dataId);
-            } else {
-                console.error("Error: Plan ID is not set");
-            }
-        } catch (error) {
-            console.error("Error updating plan: " + error);
-        }
-    };
-
-
-    const handleSubmit = () => {
-        if (edit) {
-            onUpdate();  // 수정 모드일 때 업데이트
-        } else {
-            onInsert();  // 추가 모드일 때 새로 생성
-        }
+    const addPlan = () => {
+        onInsert();
         navigation.pop();
     }
-
-    // const addPlan = () => {
-    //     onInsert();
-    //     navigation.pop();
-    // }
-
-    // const editPlan = () => {
-    //     // edit();
-    //     navigation.pop();
-    // }
 
     const setModalOpen = () => {
         setModalVisible(true);
@@ -175,7 +125,7 @@ const EditPlace = ({docId, placeData, changePlaceSelector, box_type, edit, dd_da
             <View style={styles.block}>
                 <View style={styles.typeTextSection}>
                     <TouchableOpacity style={styles.typeBtn} onPress={setModalOpen}>
-                        <Text style={styles.typeText}>관광지</Text>
+                        <Text style={styles.typeText}>숙소</Text>
                         <IconOcticons name="triangle-down" color="#616161" size={20}/>
                     </TouchableOpacity>
                     <TypePicker visible={isModalVisible} setModalClose={setModalClose} changePlaceSelector={changePlaceSelector} values={box_type} width={88} positon={0}/>
@@ -222,7 +172,7 @@ const EditPlace = ({docId, placeData, changePlaceSelector, box_type, edit, dd_da
             <TouchableOpacity style={styles.cancelBtn} onPress={() => {navigation.pop()}}>
                 <Text style={styles.cancelText}>취소</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.addBtn} onPress={handleSubmit}>
+            <TouchableOpacity style={styles.addBtn} onPress={addPlan}>
                 <Text style={styles.addText}>추가</Text>
             </TouchableOpacity>
             </View>
@@ -369,4 +319,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default EditPlace;
+export default EditRantalHome;

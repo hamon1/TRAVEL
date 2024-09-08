@@ -2,6 +2,8 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 
+import moment from 'moment';
+
 LocaleConfig.locales.fr = {
     monthNames: [
         '01월',
@@ -56,6 +58,11 @@ LocaleConfig.locales.fr = {
 LocaleConfig.defaultLocale = 'fr';
 
 const Calendars = ({handleDateChange}) => {
+    const date = moment().format('L');
+    const [year, month, day] = date.split('.').filter(Boolean);
+
+    const calender_base_date = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+
     return (
         <View style={styles.bg}>
             <Calendar 
@@ -76,7 +83,7 @@ const Calendars = ({handleDateChange}) => {
                 selectedDayBackgroundColor: '#fb8c00',
                 arrowColor: '#fb8c00',
             }}
-            current={'2024-08-30'}
+            current={calender_base_date}
             onDayPress={(day) => 
                 // console.log('selected day', day)
                 handleDateChange(day.dateString)

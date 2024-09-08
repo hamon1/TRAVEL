@@ -7,14 +7,18 @@ const WINDOW_WIDTH = Dimensions.get('screen').width;
 const BOX_WIDTH = WINDOW_WIDTH * 2/3;
 const EMPTYPLACE = WINDOW_WIDTH - BOX_WIDTH;
 
-const TransBox = () => {
+const TransBox = ({ item }) => {
+
+    const time_string = item.d_time;
+    const time_split = time_string.split(' ')[1];
+
     return (
         <View style={styles.container}>
             <View style={styles.line_section}>
                 <View style={styles.line}></View>
             <View>
                 <View style={styles.time}>
-                    <Text>00:00</Text>
+                    <Text style={styles.time_string_text}>{time_split}</Text>
                 </View>
             <Image
           style={styles.dot_image}
@@ -28,10 +32,10 @@ const TransBox = () => {
             <View style={styles.text}>
                 <View style={styles.textline_1}>
                     <View style={styles.place_name_text_box}>
-                        <Text style={styles.place_name_text}>강원대학교</Text>
+                        <Text style={styles.place_name_text}>{item.trans}</Text>
                     </View>
                     <View style={styles.date_box}>
-                        <Text>24-00-00</Text>
+                        <Text>{item.d_date}</Text>
                     </View>
                 </View>
                 <View style={styles.textline_2}>
@@ -39,7 +43,7 @@ const TransBox = () => {
                     <Text>00-00-00</Text>
                     </View>
                     <View>
-                        <Text>00:00</Text>
+                        <Text>{item.time}</Text>
                     </View>
                 </View>
                 <View style={styles.textline_3}>
@@ -97,9 +101,13 @@ const styles = StyleSheet.create({
         // backgroundColor: 'yellow',
         margin: 8,
     },
+    time_string_text: {
+        color: 'white',
+    },
     textline_1: {
         flexDirection: 'row',
         marginBottom: 10,
+        justifyContent: 'space-between',
     },
     place_name_text_box: {
         // backgroundColor: 'magenta',

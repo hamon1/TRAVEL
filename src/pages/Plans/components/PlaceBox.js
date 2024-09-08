@@ -2,61 +2,19 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet, Pressable, Dimensions, ActivityIndicator } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 // import firestore from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
+
 
 const WINDOW_WIDTH = Dimensions.get('screen').width;
 const BOX_WIDTH = WINDOW_WIDTH * 2 / 3;
 const EMPTYPLACE = WINDOW_WIDTH - BOX_WIDTH;
 
-const PlaceBox = ({ item }) => {
-    // const [plan, setPlan] = useState([]);
-    // const [loading, setLoading] = useState(true); // 로딩 상태 추가
+const PlaceBox = ({ docId, item }) => {
+    console.log('placebox: ', item.data);
+    console.log('placebox id: ', item.DataId);
+    const navigation = useNavigation();
 
-    // useEffect(() => {
-    //     const fetchPlanDetails = async () => {
-    //         try {
-    //             const unsubscribe = firestore()
-    //                 .collection('plans')
-    //                 .doc(docId)
-    //                 .collection('planDetails')
-    //                 .onSnapshot(snapshot => {
-    //                     const fetchedPlans = snapshot.docs.map(detailDoc => ({
-    //                         id: detailDoc.id,
-    //                         ...detailDoc.data(),
-    //                     }));
-    //                     setPlan(fetchedPlans); // 상태 업데이트
-    //                     setLoading(false); // 데이터 패칭 완료 후 로딩 상태를 false로 변경
-    //                     console.log('Fetched planDetails', fetchedPlans);
-    //                 }, error => {
-    //                     console.error("Error fetching planDetails: ", error);
-    //                     setLoading(false); // 에러 발생 시에도 로딩 상태를 false로 변경
-    //                 });
-
-    //             return () => unsubscribe();
-    //         } catch (error) {
-    //             console.error("Error fetching plans: ", error);
-    //             setLoading(false);
-    //         }
-    //     };
-
-    //     fetchPlanDetails();
-    // }, [docId]);
-
-    // if (loading) {
-    //     return (
-    //         <View style={styles.loadingContainer}>
-    //             <ActivityIndicator size="large" color="#0000ff" />
-    //         </View>
-    //     );
-    // }
-
-    // if (plan.length === 0) {
-    //     return (
-    //         <View style={styles.container}>
-    //             <Text>No plan details available.</Text>
-    //         </View>
-    //     );
-    // }
-    const time_string = item.time;
+    const time_string = item.d_time;
     const time_split = time_string.split(' ')[1];
 
     return (
@@ -74,12 +32,12 @@ const PlaceBox = ({ item }) => {
                 </View>
             </View>
 
-            <Pressable style={styles.Box}>
+            <Pressable style={styles.Box} onPress={()=>navigation.navigate('PlaceSearchScreen', {docId: docId, edit: true, type: item.type, data: item.data, dataId: item.DataId, date: item.d_date, time: item.d_time})}>
                 <View style={styles.text}>
                     <View style={styles.textline_1}>
                         <View style={styles.place_name_text_box}>
                             {/* <Text style={styles.place_name_text}>{plan[0].placeName}</Text> */}
-                            <Text style={styles.place_name_text}>{item.placeName}</Text>
+                            <Text numberOfLines={1} ellipsizeMode='middle' style={styles.place_name_text}>{item.placeName}</Text>
                         </View>
                         <View style={styles.date_box}>
                             <Text>{item.d_date}</Text>
@@ -162,6 +120,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     place_name_text_box: {
+        width: 142,
         // marginRight: 10,
     },
     place_name_text: {
