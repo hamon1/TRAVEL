@@ -20,7 +20,7 @@ import Calendar from './Calendar';
 
 import { formatDate } from '../util/FormatDate';
 
-const EditRastaurant = ({docId, placeData, changePlaceSelector, box_type}) => {
+const EditRastaurant = ({docId, placeData, changePlaceSelector, box_type,box_type_en,  edit, dd_date, dd_time, dataId}) => {
     const [plan, setPlan] = useState([]);
 
     moment.locale('ko');
@@ -34,9 +34,16 @@ const EditRastaurant = ({docId, placeData, changePlaceSelector, box_type}) => {
     const [isCanlendarVisible, setCanlendarVisible] = useState(false);
     const [isTimePickerVisible, setTimePickerVisible] = useState(false);
 
+    const [Type, setType] = useState(3);
+    const handleTypeChange = (type) => {
+        setType(type);
+    }
+
     const navigation = useNavigation();
 
-    // console.log('edit:', docId);
+    console.log('edit:', docId);
+
+    console.log('data: ', placeData);
 
     // console.log(moment.locale());
 
@@ -48,6 +55,7 @@ const EditRastaurant = ({docId, placeData, changePlaceSelector, box_type}) => {
             pid: nextId.toString(),
             userId: 0,
             type: 'restaurant',
+            data: placeData,
             placeName: placeData.data.structured_formatting.main_text,
             address: placeData.data.description,
             lat: placeData.details.geometry.location.lat,
@@ -83,10 +91,53 @@ const EditRastaurant = ({docId, placeData, changePlaceSelector, box_type}) => {
         }
     };
 
-    const addPlan = () => {
-        onInsert();
+    const onUpdate = async () => {
+        try {
+            console.log('updating ', dataId)
+            if (dataId) {
+                console.log('updating -> ', docId);
+                const updatedPlan = {
+                    placeName: placeData.data.structured_formatting.main_text,
+                    data: placeData,
+                    type: box_type_en[Type],
+                    address: placeData.data.description,
+                    lat: placeData.details.geometry.location.lat,
+                    lng: placeData.details.geometry.location.lng,
+                    d_date: date,
+                    d_time: time,
+                    timestamp: new Date(),
+                };
+
+                await firestore()
+                    .collection('plans')
+                    .doc(docId)
+                    .collection('planDetails')
+                    .doc(dataId)
+                    .update(updatedPlan);
+                
+                console.log("Updated plan: " + dataId);
+            } else {
+                console.error("Error: Plan ID is not set");
+            }
+        } catch (error) {
+            console.error("Error updating plan: " + error);
+        }
+    };
+
+
+    const handleSubmit = () => {
+        if (edit) {
+            onUpdate();  // 수정 모드일 때 업데이트
+        } else {
+            onInsert();  // 추가 모드일 때 새로 생성
+        }
         navigation.pop();
     }
+
+    // const addPlan = () => {
+    //     onInsert();
+    //     navigation.pop();
+    // }
 
     const setModalOpen = () => {
         setModalVisible(true);
@@ -128,7 +179,7 @@ const EditRastaurant = ({docId, placeData, changePlaceSelector, box_type}) => {
                         <Text style={styles.typeText}>식당</Text>
                         <IconOcticons name="triangle-down" color="#616161" size={20}/>
                     </TouchableOpacity>
-                    <TypePicker visible={isModalVisible} setModalClose={setModalClose} changePlaceSelector={changePlaceSelector}  values={box_type} width={88} positon={0}/>
+                    <TypePicker visible={isModalVisible} setModalClose={setModalClose} changePlaceSelector={changePlaceSelector}  values={box_type} width={88} positon={0} setType={handleTypeChange}/>
 
                 </View>
                 <MapView
@@ -172,7 +223,7 @@ const EditRastaurant = ({docId, placeData, changePlaceSelector, box_type}) => {
             <TouchableOpacity style={styles.cancelBtn} onPress={() => {navigation.pop()}}>
                 <Text style={styles.cancelText}>취소</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.addBtn} onPress={addPlan}>
+            <TouchableOpacity style={styles.addBtn} onPress={handleSubmit}>
                 <Text style={styles.addText}>추가</Text>
             </TouchableOpacity>
             </View>

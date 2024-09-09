@@ -14,7 +14,8 @@ const GOOGLE_PLACES_API_KEY = 'AIzaSyDRdIybBpN0aO6gJal9skDd0VG6KMrgqJk';
 
 const PlaceSearchScreen = ({route}) => {
     console.log('search:', route.params.docId);
-    const [selectedComponent, setSelectedComponent] = useState(); // 초기 선택된 컴포넌트
+    const [selectedComponent, setSelectedComponent] = useState(); 
+
 
     const [placeData, setPlaceData] = useState(null);
 
@@ -22,58 +23,115 @@ const PlaceSearchScreen = ({route}) => {
         '관광지', '이동수단', '숙소', '식당/카페', '기타'
     ])
 
+    const [box_type_en, setBoxes_en] = useState([
+        'place', 'transportation', 'rantalHome', 'restaurant'
+    ])
 
-    const editComponent = () => {
-            console.log('Edit: ', route.params.type);
-            console.log('Edit data: ', route.params.data);
-            console.log('Edit data id: ', route.params.dataId);
-            switch (route.params.type) {
-                case 'place':
-                    return <EditPlace 
-                    docId={route.params.docId} 
-                    placeData={placeData || route.params.data}  // placeData가 있으면 그걸 사용, 없으면 기본 데이터를 사용
-                    changePlaceSelector={changePlaceSelector}
-                    box_type={box_type}
-                    edit={true}
-                    dd_datedate={route.params.date}
-                    dd_time={route.params.time}
-                    dataId={route.params.dataId}
-                    />;
-                default: 
-                    return setSelectedComponent(0);
-            }
+    const idxFromType = (type) => {
+        switch (type) {
+            case 'place':
+                return 0;
+            case 'transportation':
+                return 1;
+            case 'rantalHome':
+                return 2;
+            case 'restaurant':
+                return 3;
+            default:
+                return 0;
+        }
     }
 
-    const renderComponent = () => {
+
+    // const editComponent = () => {
+    //         console.log('Edit: ', route.params.type);
+    //         console.log('Edit data: ', route.params.data);
+    //         console.log('Edit data id: ', route.params.dataId);
+    //         switch (route.params.type) {
+    //             case 'place':
+    //                 return <EditPlace 
+    //                 docId={route.params.docId} 
+    //                 placeData={placeData || route.params.data}  // placeData가 있으면 그걸 사용, 없으면 기본 데이터를 사용
+    //                 changePlaceSelector={changePlaceSelector}
+    //                 box_type={box_type}
+    //                 edit={true}
+    //                 dd_datedate={route.params.date}
+    //                 dd_time={route.params.time}
+    //                 dataId={route.params.dataId}
+    //                 />;
+    //             case 'transportation':
+    //                 return <EditTrans 
+    //                 docId={route.params.docId} 
+    //                 // placeData={placeData || route.params.data}
+    //                 changePlaceSelector={changePlaceSelector}
+    //                 box_type={box_type}
+    //                 edit={true}
+    //                 dd_date={route.params.date}
+    //                 dd_time={route.params.time}
+    //                 dataId={route.params.dataId}
+    //                 />;
+    //             case 'rantalHome':
+    //                 return <EditRantalHome 
+    //                 docId={route.params.docId} 
+    //                 placeData={placeData || route.params.data}
+    //                 changePlaceSelector={changePlaceSelector}
+    //                 box_type={box_type}
+    //                 edit={true}
+    //                 dd_date={route.params.date}
+    //                 dd_time={route.params.time}
+    //                 dataId={route.params.dataId}
+    //                 />;
+    //             case 'restaurant':
+    //                 return <EditRastaurant 
+    //                 docId={route.params.docId} 
+    //                 placeData={placeData || route.params.data}
+    //                 changePlaceSelector={changePlaceSelector}
+    //                 box_type={box_type}
+    //                 edit={true}
+    //                 dd_date={route.params.date}
+    //                 dd_time={route.params.time}
+    //                 dataId={route.params.dataId}
+    //                 />;
+    //             default: 
+    //                 return setSelectedComponent(0);
+    //         }
+    // }
+    useEffect(() => {
+        if (route.params.edit) {
+            setSelectedComponent(idxFromType(route.params.type));
+        }
+    }, [route.params.edit, route.params.type]);
+
+    const renderComponent = (edit) => {
+        console.log('renderComponent / ', edit);
+        const commonProps = {
+            docId: route.params.docId,
+            placeData: placeData || route.params.data,  // 검색된 데이터 또는 기본 데이터를 전달
+            changePlaceSelector: changePlaceSelector,
+            box_type: box_type,
+            box_type_en: box_type_en,
+            edit: edit,
+            dd_date: '' || route.params.date,
+            dd_time: '' | route.params.time,
+            dataId: '' || route.params.dataId,
+        }
+
         switch (selectedComponent) {
         case 0:
             return <EditPlace 
-            docId={route.params.docId} 
-            placeData={placeData}
-            changePlaceSelector={changePlaceSelector}
-            box_type={box_type}
-            edit={false}
+            {...commonProps}
             />;
         case 1:
             return <EditTrans 
-            docId={route.params.docId} 
-            placeData={placeData}
-            changePlaceSelector={changePlaceSelector}
-            box_type={box_type}
+            {...commonProps}
             />;
         case 2:
             return <EditRantalHome 
-            docId={route.params.docId} 
-            placeData={placeData}
-            changePlaceSelector={changePlaceSelector}
-            box_type={box_type}
-    />;
+            {...commonProps}
+            />;
         case 3:
             return <EditRastaurant 
-            docId={route.params.docId} 
-            placeData={placeData}
-            changePlaceSelector={changePlaceSelector}
-            box_type={box_type}
+            {...commonProps}
             />;
         default:
             return <View style={styles.empty}></View>;
@@ -81,6 +139,7 @@ const PlaceSearchScreen = ({route}) => {
     };
 
     const changePlaceSelector = (type) => {
+        console.log('changePlaceSelector');
         setSelectedComponent(type);
     };
 
@@ -96,15 +155,13 @@ const PlaceSearchScreen = ({route}) => {
     return (
         <View style={styles.background}>
             {route.params.edit ? (
-                editComponent()
+                // editComponent()
+                renderComponent(true)
             ):
             (
-                renderComponent()
+                renderComponent(false)
             )
         }
-            {/* <EditPlace/> */}
-            {/* <EditTrans/> */}
-            {/* <View style={[styles.searchBlock, {height: 80}]}> */}
 
             <GooglePlacesAutocomplete
             placeholder="장소를 검색하세요."

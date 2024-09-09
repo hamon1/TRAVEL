@@ -20,7 +20,7 @@ import Calendar from './Calendar';
 
 import { formatDate } from '../util/FormatDate';
 
-const EditPlace = ({docId, placeData, changePlaceSelector, box_type, edit, dd_date, dd_time, dataId}) => {
+const EditPlace = ({docId, placeData, changePlaceSelector, box_type, box_type_en, edit, dd_date, dd_time, dataId}) => {
 
     const [plan, setPlan] = useState([]);
 
@@ -34,6 +34,11 @@ const EditPlace = ({docId, placeData, changePlaceSelector, box_type, edit, dd_da
     const [isModalVisible, setModalVisible] = useState(false);
     const [isCanlendarVisible, setCanlendarVisible] = useState(false);
     const [isTimePickerVisible, setTimePickerVisible] = useState(false);
+
+    const [Type, setType] = useState(0);
+    const handleTypeChange = (type) => {
+        setType(type);
+    }
 
     const navigation = useNavigation();
 
@@ -94,6 +99,8 @@ const EditPlace = ({docId, placeData, changePlaceSelector, box_type, edit, dd_da
                 console.log('updating -> ', docId);
                 const updatedPlan = {
                     placeName: placeData.data.structured_formatting.main_text,
+                    type: box_type_en[Type],
+                    data: placeData,
                     address: placeData.data.description,
                     lat: placeData.details.geometry.location.lat,
                     lng: placeData.details.geometry.location.lng,
@@ -127,16 +134,6 @@ const EditPlace = ({docId, placeData, changePlaceSelector, box_type, edit, dd_da
         }
         navigation.pop();
     }
-
-    // const addPlan = () => {
-    //     onInsert();
-    //     navigation.pop();
-    // }
-
-    // const editPlan = () => {
-    //     // edit();
-    //     navigation.pop();
-    // }
 
     const setModalOpen = () => {
         setModalVisible(true);
@@ -178,7 +175,7 @@ const EditPlace = ({docId, placeData, changePlaceSelector, box_type, edit, dd_da
                         <Text style={styles.typeText}>관광지</Text>
                         <IconOcticons name="triangle-down" color="#616161" size={20}/>
                     </TouchableOpacity>
-                    <TypePicker visible={isModalVisible} setModalClose={setModalClose} changePlaceSelector={changePlaceSelector} values={box_type} width={88} positon={0}/>
+                    <TypePicker visible={isModalVisible} setModalClose={setModalClose} changePlaceSelector={changePlaceSelector} values={box_type} width={88} positon={0} setType={handleTypeChange}/>
 
                 </View>
                 <MapView

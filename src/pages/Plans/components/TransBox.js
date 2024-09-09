@@ -3,11 +3,14 @@ import {View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, Pressable} 
 
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
+import {useNavigation} from '@react-navigation/native';
+
 const WINDOW_WIDTH = Dimensions.get('screen').width;
 const BOX_WIDTH = WINDOW_WIDTH * 2/3;
 const EMPTYPLACE = WINDOW_WIDTH - BOX_WIDTH;
 
-const TransBox = ({ item }) => {
+const TransBox = ({ docId, item }) => {
+    const navigation = useNavigation();
 
     const time_string = item.d_time;
     const time_split = time_string.split(' ')[1];
@@ -28,7 +31,7 @@ const TransBox = ({ item }) => {
             </View>
 
 
-        <Pressable style={styles.Box}>
+        <Pressable style={styles.Box} onPress={()=>navigation.navigate('PlaceSearchScreen', {docId: docId, edit: true, type: item.type, data: item.data, dataId: item.DataId, date: item.d_date, time: item.d_time})}>
             <View style={styles.text}>
                 <View style={styles.textline_1}>
                     <View style={styles.place_name_text_box}>

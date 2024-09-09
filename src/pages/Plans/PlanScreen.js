@@ -111,6 +111,7 @@ useEffect(() => {
       case 'transportation':
         return (
           <TransBox
+          docId={docId}
           item={item}
             // description={item.description}
             // id={item.id}
@@ -119,6 +120,7 @@ useEffect(() => {
         case 'rantalHome':
         return (
           <RantalBox
+          docId={docId}
           item={item}
             // description={item.description}
             // id={item.id}
@@ -127,6 +129,7 @@ useEffect(() => {
         case 'restaurant':
         return (
           <RastaurantBox
+          docId={docId}
           item={item}
             // description={item.description}
             // id={item.id}

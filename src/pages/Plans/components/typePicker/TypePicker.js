@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Modal, TouchableOpacity, Pressable} from 'react-native';
 
-const TypePicker = ({visible, setModalClose, changePlaceSelector, values, width, positon}) => {
+const TypePicker = ({visible, setModalClose, changePlaceSelector, values, width, positon, setType = () => {}}) => {
     // const [isModalVisible, setModalVisible] = useState(false);
 
     const changeEditBox = (type) => {
         changePlaceSelector(type);
+        setType(type);
         setModalClose();
     };
-    console.log(values.length);
+    // console.log(values.length);
 
     return (
         <Modal style={styles.container} transparent={true} visible={visible} animationType='fade'>
