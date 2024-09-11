@@ -205,11 +205,16 @@ useEffect(() => {
   
   const updateTitle = async (text) => {
     try {
-      await firestore()
-        .collection('plans')
-        .doc(route.params.docId)
-        .update({ title: text });
-      console.log("Plan title updated successfully!");
+      if (route.params.docId) {
+        await firestore()
+          .collection('plans')
+          .doc(route.params.docId)
+          .update({ title: text });
+        console.log("Plan title updated successfully!");
+      }
+      else {
+        console.error("Error: docId is missing.");
+      }
     } catch (error) {
       console.error("Error updating plan title: ", error);
     }

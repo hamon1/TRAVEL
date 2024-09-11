@@ -49,6 +49,8 @@ const PlansScreen = () => {
           ...doc.data()
         }));
         setPlan(fetchedPlans);
+        console.log('Fetched Plan Success!// docId:', fetchedPlans[0].docId);
+        setDocId(fetchedPlans[0].docId);
       }, error => {
         console.error("Error fetching plans: " + error);
       });

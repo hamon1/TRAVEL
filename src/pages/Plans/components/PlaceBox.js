@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Image, StyleSheet, Pressable, Dimensions, ActivityIndicator } from 'react-native';
+import React, { useState, useEffect, useRef } from "react";
+import { View, Text, Image, StyleSheet, Pressable, Dimensions, ActivityIndicator, Modal } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 // import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
 
+import Delete_Edit_Modal from "./Delete_Edit_modal";
 
 const WINDOW_WIDTH = Dimensions.get('screen').width;
 const BOX_WIDTH = WINDOW_WIDTH * 2 / 3;
@@ -14,8 +15,32 @@ const PlaceBox = ({ docId, item }) => {
     console.log('placebox id: ', item.DataId);
     const navigation = useNavigation();
 
+    const [isEditModalVisible, setEditModalVisible] = useState(false);
+    const [Yposition, setYposition] = useState(0);
+
     const time_string = item.d_time;
     const time_split = time_string.split(' ')[1];
+
+    const modalRef = useRef();
+
+    modalRef.current?.measureInWindow((x, y, width, height, pageX, pageY) => {
+        console.log("measure");
+        // console.log('x: ', x);
+        console.log('y: ', y);
+    })
+
+    const openModal = () => {
+        modalRef.current?.measureInWindow((x, y, width, height, pageX, pageY) => {
+            console.log('y: ', y);
+            setYposition(y);
+            setEditModalVisible(true);
+        })
+    }
+
+    const onPress = () => {
+        navigation.navigate('PlaceSearchScreen', {docId: docId, edit: true, type: item.type, data: item.data, dataId: item.DataId, date: item.d_date, time: item.d_time})
+        setEditModalVisible(false);
+    }
 
     return (
         <View style={styles.container}>
@@ -32,7 +57,7 @@ const PlaceBox = ({ docId, item }) => {
                 </View>
             </View>
 
-            <Pressable style={styles.Box} onPress={()=>navigation.navigate('PlaceSearchScreen', {docId: docId, edit: true, type: item.type, data: item.data, dataId: item.DataId, date: item.d_date, time: item.d_time})}>
+            <Pressable ref={modalRef} style={styles.Box} onPress={openModal}>
                 <View style={styles.text}>
                     <View style={styles.textline_1}>
                         <View style={styles.place_name_text_box}>
@@ -60,6 +85,11 @@ const PlaceBox = ({ docId, item }) => {
                     />
                 </View>
             </Pressable>
+            <Modal transparent={true} visible={isEditModalVisible}>
+                <Pressable style={styles.modal_bg} onPress={()=>setEditModalVisible(false)}>
+                    <Delete_Edit_Modal Yposition={Yposition} onPress={onPress}/>
+                </Pressable>
+            </Modal>
         </View>
     );
 }
@@ -105,6 +135,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         padding: 10,
         right: 24,
+        zIndex: 100,
     },
     text: {
         margin: 8,
@@ -145,7 +176,14 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         borderWidth: 0.2,
         borderColor: 'gray',
-    }
+    },
+    modal_bg: {
+        width: '100%',
+        height: '100%',
+        zIndex: -1,
+        // backgroundColor: 'red',
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+    },
 });
 
 export default PlaceBox;
