@@ -5,12 +5,12 @@
  */
 
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 
 import Addbutton from '../../components/AddNewPlanDetail';
 
 //임시
-import PlanDetail from './PlanDetailList';
+// import PlanDetail from './PlanDetailList';
 import Emptyplan from './components/Emptyplan';
 // import PlanBoxList from './components/PlanBoxList';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -28,18 +28,24 @@ import TransBox from './components/TransBox';
 import RantalBox from './components/RantalhomeBox';
 import RastaurantBox from './components/RastaurantBox';
 
+import IconFeather from 'react-native-vector-icons/Feather';
+
 const PlanScreen = ({route}) => {
   // const [refreshing, setRefreshing] = useState(false);
   // const [boxes, setBoxes] = useState(null);
-  const [plans, setPlan] = useState([]);
-  const [docId, setDocId] = useState(null);
+const [plans, setPlan] = useState([]);
+const [docId, setDocId] = useState(null);
+const [title, setTitle] = useState(route.params.title || title);
+
 console.log('plan pid', route.params.docId);
 
 const navigation = useNavigation();
 
-navigation.setOptions({
-  title: route.params.title,
-});
+// navigation.setOptions({
+//   title: route.params.title,
+// });
+
+console.log('plan screen / title: ', title);
 
 useEffect(() => {
   const fetchPlanDetails = async () => {
@@ -140,6 +146,81 @@ useEffect(() => {
     }
   }
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: () => (
+        <View style={{flexDirection: 'row', alignItems: 'center'}} >
+          <TextInput 
+            style={{color: 'white', fontSize: 18}} 
+            placeholder={route.params.title} 
+            placeholderTextColor='white'
+            // value={title}
+            // onChangeText={
+            //   // text=>updateTitle(text)
+            //   text=>setTitle(text)
+            //   // text=>console.log(text)
+            // }
+            maxLength={20}
+            selectTextOnFocus={true}
+            // onSubmitEditing={
+            //   // text=>setTitle(text)
+            //   alert('submitEditing')
+            // }
+            onEndEditing={ 
+              (e) => updateTitle(e.nativeEvent.text)
+              // (e) => setTitle(e.nativeEvent.text)
+              // text=>console.log('onEndEditing:', text.nativeEvent.text)
+            }
+          >
+            {title}
+          </TextInput>
+          <IconFeather style={{marginLeft: 8}} name="edit-2" size={18} color="#616161"/>
+        </View>
+      ),
+    });
+  }, [navigation, title]);
+
+
+  // const updateTitle = async(text) => {
+  //   console.log(text);
+  //   // setTitle(text);
+  //   console.log('title:', title);
+  //   if (text) {  // title이 유효한지 확인
+  //     console.log('title change:', title);
+  //     try {
+  //       await firestore()
+  //         .collection('plans')
+  //         .doc(docId)
+  //         .update({
+  //           title: text,
+  //         });
+  //       console.log("Plan title updated successfully!");
+  //     } catch (error) {
+  //       console.error("Error updating plan title: ", error);
+  //     }
+  //   } else {
+  //     console.error("Error: Title is undefined or docId is missing.");
+  //   }
+  // };
+  
+  const updateTitle = async (text) => {
+    try {
+      await firestore()
+        .collection('plans')
+        .doc(route.params.docId)
+        .update({ title: text });
+      console.log("Plan title updated successfully!");
+    } catch (error) {
+      console.error("Error updating plan title: ", error);
+    }
+  };
+
+  // useEffect(() => {
+  //   if (title) {
+  //     updateTitle();
+  //   }
+  // }, [title]);
+
   return (
     <View style={styles.bg}>
       <GestureHandlerRootView>
@@ -161,6 +242,7 @@ useEffect(() => {
       ) : 
       <Addbutton style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: docId, edit: false})}}/>
         }
+        {/* <View style={{width: 100, height: 100, backgroundColor: 'red', position: 'absolute', top: -10,}}/> */}
       </GestureHandlerRootView>
     </View>
   );
