@@ -1,4 +1,3 @@
-/*
 import React, {useContext, createContext, useState} from "react";
 
 const UserContext = createContext(null);
@@ -21,6 +20,5 @@ export function useUserContext() {
     if (!userContext) {
         throw new Error('UserContext.Provider is not found');
     }
-    return UserContext;
+    return userContext;
 }
-*/

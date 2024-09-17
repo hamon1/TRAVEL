@@ -20,8 +20,6 @@ import AppPlanButton from '../../components/ShowListButton';
 
 import {useNavigation} from '@react-navigation/native';
 
-import { useUserContext } from '../../components/UserContext';
-
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {

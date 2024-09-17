@@ -14,10 +14,11 @@ function SignButtons({isSignUp, onSubmit, loading}) {
         if (isSignUp) {
             navigation.goBack();
         } else {
-            navigation.push('Login',{isSignUp: true});
+            navigation.push('SignIn',{isSignUp: true});
         }
     };
 
+    
     if (loading) {
         return (
             <View style={styles.spinnerWrapper}>
@@ -25,17 +26,19 @@ function SignButtons({isSignUp, onSubmit, loading}) {
             </View>
         );
     }
+    
+
     return (
-           <View style={styles.buttons}>
+        <View style={styles.buttons}>
             <CustomButton title={primaryTitle} hasMarginBottom onPress={onSubmit} />
             <CustomButton
-              title={secondaryTitle}
-              theme="secondary"
-              onPress={onSecondaryButtonPress}
+                title={secondaryTitle}
+                theme="secondary"
+                onPress={onSecondaryButtonPress}
             />
-           </View>
-        );
-    }
+        </View>
+    );
+}
 
 const styles = StyleSheet.create({
     spinnerWrapper: {

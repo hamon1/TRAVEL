@@ -12,5 +12,5 @@ export function createUser({id, displayName, photoURL}) {
 
 export async function getUser(id) {
     const doc = await usersCollection.doc(id).get();
-    return doc.date();
+    return doc.data();
 }

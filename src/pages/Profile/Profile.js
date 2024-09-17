@@ -28,10 +28,11 @@ import Friends from './components/FriendsButton';
 import Setting from '../../components/SettingButton';
 
 import ChatList from '../../components/ChatList';
+import { useUserContext } from '../../components/UserContext';
 
 const Profile = () => {
+  const { user } = useUserContext();
   const navigation = useNavigation();
-
   // 채팅방 목록 상태 설정
   const [chatroom] = useState([
     {
@@ -93,8 +94,7 @@ const Profile = () => {
 // checkLoggedIn();
 
   const auth = getAuth();
-  const user = auth.currentUser;
-
+  //const user = auth.currentUser;
   console.log(auth);
   console.log('user: ' + user);
 
@@ -102,11 +102,19 @@ const Profile = () => {
     <View style={styles.block}>
       {/* 사용자 프로필 섹션 */}
       <View style={styles.userProfile}>
-        <Image
+        {user.photoURL && (
+          <Image
+          /*
           style={styles.image}
           source={require('../../assets/Defualtuserimage.png')}
-        />
-        <Text style={styles.profile_name}>userName</Text>
+          */
+            source={{uri: user.photoURL}}
+            style={{width: 128, height: 128, marginBottom: 16}}
+            resizeMode="cover"
+          />
+        )}
+        
+        <Text style={styles.profile_name}>{user.displayName}</Text>
         <Text style={styles.profile_id}>userId: 000000</Text>
         <Text style={styles.introduce_text}>
           Ad consequat fugiat ad nostrud aliqua occaecat culpa amet.

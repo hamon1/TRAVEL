@@ -4,8 +4,8 @@ export function signIn({email, password}) {
     return auth().signInWithEmailAndPassword(email, password);
 }
 
-export function signUp({emil, password}) {
-    return auth().createUserWithEmailAndPassword(emil, password);
+export function signUp({email, password}) {
+    return auth().createUserWithEmailAndPassword(email, password);
 }
 
 export function subscribeAuth(callback) {
