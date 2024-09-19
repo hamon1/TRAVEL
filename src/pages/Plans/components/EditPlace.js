@@ -19,6 +19,7 @@ import ScrollPicker from './ScrollPicker/ScrollPicker';
 import Calendar from './Calendar';
 
 import { formatDate } from '../util/FormatDate';
+import { formatDateForSorting } from '../util/formatDateForSorting';
 
 const EditPlace = ({docId, placeData, changePlaceSelector, box_type, box_type_en, edit, dd_date, dd_time, dataId}) => {
 
@@ -48,6 +49,7 @@ const EditPlace = ({docId, placeData, changePlaceSelector, box_type, box_type_en
     // console.log(moment.locale());
 
     const onInsert = async () => {
+        const date_sorting = formatDateForSorting(date, time);
         try {
             console.log('inserting -> ', docId);
             const nextId = plan.length > 0 ? Math.max(...plan.map(p => p.pid)) + 1 : 1;
@@ -60,12 +62,13 @@ const EditPlace = ({docId, placeData, changePlaceSelector, box_type, box_type_en
             address: placeData.data.description,
             lat: placeData.details.geometry.location.lat,
             lng: placeData.details.geometry.location.lng,
-            d_month: 1,
-            d_day: 22,
+            // d_month: 1,
+            // d_day: 22,
             d_date: date,
             d_time: time,
-            date: moment().format('l'),
-            time: moment().format('LT'),
+            // date: moment().format('l'),
+            // time: moment().format('LT'),
+            date_sorting: date_sorting,
             timestamp: new Date(),
             };
 

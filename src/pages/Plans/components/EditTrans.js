@@ -19,6 +19,7 @@ import ScrollPicker from './ScrollPicker/ScrollPicker';
 import Calendar from './Calendar';
 
 import { formatDate } from '../util/FormatDate';
+import { formatDateForSorting } from '../util/formatDateForSorting';
 
 const EditTrans = ({docId, placeData, changePlaceSelector, box_type, box_type_en, edit, dd_date, dd_time, dataId}) => {
     const [plan, setPlan] = useState([]);
@@ -47,6 +48,7 @@ const EditTrans = ({docId, placeData, changePlaceSelector, box_type, box_type_en
     // console.log(moment.locale());
 
     const onInsert = async () => {
+        const date_sorting = formatDateForSorting(date, time);
         try {
             console.log('inserting -> ', docId);
             const nextId = plan.length > 0 ? Math.max(...plan.map(p => p.pid)) + 1 : 1;
@@ -55,7 +57,7 @@ const EditTrans = ({docId, placeData, changePlaceSelector, box_type, box_type_en
             userId: 0,
             type: 'transportation',
             trans: transportation_type[trans_idx],
-            // placeName: placeData.data.structured_formatting.main_text,
+            placeName: transportation_type[trans_idx],
             // address: placeData.data.description,
             // lat: placeData.details.geometry.location.lat,
             // lng: placeData.details.geometry.location.lng,
@@ -66,6 +68,7 @@ const EditTrans = ({docId, placeData, changePlaceSelector, box_type, box_type_en
             memo: '.',
             d_date: date,
             d_time: time,
+            date_sorting: date_sorting,
             date: moment().format('l'),
             time: moment().format('LT'),
             timestamp: new Date(),
@@ -94,17 +97,21 @@ const EditTrans = ({docId, placeData, changePlaceSelector, box_type, box_type_en
     };
 
     const onUpdate = async () => {
+        const date_sorting = formatDateForSorting(date, time);
+
         try {
             console.log('updating ', dataId)
             if (dataId) {
                 console.log('updating -> ', docId);
                 const updatedPlan = {
-                    placeName: placeData.data.structured_formatting.main_text,
-                    data: placeData,
+                    // placeName: placeData.data.structured_formatting.main_text,
+                    // data: placeData,
+                    trans: transportation_type[trans_idx],
+                    placeName: transportation_type[trans_idx],
                     type: box_type_en[Type],
-                    address: placeData.data.description,
-                    lat: placeData.details.geometry.location.lat,
-                    lng: placeData.details.geometry.location.lng,
+                    // address: placeData.data.description,
+                    // lat: placeData.details.geometry.location.lat,
+                    // lng: placeData.details.geometry.location.lng,
                     d_date: date,
                     d_time: time,
                     timestamp: new Date(),

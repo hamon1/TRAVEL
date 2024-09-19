@@ -165,6 +165,7 @@ const PlaceSearchScreen = ({route}) => {
 
             <GooglePlacesAutocomplete
             placeholder="장소를 검색하세요."
+            // placeholderTextColor='white'
             query={{
                 key: GOOGLE_PLACES_API_KEY,
                 language: 'ko', // 언어 설정

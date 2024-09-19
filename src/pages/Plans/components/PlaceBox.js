@@ -5,14 +5,16 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import {useNavigation} from '@react-navigation/native';
 
 import Delete_Edit_Modal from "./Delete_Edit_modal";
+import firestore, { deleteDoc } from "@react-native-firebase/firestore";
 
 const WINDOW_WIDTH = Dimensions.get('screen').width;
 const BOX_WIDTH = WINDOW_WIDTH * 2 / 3;
 const EMPTYPLACE = WINDOW_WIDTH - BOX_WIDTH;
 
-const PlaceBox = ({ docId, item }) => {
+const PlaceBox = ({ docId, item, planId }) => {
     console.log('placebox: ', item.data);
     console.log('placebox id: ', item.DataId);
+    console.log('plan id: ', planId);
     const navigation = useNavigation();
 
     const [isEditModalVisible, setEditModalVisible] = useState(false);
@@ -21,24 +23,62 @@ const PlaceBox = ({ docId, item }) => {
     const time_string = item.d_time;
     const time_split = time_string.split(' ')[1];
 
+    const [scale, setScale] = useState(1);
+
+    const increaseScale = () => {
+        setScale(prevScale => prevScale + 0.1);
+        console.log('scale: ', scale);
+    };
+    
+    const decreaseScale = () => {
+        setScale(prevScale => prevScale - 0.1);
+    };
+
     const modalRef = useRef();
 
-    modalRef.current?.measureInWindow((x, y, width, height, pageX, pageY) => {
-        console.log("measure");
-        // console.log('x: ', x);
-        console.log('y: ', y);
-    })
+    const onRemove = async() => {
+        try {
+            if (planId && item.DataId) {
+                const doc = await firestore()
+                    .collection('plans')
+                    .doc(planId)
+                    .collection('planDetails')
+                    .doc(item.DataId);
+                deleteDoc(doc);
+                console.log('Document deleted!');
+            }
+            else {
+                console.log('No planId or dataId');
+            }
+        }catch(err) {
+            console.log(err);
+        }
+    
+    }
+
+    // modalRef.current?.measureInWindow((x, y, width, height, pageX, pageY) => {
+    //     console.log("measure");
+    //     // console.log('x: ', x);
+    //     console.log('y: ', y);
+    // })
 
     const openModal = () => {
         modalRef.current?.measureInWindow((x, y, width, height, pageX, pageY) => {
+            increaseScale();
             console.log('y: ', y);
             setYposition(y);
             setEditModalVisible(true);
-        })
+        });
+    }
+
+    const closeModal = () => {
+        decreaseScale();
+        setEditModalVisible(false);
     }
 
     const onPress = () => {
         navigation.navigate('PlaceSearchScreen', {docId: docId, edit: true, type: item.type, data: item.data, dataId: item.DataId, date: item.d_date, time: item.d_time})
+        decreaseScale();
         setEditModalVisible(false);
     }
 
@@ -57,7 +97,7 @@ const PlaceBox = ({ docId, item }) => {
                 </View>
             </View>
 
-            <Pressable ref={modalRef} style={styles.Box} onPress={openModal}>
+            <Pressable ref={modalRef} style={[styles.Box, { transform: [{ scale }] }]} onPress={openModal}>
                 <View style={styles.text}>
                     <View style={styles.textline_1}>
                         <View style={styles.place_name_text_box}>
@@ -86,8 +126,8 @@ const PlaceBox = ({ docId, item }) => {
                 </View>
             </Pressable>
             <Modal transparent={true} visible={isEditModalVisible}>
-                <Pressable style={styles.modal_bg} onPress={()=>setEditModalVisible(false)}>
-                    <Delete_Edit_Modal Yposition={Yposition} onPress={onPress}/>
+                <Pressable style={styles.modal_bg} onPress={closeModal}>
+                    <Delete_Edit_Modal Yposition={Yposition} onPress={onPress} remove={onRemove}/>
                 </Pressable>
             </Modal>
         </View>

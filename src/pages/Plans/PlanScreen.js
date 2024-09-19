@@ -23,78 +23,93 @@ import {useNavigation} from '@react-navigation/native';
 
 import firestore, {query, orderBy, doc, deleteDoc} from '@react-native-firebase/firestore';
 
+import moment from 'moment';
+
 import PlaceBox from './components/PlaceBox';
 import TransBox from './components/TransBox';
 import RantalBox from './components/RantalhomeBox';
 import RastaurantBox from './components/RastaurantBox';
+
+import ItemBox from './components/ItemBox';
 
 import IconFeather from 'react-native-vector-icons/Feather';
 
 const PlanScreen = ({route}) => {
   // const [refreshing, setRefreshing] = useState(false);
   // const [boxes, setBoxes] = useState(null);
-const [plans, setPlan] = useState([]);
-const [docId, setDocId] = useState(null);
-const [title, setTitle] = useState(route.params.title || title);
+  const [plans, setPlan] = useState([]);
+  const [docId, setDocId] = useState(null);
+  const [title, setTitle] = useState(route.params.title || title);
 
-console.log('plan pid', route.params.docId);
+  // const [scale, setScale] = useState(1);
 
-const navigation = useNavigation();
+  // const increaseScale = () => {
+  //   setScale(prevScale => prevScale + 0.1);
+  // };
+  
+  // const decreaseScale = () => {
+  //   setScale(prevScale => prevScale - 0.1);
+  // };
 
-// navigation.setOptions({
-//   title: route.params.title,
-// });
+  console.log('plan pid', route.params.docId);
 
-console.log('plan screen / title: ', title);
+  const navigation = useNavigation();
 
-useEffect(() => {
-  const fetchPlanDetails = async () => {
-    try {
-      console.log('fetching plan details:', route.params.docId);
-      
-      // if (!route.params || !route.params.id) {
-      //   throw new Error("Invalid or missing route parameter: id");
-      // }
-      // if (!route.params.id)
-      const querySnapshot = await firestore()
-        .collection('plans')
-        .where('pid', '==', route.params.id)
-        .get();
+  // navigation.setOptions({
+  //   title: route.params.title,
+  // });
 
-      if (!querySnapshot.empty) {
-        const doc = querySnapshot.docs[0]; // 겹치는 문서는 없을 예정이기 때문에 첫 문서를 가져옴
-        const docId = doc.id;
-        setDocId(docId);
-        console.log('docId', docId);
+  console.log('plan screen / title: ', title);
 
-        // 하위 컬렉션(planDetails)에서 데이터 가져오기
-        const unsubscribe = firestore()
+  useEffect(() => {
+    const fetchPlanDetails = async () => {
+      try {
+        console.log('fetching plan details:', route.params.docId);
+        
+        // if (!route.params || !route.params.id) {
+        //   throw new Error("Invalid or missing route parameter: id");
+        // }
+        // if (!route.params.id)
+        const querySnapshot = await firestore()
           .collection('plans')
-          .doc(docId)
-          .collection('planDetails')
-          .onSnapshot(snapshot => {
-            const fetchedPlans = snapshot.docs.map(detailDoc => ({
-              id: detailDoc.id,
-              ...detailDoc.data(),
-            }));
-            setPlan(fetchedPlans); // 상태 업데이트
-            console.log('Fetched planDetails:', fetchedPlans);
-          }, error => {
-            console.error("Error fetching planDetails: ", error);
-          });
+          .where('pid', '==', route.params.id)
+          .get();
 
-        // Clean up the subscription
-        return () => unsubscribe();
-      } else {
-        console.log("No document matches the query.");
+        if (!querySnapshot.empty) {
+          const doc = querySnapshot.docs[0]; // 겹치는 문서는 없을 예정이기 때문에 첫 문서를 가져옴
+          const docId = doc.id;
+          setDocId(docId);
+          console.log('docId', docId);
+
+          // 하위 컬렉션(planDetails)에서 데이터 가져오기
+          const unsubscribe = firestore()
+            .collection('plans')
+            .doc(docId)
+            .collection('planDetails')
+            .orderBy('date_sorting', 'asc')
+            .onSnapshot(snapshot => {
+              const fetchedPlans = snapshot.docs.map(detailDoc => ({
+                id: detailDoc.id,
+                ...detailDoc.data(),
+              }));
+              setPlan(fetchedPlans); // 상태 업데이트
+              console.log('Fetched planDetails:', fetchedPlans);
+            }, error => {
+              console.error("Error fetching planDetails: ", error);
+            });
+
+          // Clean up the subscription
+          return () => unsubscribe();
+        } else {
+          console.log("No document matches the query.");
+        }
+      } catch (error) {
+        console.error("Error fetching plans: ", error);
       }
-    } catch (error) {
-      console.error("Error fetching plans: ", error);
-    }
-  };
+    };
 
-  fetchPlanDetails();
-}, []);
+    fetchPlanDetails();
+  }, []);
 
 // 더미 데이터
   // const items = [
@@ -104,46 +119,56 @@ useEffect(() => {
   // ];
 
   function renderItem({item}) {
-    switch (item.type) {
-      case 'place':
-        return (
-          <PlaceBox
-            docId={docId}
-            item={item}
-            // id={item.id}
-            // description={item.description}
-          />
-        );
-      case 'transportation':
-        return (
-          <TransBox
-          docId={docId}
-          item={item}
-            // description={item.description}
-            // id={item.id}
-          />
-        );
-        case 'rantalHome':
-        return (
-          <RantalBox
-          docId={docId}
-          item={item}
-            // description={item.description}
-            // id={item.id}
-          />
-        );
-        case 'restaurant':
-        return (
-          <RastaurantBox
-          docId={docId}
-          item={item}
-            // description={item.description}
-            // id={item.id}
-          />
-        );
-      default:
-        return null;
-    }
+    return (
+      <ItemBox
+      docId={docId}
+      item={item}
+      planId={route.params.docId}
+      />
+    )
+    // switch (item.type) {
+    //   case 'place':
+    //     return (
+    //       <PlaceBox
+    //         docId={docId}
+    //         item={item}
+    //         planId={route.params.docId}
+    //         // id={item.id}
+    //         // description={item.description}
+    //       />
+    //     );
+    //   case 'transportation':
+    //     return (
+    //       <TransBox
+    //       docId={docId}
+    //       item={item}
+    //       planId={route.params.docId}
+    //         // description={item.description}
+    //         // id={item.id}
+    //       />
+    //     );
+    //     case 'rantalHome':
+    //     return (
+    //       <RantalBox
+    //       docId={docId}
+    //       item={item}
+    //       planId={route.params.docId}
+    //         // description={item.description}
+    //         // id={item.id}
+    //       />
+    //     );
+    //     case 'restaurant':
+    //     return (
+    //       <RastaurantBox
+    //       docId={docId}
+    //       item={item}
+    //         // description={item.description}
+    //         // id={item.id}
+    //       />
+    //     );
+    //   default:
+    //     return null;
+    // }
   }
 
   useEffect(() => {
@@ -179,29 +204,6 @@ useEffect(() => {
       ),
     });
   }, [navigation, title]);
-
-
-  // const updateTitle = async(text) => {
-  //   console.log(text);
-  //   // setTitle(text);
-  //   console.log('title:', title);
-  //   if (text) {  // title이 유효한지 확인
-  //     console.log('title change:', title);
-  //     try {
-  //       await firestore()
-  //         .collection('plans')
-  //         .doc(docId)
-  //         .update({
-  //           title: text,
-  //         });
-  //       console.log("Plan title updated successfully!");
-  //     } catch (error) {
-  //       console.error("Error updating plan title: ", error);
-  //     }
-  //   } else {
-  //     console.error("Error: Title is undefined or docId is missing.");
-  //   }
-  // };
   
   const updateTitle = async (text) => {
     try {
@@ -209,7 +211,10 @@ useEffect(() => {
         await firestore()
           .collection('plans')
           .doc(route.params.docId)
-          .update({ title: text });
+          .update({ title: text, 
+            date: moment().format('l'),
+          time: moment().format('LT'),
+          timestamp: new Date(), });
         console.log("Plan title updated successfully!");
       }
       else {

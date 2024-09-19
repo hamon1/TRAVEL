@@ -1,19 +1,80 @@
-import React from "react";
-import {View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, Pressable} from 'react-native';
+import React, { useState, useRef } from "react";
+import {View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, Pressable, Modal} from 'react-native';
 
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 import {useNavigation} from '@react-navigation/native';
+import firestore, { deleteDoc } from "@react-native-firebase/firestore";
+
+// import { onRemove } from '../util/OnRemove';
+
+import Delete_Edit_Modal from "./Delete_Edit_modal";
 
 const WINDOW_WIDTH = Dimensions.get('screen').width;
 const BOX_WIDTH = WINDOW_WIDTH * 2/3;
 const EMPTYPLACE = WINDOW_WIDTH - BOX_WIDTH;
 
-const RantalBox = ({ docId, item }) => {
+const RantalBox = ({ docId, item, planId }) => {
     const navigation = useNavigation();
+
+    const [isEditModalVisible, setEditModalVisible] = useState(false);
+    const [Yposition, setYposition] = useState(0);
 
     const time_string = item.d_time;
     const time_split = time_string.split(' ')[1];
+
+    const [scale, setScale] = useState(1);
+
+    const modalRef = useRef();
+
+    const increaseScale = () => {
+        setScale(prevScale => prevScale + 0.1);
+        console.log('scale: ', scale);
+    };
+    
+    const decreaseScale = () => {
+        setScale(prevScale => prevScale - 0.1);
+    };
+
+    const openModal = () => {
+        modalRef.current?.measureInWindow((x, y, width, height, pageX, pageY) => {
+            increaseScale();
+            console.log('y: ', y);
+            setYposition(y);
+            setEditModalVisible(true);
+        });
+    }
+
+    const closeModal = () => {
+        decreaseScale();
+        setEditModalVisible(false);
+    }
+
+    const onPress = () => {
+        navigation.navigate('PlaceSearchScreen', {docId: docId, edit: true, type: item.type, data: item.data, dataId: item.DataId, date: item.d_date, time: item.d_time})
+        decreaseScale();
+        setEditModalVisible(false);
+    }
+
+    const onRemove = async() => {
+        try {
+            if (planId && item.DataId) {
+                const doc = await firestore()
+                    .collection('plans')
+                    .doc(planId)
+                    .collection('planDetails')
+                    .doc(item.DataId);
+                    deleteDoc(doc);
+                console.log('Document deleted!');
+            }
+            else {
+                console.log('No planId or dataId');
+            }
+        }catch(err) {
+            console.log(err);
+        }
+    
+    }
 
     return (
         <View style={styles.container}>
@@ -24,14 +85,14 @@ const RantalBox = ({ docId, item }) => {
                     <Text style={styles.time_string_text}>{time_split}</Text>
                 </View>
             <Image
-          style={styles.dot_image}
-          source={require('../assets/rantal_dot.png')}
-          />
-          </View>
+            style={styles.dot_image}
+            source={require('../assets/rantal_dot.png')}
+            />
             </View>
+        </View>
 
 
-        <Pressable style={styles.Box} onPress={()=>navigation.navigate('PlaceSearchScreen', {docId: docId, edit: true, type: item.type, data: item.data, dataId: item.DataId, date: item.d_date, time: item.d_time})}>
+        <Pressable ref={modalRef} style={[styles.Box, { transform: [{ scale }] }]} onPress={openModal}>
             <View style={styles.text}>
                 <View style={styles.textline_1}>
                     <View style={styles.place_name_text_box}>
@@ -53,19 +114,24 @@ const RantalBox = ({ docId, item }) => {
             </View>
             <View style={styles.image}>
             <MapView
-              style={styles.image_map}
-              provider={PROVIDER_GOOGLE}
-              initialRegion={{
+                style={styles.image_map}
+                provider={PROVIDER_GOOGLE}
+                initialRegion={{
                 //   latitude: 37.78825,
                 //   longitude: -122.4324,
-                  latitude: item.lat,
-                  longitude: item.lng,
-                  latitudeDelta: 0.9,
-                  longitudeDelta: 0.9,
+                latitude: item.lat,
+                longitude: item.lng,
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05,
                 }}
-                />
+            />
             </View>
         </Pressable>
+        <Modal transparent={true} visible={isEditModalVisible}>
+                <Pressable style={styles.modal_bg} onPress={closeModal}>
+                    <Delete_Edit_Modal Yposition={Yposition} onPress={onPress} remove={onRemove}/>
+                </Pressable>
+            </Modal>
         </View>
     )
 }
@@ -160,8 +226,14 @@ const styles = StyleSheet.create({
         borderWidth: 0.2,
         borderColor: 'gray',
         // marginBottom: 10,
-    }
-
+    }, 
+    modal_bg: {
+        width: '100%',
+        height: '100%',
+        zIndex: -1,
+        // backgroundColor: 'red',
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+    },
 })
 
 export default RantalBox;

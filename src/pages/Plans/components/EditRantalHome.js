@@ -19,6 +19,8 @@ import ScrollPicker from './ScrollPicker/ScrollPicker';
 import Calendar from './Calendar';
 
 import { formatDate } from '../util/FormatDate';
+import { getFieldFromDoc } from '../util/getFieldFromDoc';
+import { formatDateForSorting } from '../util/formatDateForSorting';
 
 const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_type_en, edit, dd_date, dd_time, dataId}) => {
     const [plan, setPlan] = useState([]);
@@ -26,13 +28,24 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
     moment.locale('ko');
     const day = moment().format('L');
     const [date, setDate] = useState(formatDate(day));
-
+    
     const t = moment().format('LT');
     const [time, setTime] = useState(t);
 
+    const [checkInDate, setCheckInDate] = useState(formatDate(day) || dd_date);
+    const [checkInTime, setCheckInTime] = useState(t);
+    const [checkOutDate, setCheckOutDate] = useState(formatDate(day) );
+    const [checkOutTime, setCheckOutTime] = useState(t);
+
     const [isModalVisible, setModalVisible] = useState(false);
+    const [isCanlendarVisible_checkin, setCanlendarVisible_checkin] = useState(false);
+    const [isCanlendarVisible_checkout, setCanlendarVisible_checkout] = useState(false);
+
     const [isCanlendarVisible, setCanlendarVisible] = useState(false);
     const [isTimePickerVisible, setTimePickerVisible] = useState(false);
+    const [currentSelection, setCurrentSelection] = useState(null);
+
+    // const [isTimePickerVisible, setTimePickerVisible] = useState(false);
 
     const [Type, setType] = useState(2);
     const handleTypeChange = (type) => {
@@ -46,50 +59,141 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
     // console.log(moment.locale());
 
     const onInsert = async () => {
+        const date_sorting_check_in = formatDateForSorting(checkInDate, checkInTime);
+        const date_sorting_check_out = formatDateForSorting(checkOutDate, checkOutTime);
         try {
-            console.log('inserting -> ', docId);
-            const nextId = plan.length > 0 ? Math.max(...plan.map(p => p.pid)) + 1 : 1;
-            const newPlan = {
-            pid: nextId.toString(),
-            userId: 0,
-            type: 'rantalHome',
-            data: placeData,
-            placeName: placeData.data.structured_formatting.main_text,
-            address: placeData.data.description,
-            lat: placeData.details.geometry.location.lat,
-            lng: placeData.details.geometry.location.lng,
-            d_month: 1,
-            d_day: 22,
-            d_date: date,
-            d_time: time,
-            date: moment().format('l'),
-            time: moment().format('LT'),
-            timestamp: new Date(),
+            // Check-in plan
+            const nextIdCheckIn = plan.length > 0 ? Math.max(...plan.map(p => p.pid)) + 1 : 1;
+            const checkInPlan = {
+                pid: nextIdCheckIn.toString(),
+                userId: 0,
+                type: 'rantalHome',
+                data: placeData,
+                placeName: placeData.data.structured_formatting.main_text,
+                address: placeData.data.description,
+                lat: placeData.details.geometry.location.lat,
+                lng: placeData.details.geometry.location.lng,
+                d_date: checkInDate,
+                d_time: checkInTime,
+                date_sorting: date_sorting_check_in,
+                timestamp: new Date(),
+                checkInOrOut: 'check-in',
             };
-
-            const docRef =  await firestore()
-            .collection('plans')
-            .doc(docId)
-            .collection('planDetails')
-            .add(newPlan);
+    
+            const checkInDocRef = await firestore()
+                .collection('plans')
+                .doc(docId)
+                .collection('planDetails')
+                .add(checkInPlan);
             
-            console.log("Inserted plan: " + docRef.id + "date: " + newPlan.timestamp + newPlan.date);
-
-            // 문서 추가 후, 문서 ID를 해당 데이터에 추가
             await firestore()
-            .collection('plans')
-            .doc(docId)
-            .collection('planDetails')
-            .doc(docRef.id) // 문서 ID 참조
-            .update({ DataId: docRef.id }); // ID를 문서 데이터에 업데이트
-
-            console.log("Document ID added to the data: ", docRef.id);
+                .collection('plans')
+                .doc(docId)
+                .collection('planDetails')
+                .doc(checkInDocRef.id)
+                .update({ DataId: checkInDocRef.id });
+    
+            console.log("Inserted check-in plan: " + checkInDocRef.id);
+    
+            // Check-out plan
+            const nextIdCheckOut = nextIdCheckIn + 1;
+            const checkOutPlan = {
+                pid: nextIdCheckOut.toString(),
+                userId: 0,
+                type: 'rantalHome',
+                data: placeData,
+                placeName: placeData.data.structured_formatting.main_text,
+                address: placeData.data.description,
+                lat: placeData.details.geometry.location.lat,
+                lng: placeData.details.geometry.location.lng,
+                d_date: checkOutDate,
+                d_time: checkOutTime,
+                date_sorting: date_sorting_check_out,
+                timestamp: new Date(),
+                checkInOrOut: 'check-out',
+            };
+    
+            const checkOutDocRef = await firestore()
+                .collection('plans')
+                .doc(docId)
+                .collection('planDetails')
+                .add(checkOutPlan);
+            
+            await firestore()
+                .collection('plans')
+                .doc(docId)
+                .collection('planDetails')
+                .doc(checkOutDocRef.id)
+                .update({ DataId: checkOutDocRef.id });
+    
+            console.log("Inserted check-out plan: " + checkOutDocRef.id);
         } catch (error) {
-        console.error("Error adding plan: " + error);
+            console.error("Error adding check-in/check-out plan: " + error);
         }
     };
+    
+
+    // const onInsert = async () => {
+    //     try {
+    //         console.log('inserting -> ', docId);
+    //         const nextId = plan.length > 0 ? Math.max(...plan.map(p => p.pid)) + 1 : 1;
+    //         const newPlan = {
+    //         pid: nextId.toString(),
+    //         userId: 0,
+    //         type: 'rantalHome',
+    //         data: placeData,
+    //         placeName: placeData.data.structured_formatting.main_text,
+    //         address: placeData.data.description,
+    //         lat: placeData.details.geometry.location.lat,
+    //         lng: placeData.details.geometry.location.lng,
+    //         d_month: 1,
+    //         d_day: 22,
+    //         d_date: date,
+    //         d_time: time,
+    //         date: moment().format('l'),
+    //         time: moment().format('LT'),
+    //         timestamp: new Date(),
+    //         };
+
+    //         const docRef =  await firestore()
+    //         .collection('plans')
+    //         .doc(docId)
+    //         .collection('planDetails')
+    //         .add(newPlan);
+            
+    //         console.log("Inserted plan: " + docRef.id + "date: " + newPlan.timestamp + newPlan.date);
+
+    //         // 문서 추가 후, 문서 ID를 해당 데이터에 추가
+    //         await firestore()
+    //         .collection('plans')
+    //         .doc(docId)
+    //         .collection('planDetails')
+    //         .doc(docRef.id) // 문서 ID 참조
+    //         .update({ DataId: docRef.id }); // ID를 문서 데이터에 업데이트
+
+    //         console.log("Document ID added to the data: ", docRef.id);
+    //     } catch (error) {
+    //     console.error("Error adding plan: " + error);
+    //     }
+    // };
 
     const onUpdate = async () => {
+        const getCheckInOrOut = await getFieldFromDoc(docId, dataId, 'checkInOrOut');
+        console.log('update-searching: ', getCheckInOrOut);
+
+        let selectedDate = date;
+
+        if (getCheckInOrOut === 'check-in') {
+            console.log('update-check-in', checkInDate);
+            selectedDate = checkInDate;
+        }
+        else if (getCheckInOrOut === 'check-out') {
+            console.log('update-check-out', checkOutDate);
+            selectedDate = checkOutDate;
+        }
+        else {
+            console.log('can not found check in or out');
+        }
         try {
             console.log('updating ', dataId)
             if (dataId) {
@@ -101,7 +205,7 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
                     address: placeData.data.description,
                     lat: placeData.details.geometry.location.lat,
                     lng: placeData.details.geometry.location.lng,
-                    d_date: date,
+                    d_date: selectedDate,
                     d_time: time,
                     timestamp: new Date(),
                 };
@@ -144,9 +248,14 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
         setModalVisible(false);
     }
 
-    const CalenderOpen = () => {
-        setCanlendarVisible(true);
+    const CalenderOpen_checkin = () => {
+        setCanlendarVisible_checkin(true);
     }
+
+    const CalenderOpen_checkout = () => {
+        setCanlendarVisible_checkout(true);
+    }
+
     const CalenderClose = () => {
         setCanlendarVisible(false);
     }
@@ -154,8 +263,22 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
     const handleDateChange = (date) => {
         console.log('handleDateChange: ', date);
         const [year, month, day] = date.split('-');
+        // setDate(`${year.slice(-2)}-${month}-${day}`);
+        const formattedDate = `${year.slice(-2)}-${month}-${day}`;
+        console.log('handleDateChanged: ', formattedDate);
+        
+        if (currentSelection === 'checkin') {
+            setCheckInDate(formattedDate);
+        } else if (currentSelection === 'checkout') {
+            setCheckOutDate(formattedDate);
+        }
 
-        setDate(`${year.slice(-2)}-${month}-${day}`);
+        setCanlendarVisible(false);
+    }
+
+    const openCalendar = (selection) => {
+        setCurrentSelection(selection);
+        setCanlendarVisible(true);
     }
 
     const TimePickerOpen = () => {
@@ -169,6 +292,27 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
         setTime(time);
     }
 
+    const handleCheckInDateChange = (date) => {
+    console.log('handleCheckInDateChange: ', date);
+    const [year, month, day] = date.split('-');
+    setCheckInDate(`${year.slice(-2)}-${month}-${day}`);
+    };
+
+    const handleCheckOutDateChange = (date) => {
+        console.log('handleCheckOutDateChange: ', date);
+        const [year, month, day] = date.split('-');
+        setCheckOutDate(`${year.slice(-2)}-${month}-${day}`);
+    };
+
+    const handleCheckInTimeChange = (time) => {
+        setCheckInTime(time);
+    };
+
+    const handleCheckOutTimeChange = (time) => {
+        setCheckOutTime(time);
+    };
+
+
     return (
         <View style={styles.background}>
             <View style={styles.block}>
@@ -177,8 +321,15 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
                         <Text style={styles.typeText}>숙소</Text>
                         <IconOcticons name="triangle-down" color="#616161" size={20}/>
                     </TouchableOpacity>
-                    <TypePicker visible={isModalVisible} setModalClose={setModalClose} changePlaceSelector={changePlaceSelector} values={box_type} width={88} positon={0} setType={handleTypeChange}/>
-
+                    <TypePicker 
+                    visible={isModalVisible} 
+                    setModalClose={setModalClose} 
+                    changePlaceSelector={changePlaceSelector} 
+                    values={box_type} 
+                    width={88} 
+                    positon={0} 
+                    setType={handleTypeChange}
+                    />
                 </View>
                 <MapView
                 style={styles.map}
@@ -204,18 +355,36 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
                 </View>
             </View>
             <View style={styles.dateBlock}>
-                <TouchableOpacity style={styles.dateline} onPress={()=>CalenderOpen()}>
-                    <IconMaterialCommunityIcons name="calendar-month" size={20} color="#616161"/>
-                    {/* <Text style={styles.dateText}>00-00-00</Text> */}
-                    <Text style={styles.dateText}>{date}</Text>
-                    <IconFeather name="edit-2" size={14} color="#616161"/>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.dateline} onPress={()=>TimePickerOpen()}>
-                    <IconMaterialCommunityIcons name="clock-outline" size={20} color="#616161"/>
-                    {/* <Text style={styles.dateText}>00:00</Text> */}
-                    <Text style={styles.dateText}>{time}</Text>
-                    <IconFeather name="edit-2" size={14} color="#616161"/>
-                </TouchableOpacity>
+                <View style={{flexDirection: 'row', }}>
+                    {/* <Text style={[styles.dateText, {width: 56, }]}>체크인: </Text> */}
+                    <TouchableOpacity style={styles.dateline} onPress={()=>openCalendar('checkin')}>
+                        <IconMaterialCommunityIcons name="calendar-month" size={20} color="#616161"/>
+                        {/* <Text style={styles.dateText}>00-00-00</Text> */}
+                        <Text style={styles.dateText}>{checkInDate}</Text>
+                        {/* <IconFeather name="edit-2" size={14} color="#616161"/> */}
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.dateline, {marginLeft: 8,}]} onPress={()=>TimePickerOpen()}>
+                        <IconMaterialCommunityIcons name="clock-outline" size={20} color="#616161"/>
+                        {/* <Text style={styles.dateText}>00:00</Text> */}
+                        <Text style={styles.dateText}>{checkInTime}</Text>
+                        <IconFeather name="edit-2" size={14} color="#616161"/>
+                    </TouchableOpacity>
+                </View>
+                <View style={{flexDirection: 'row', }}>
+                    <TouchableOpacity style={styles.dateline} onPress={()=>openCalendar('checkout')}>
+                        {/* <Text style={[styles.dateText, {width: 56,}]}>체크아웃: </Text> */}
+                        <IconMaterialCommunityIcons name="calendar-month" size={20} color="#616161"/>
+                        {/* <Text style={styles.dateText}>00-00-00</Text> */}
+                        <Text style={styles.dateText}>{checkOutDate}</Text>
+                        {/* <IconFeather name="edit-2" size={14} color="#616161"/> */}
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.dateline, {marginLeft: 8,}]} onPress={()=>TimePickerOpen()}>
+                        <IconMaterialCommunityIcons name="clock-outline" size={20} color="#616161"/>
+                        {/* <Text style={styles.dateText}>00:00</Text> */}
+                        <Text style={styles.dateText}>{checkOutTime}</Text>
+                        <IconFeather name="edit-2" size={14} color="#616161"/>
+                    </TouchableOpacity>
+                </View>
             </View>
             <View style={styles.btnSection}>
             <TouchableOpacity style={styles.cancelBtn} onPress={() => {navigation.pop()}}>
@@ -229,6 +398,11 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
             <Modal visible={isCanlendarVisible} transparent={true}>
                 <Pressable style={styles.modalBg} onPress={()=>setCanlendarVisible(false)}>
                     <Calendar handleDateChange={handleDateChange}/>
+                </Pressable>
+            </Modal>
+            <Modal visible={isCanlendarVisible_checkout} transparent={true}>
+                <Pressable style={styles.modalBg} onPress={()=>setCanlendarVisible_checkout(false)}>
+                    <Calendar handleDateChange={handleCheckOutDateChange}/>
                 </Pressable>
             </Modal>
             <Modal visible={isTimePickerVisible} transparent={true}>
