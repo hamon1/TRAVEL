@@ -21,6 +21,7 @@ function SignForm({isSignUp, onSubmit, form, createChangeTextHandler}) {
           />
             <BorderedInput 
                 placeholder="비밀번호" 
+                secureTextEntry
                 hasMarginBottom={isSignUp}
                 value={form.password}
                 onChangeText={createChangeTextHandler('password')}
@@ -37,8 +38,12 @@ function SignForm({isSignUp, onSubmit, form, createChangeTextHandler}) {
             {isSignUp &&  (
                 <BorderedInput 
                  placeholder="비밀번호 확인"
+                 secureTextEntry
                  value={form.confirmPassword}
                  onChangeText={createChangeTextHandler('confirmPassword')}
+                 ref={confirmPasswordRef}
+                 returnKeyType="done"
+                 onSubmitEditing={onSubmit}
                 />
             )}
         </>

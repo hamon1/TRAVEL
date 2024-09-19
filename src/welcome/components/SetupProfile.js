@@ -1,27 +1,51 @@
-/*
+
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useState } from "react";
 import { signOut } from "../../lib/auth";
-import { StyleSheet, View } from "react-native";
+import { ActivityIndicator, Image, Pressable, StyleSheet, View, Platform } from "react-native";
 import BorderedInput from "../../components/BorderedInput";
 import CustomButton from "../../components/CustomButton";
 import { createUser } from "../../lib/users";
 import { useUserContext } from "../../components/UserContext";
+import { launchImageLibrary } from 'react-native-image-picker';
+import storage from '@react-native-firebase/storage';
 
 function SetupProfile() {
     const [displayName, setDisplayName] = useState('');
     const navigation = useNavigation();
     const {setUser} = useUserContext();
+    const [response, setResponse] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const {params} = useRoute();
     const {uid} = params || {};
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
+        setLoading(true);
+
+        let photoURL = null;
+
+        if (response) {
+            const asset = response.assets[0];
+            const extension = asset.fileName.split('.').pop();
+            const reference = storage().ref(`/profile/${uid}.${extension}`);
+
+            if (Platform.OS === 'android') {
+                await reference.putString(asset.base64, 'base64', {
+                    contentType: asset.type,
+                });
+            } else {
+                await reference.putFile(asset.uri);
+            }
+
+            photoURL = response ? await reference.getDownloadURL() : null;
+        }
         const user = {
             id : uid,
             displayName,
-            photoURL: null,
+            photoURL,
         };
+
         createUser(user);
         setUser(user);
     };
@@ -30,9 +54,37 @@ function SetupProfile() {
         navigation.goBack();
     };
 
+    const onSelectImage = () => {
+        launchImageLibrary(
+            {
+                mediaType: 'photo',
+                maxWidth:  512,
+                maxHeight: 512,
+                includeBase64: Platform.OS === 'android',
+            },
+            (res) => {
+                if (res.didCancel) {
+                    // 취소
+                    return;
+                }
+                console.log(res);
+                setResponse(res);
+            },
+        );
+    };
+
     return (
         <View style={styles.block}>
-            <View style={styles.circle}/>
+            <Pressable onPress={onSelectImage}>
+                <Image 
+                    style={styles.circle}
+                    source={
+                        response
+                        ? {uri: response?.assets[0]?.uri}
+                        : require('../../assets/Defualtuserimage.png')
+                    }
+                />
+            </Pressable>
             <View style={styles.form}>
                 <BorderedInput
                     placeholder="닉네임"
@@ -41,10 +93,14 @@ function SetupProfile() {
                     onSubmitEditing={onSubmit}
                     returnKeyType="next"
                 />
-                <View style={styles.buttons}>
+                {loading ? (
+                    <ActivityIndicator size={32} color="#6200ee" style={styles.spinner} />
+                ) : (
+                  <View style={styles.buttons}>
                     <CustomButton title="다음" onPress={onSubmit} hasMarginBottom />
-                    <CustomButton title="취소" onCancel={onCancel} theme="secondary" />
-                </View>
+                    <CustomButton title="취소" onPress={onCancel} theme="secondary" />
+                  </View>
+                )}
             </View>
         </View>
     );
@@ -73,4 +129,3 @@ const styles = StyleSheet.create({
 });
 
 export default SetupProfile;
-*/

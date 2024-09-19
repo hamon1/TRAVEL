@@ -9,31 +9,29 @@ import ChatScreen from '../Chat/ChatScreen';
 import IconAdd from '../../components/IconPlus';
 import PlanScreen from '../Plans/PlanScreen';
 import SignInScreen from '../Login/SignInScreen';
-import Plan_Place_Setting from '../Plans/Plan_Place_Setting';
-import CalendarView from '../../components/CalendarView';
 import WelcomeScreen from '../../welcome/screens/WelcomeScreen';
+import PlaceSearchScreen from '../Plans/screens/PlaceSearchScreen';
 import { useUserContext } from '../../components/UserContext';
+import PlanStack from './PlanStack';
 
 const Stack = createNativeStackNavigator();
 
 function RootStack() {
+  const {user} = useUserContext();
   return (
     <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={SignInScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
+      {user ? (
+        <>
+        <Stack.Screen
             name="MainTab"
             component={MainTab}
             options={{headerShown: false}}
             initialRouteName={HomeScreen}
             // etachInactiveScreens={false}
           />
-          <Stack.Screen
-            name="Welcome"
-            component={WelcomeScreen}
+          <Stack.Screen 
+            name='PlanStack'
+            component={PlanStack}
             options={{headerShown: false}}
           />
           <Stack.Screen name="addPlan" component={addPlan} 
@@ -43,16 +41,29 @@ function RootStack() {
             options={{title: '채팅창', headerBackTitle: false}}
           />
           <Stack.Screen name="planScreen" component={PlanScreen} 
-            options={{title: ''}}/>
-          <Stack.Screen
-            name="Plan_Place_Setting"
-            component={Plan_Place_Setting}
-            options={{title: 'PlanPlace'}}
+            options={{title: '', headerBackTitleVisible: (false)}}
           />
           <Stack.Screen
-            name="CalendarView"
-            component={CalendarView}
+            name="PlaceSearchScreen"
+            component={PlaceSearchScreen}
+            options={{title:''}}
           />
+        </>
+      ) : (
+      <>
+      <Stack.Screen
+            name="SignIn"
+            component={SignInScreen}
+            options={{headerShown: false}}
+          />
+          
+          <Stack.Screen
+            name="Welcome"
+            component={WelcomeScreen}
+            options={{headerShown: false}}
+          />
+      </>
+      )}  
     </Stack.Navigator>
   );
 }
