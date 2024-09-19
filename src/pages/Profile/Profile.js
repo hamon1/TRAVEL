@@ -30,6 +30,8 @@ import Setting from '../../components/SettingButton';
 import ChatList from '../../components/ChatList';
 import { useUserContext } from '../../components/UserContext';
 
+import { getUserId } from '../../utils/getUserId';
+
 const Profile = () => {
   const { user } = useUserContext();
   const navigation = useNavigation();
@@ -94,25 +96,41 @@ const Profile = () => {
 // checkLoggedIn();
 
   const auth = getAuth();
-  //const user = auth.currentUser;
+  // const user = auth.currentUser;
   console.log(auth);
-  console.log('user: ' + user);
+  console.log('user: ' + user.id);
+  // console.log('user photoURL: ' + user.photoURL);
+  // getUserId();
 
   return (
     <View style={styles.block}>
       {/* 사용자 프로필 섹션 */}
       <View style={styles.userProfile}>
-        {user.photoURL && (
+        {user.photoURL ? (
           <Image
-          /*
-          style={styles.image}
-          source={require('../../assets/Defualtuserimage.png')}
-          */
+          
+          // style={styles.image}
+          // source={require('../../assets/Defualtuserimage.png')}
+          
             source={{uri: user.photoURL}}
-            style={{width: 128, height: 128, marginBottom: 16}}
+            // style={{width: 128, height: 128, marginBottom: 16}}
+            style={styles.image}
             resizeMode="cover"
           />
-        )}
+          
+        ):
+        <Image
+        
+        style={styles.image}
+        source={require('../../assets/Defualtuserimage.png')}
+        
+          // source={{uri: user.photoURL}}
+          // style={{width: 128, height: 128, marginBottom: 16}}
+          // resizeMode="cover"
+        />
+        }
+        {/* {user.photoURL && ( */}
+        {/* )} */}
         
         <Text style={styles.profile_name}>{user.displayName}</Text>
         <Text style={styles.profile_id}>userId: 000000</Text>

@@ -176,7 +176,7 @@ const PlanScreen = ({route}) => {
       headerTitle: () => (
         <View style={{flexDirection: 'row', alignItems: 'center'}} >
           <TextInput 
-            style={{color: 'white', fontSize: 18}} 
+            style={{color: 'black', fontSize: 18}} 
             placeholder={route.params.title} 
             placeholderTextColor='white'
             // value={title}
