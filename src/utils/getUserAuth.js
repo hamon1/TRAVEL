@@ -1,3 +1,9 @@
+/** 
+ * 유저 정보 가져오는 함수. 
+ * 유저의 id 정보를 가져와 리턴함.
+ */
+
+
 import auth, { getAuth } from '@react-native-firebase/auth';
 import { useUserContext } from '../components/UserContext';
 

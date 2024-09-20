@@ -1,3 +1,9 @@
+/**
+ * 2024.9.10. 형태의 데이터를 24-09-10 형태로 바꾸는 함수.
+ * @param {*} dateString 2024.9.10.
+ * @returns 24-09-10
+ */
+
 export const formatDate = (dateString) => {
     const [year, month, day] = dateString.split('.').filter(Boolean);
 

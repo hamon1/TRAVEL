@@ -1,3 +1,9 @@
+/**
+ * 플랜 내부의 detail plan box를 삭제하는 코드.
+ * 
+ * type을 검색해 type == 'rantalHome' 인 경우에는 checkin, checkout을 모두 찾아 제거함.
+ */
+
 import firestore, { deleteDoc } from "@react-native-firebase/firestore";
 
 import { getFieldFromDoc } from "./getFieldFromDoc";

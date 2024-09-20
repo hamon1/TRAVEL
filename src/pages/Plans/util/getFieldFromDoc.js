@@ -1,8 +1,7 @@
-// firebase 내의 필드 값을 찾는 함수.
-// plans-docId-planDetails-dataId 내의 필드 값을 겁색해 찾는다
+/**
+ * firebase의 user/userId/plans/docId/planDetails/dataId 내의 원하는 fieldKey값의 value를 찾아 출력.
+ */
 
-// 입력값: docId, dataId, fieldKey(찾고자하는 필드의 키)
-// 출력값: 찾고자했던 필드의 value
 
 import firestore from '@react-native-firebase/firestore';
 

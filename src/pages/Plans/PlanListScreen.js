@@ -103,20 +103,21 @@ const PlansScreen = () => {
       };
       const docRef = await 
       firestore()
-      .collection('users')
-      .doc(userId)
-      .collection('plans')
-      .add(newPlan);
+        .collection('users')
+        .doc(userId)
+        .collection('plans')
+        .add(newPlan);
       const id = docRef.id;
 
       console.log('planListSection -> ', id);
 
       await firestore()
-      .collection('users')
-      .doc(userId)
-      .collection('plans')
-      .doc(id)
-      .update({docId: id});
+        .collection('users')
+        .doc(userId)
+        .collection('plans')
+        .doc(id)
+        .update({ docId: id });
+
       setDocId(docRef.id); // Update the plan id for the newly inserted plan
       console.log("Inserted plan: " + docId + "date: " + newPlan.timestamp + newPlan.date);
       
@@ -132,10 +133,10 @@ const PlansScreen = () => {
       console.log(`Removing plan with id: ${planId}`); // Debug log
 
       const planDocRef = await firestore()
-      .collection('users')
-      .doc(userId)
-      .collection('plans')
-      .doc(planId)
+        .collection('users')
+        .doc(userId)
+        .collection('plans')
+        .doc(planId)
       
       // console.log('user doc? ', userDocRef);
 
@@ -162,6 +163,9 @@ const PlansScreen = () => {
     console.log('removed successfully');
       // await deleteDoc(doc(firestore(), 'plans', planId));
       // const docToDelete = plan.find(p => p.id === planId);
+
+    setPlan(prevPlans => prevPlans.filter(p => p.id !== planId));
+    console.log('Plan remoevd from local state.');
     } catch (error) {
       console.error("Error removing plan: ", error);
     }
