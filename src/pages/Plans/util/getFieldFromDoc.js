@@ -6,9 +6,23 @@
 
 import firestore from '@react-native-firebase/firestore';
 
+import auth from '@react-native-firebase/auth';
+
 export const getFieldFromDoc = async(docId, dataId, fieldKey) => {
+    const currentUser = auth().currentUser;
+    if (!currentUser) {
+        console.log('No user signed in');
+        return;
+    }
+
+    // const userId = getUserAuth();
+    const userId = currentUser.uid;
+    console.log('getFieldFromDoc: userId: ', userId);
+
     try {
         const documentSnapshot = await firestore()
+            .collection('users')
+            .doc(userId)
             .collection('plans')
             .doc(docId)
             .collection('planDetails')
@@ -17,6 +31,7 @@ export const getFieldFromDoc = async(docId, dataId, fieldKey) => {
 
         if (documentSnapshot.exists) {
             const data = documentSnapshot.data();
+            console.log('getFieldFromDoc: data: ', data);
 
             const specificField = data[fieldKey];
             console.log('Field value: ', specificField);

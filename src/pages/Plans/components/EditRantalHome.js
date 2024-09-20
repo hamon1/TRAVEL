@@ -22,6 +22,8 @@ import { formatDate } from '../util/FormatDate';
 import { getFieldFromDoc } from '../util/getFieldFromDoc';
 import { formatDateForSorting } from '../util/formatDateForSorting';
 
+import { getUserAuth } from '../../../utils/getUserAuth';
+
 const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_type_en, edit, dd_date, dd_time, dataId}) => {
     const [plan, setPlan] = useState([]);
 
@@ -34,7 +36,7 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
 
     const [checkInDate, setCheckInDate] = useState(formatDate(day) || dd_date);
     const [checkInTime, setCheckInTime] = useState(t);
-    const [checkOutDate, setCheckOutDate] = useState(formatDate(day) );
+    const [checkOutDate, setCheckOutDate] = useState(formatDate(day) || dd_time);
     const [checkOutTime, setCheckOutTime] = useState(t);
 
     const [isModalVisible, setModalVisible] = useState(false);
@@ -53,6 +55,7 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
     }
 
     const navigation = useNavigation();
+    const userId = getUserAuth();
 
     // console.log('edit:', docId);
 
@@ -81,12 +84,16 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
             };
     
             const checkInDocRef = await firestore()
+                .collection('users')
+                .doc(userId)
                 .collection('plans')
                 .doc(docId)
                 .collection('planDetails')
                 .add(checkInPlan);
             
             await firestore()
+                .collection('users')
+                .doc(userId)
                 .collection('plans')
                 .doc(docId)
                 .collection('planDetails')
@@ -111,15 +118,29 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
                 date_sorting: date_sorting_check_out,
                 timestamp: new Date(),
                 checkInOrOut: 'check-out',
+                checkId: checkInDocRef.id,
             };
     
             const checkOutDocRef = await firestore()
+                .collection('users')
+                .doc(userId)
                 .collection('plans')
                 .doc(docId)
                 .collection('planDetails')
                 .add(checkOutPlan);
+
+            await firestore()
+                .collection('users')
+                .doc(userId)
+                .collection('plans')
+                .doc(docId)
+                .collection('planDetails')
+                .doc(checkInDocRef.id)
+                .update({ checkId: checkOutDocRef.id});
             
             await firestore()
+                .collection('users')
+                .doc(userId)
                 .collection('plans')
                 .doc(docId)
                 .collection('planDetails')
@@ -211,6 +232,8 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
                 };
 
                 await firestore()
+                    .collection('users')
+                    .doc(userId)
                     .collection('plans')
                     .doc(docId)
                     .collection('planDetails')
@@ -281,7 +304,8 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
         setCanlendarVisible(true);
     }
 
-    const TimePickerOpen = () => {
+    const TimePickerOpen = (selection) => {
+        setCurrentSelection(selection);
         setTimePickerVisible(true);
     }
     const TimePickerClose = () => {
@@ -289,7 +313,14 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
     }
 
     const handleTimeChange = (time) => {
+        if (currentSelection === 'checkin') {
+            setCheckInTime(time);
+        } else if (currentSelection === 'checkout') {
+            setCheckOutTime(time);
+        }
         setTime(time);
+
+
     }
 
     const handleCheckInDateChange = (date) => {
@@ -363,7 +394,7 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
                         <Text style={styles.dateText}>{checkInDate}</Text>
                         {/* <IconFeather name="edit-2" size={14} color="#616161"/> */}
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.dateline, {marginLeft: 8,}]} onPress={()=>TimePickerOpen()}>
+                    <TouchableOpacity style={[styles.dateline, {marginLeft: 8,}]} onPress={()=>TimePickerOpen('checkin')}>
                         <IconMaterialCommunityIcons name="clock-outline" size={20} color="#616161"/>
                         {/* <Text style={styles.dateText}>00:00</Text> */}
                         <Text style={styles.dateText}>{checkInTime}</Text>
@@ -378,7 +409,7 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
                         <Text style={styles.dateText}>{checkOutDate}</Text>
                         {/* <IconFeather name="edit-2" size={14} color="#616161"/> */}
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.dateline, {marginLeft: 8,}]} onPress={()=>TimePickerOpen()}>
+                    <TouchableOpacity style={[styles.dateline, {marginLeft: 8,}]} onPress={()=>TimePickerOpen('checkout')}>
                         <IconMaterialCommunityIcons name="clock-outline" size={20} color="#616161"/>
                         {/* <Text style={styles.dateText}>00:00</Text> */}
                         <Text style={styles.dateText}>{checkOutTime}</Text>
@@ -402,7 +433,7 @@ const EditRantalHome = ({docId, placeData, changePlaceSelector, box_type, box_ty
             </Modal>
             <Modal visible={isCanlendarVisible_checkout} transparent={true}>
                 <Pressable style={styles.modalBg} onPress={()=>setCanlendarVisible_checkout(false)}>
-                    <Calendar handleDateChange={handleCheckOutDateChange}/>
+                    <Calendar handleDateChange={handleDateChange}/>
                 </Pressable>
             </Modal>
             <Modal visible={isTimePickerVisible} transparent={true}>

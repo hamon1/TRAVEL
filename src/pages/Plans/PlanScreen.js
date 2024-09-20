@@ -22,6 +22,9 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 
 import firestore, {query, orderBy, doc, deleteDoc} from '@react-native-firebase/firestore';
+import auth, { getAuth } from '@react-native-firebase/auth';
+
+import { useUserContext } from '../../components/UserContext';
 
 import moment from 'moment';
 
@@ -34,7 +37,15 @@ import ItemBox from './components/ItemBox';
 
 import IconFeather from 'react-native-vector-icons/Feather';
 
+import { getUserAuth } from '../../utils/getUserAuth';
+
 const PlanScreen = ({route}) => {
+  // const { user } = useUserContext();
+
+  // const auth = getAuth();
+  // // const user = auth.currentUser;
+  // console.log(auth);
+  // console.log('plan screen user: ' + user.id);
   // const [refreshing, setRefreshing] = useState(false);
   // const [boxes, setBoxes] = useState(null);
   const [plans, setPlan] = useState([]);
@@ -55,6 +66,8 @@ const PlanScreen = ({route}) => {
 
   const navigation = useNavigation();
 
+  const userId = getUserAuth();
+
   // navigation.setOptions({
   //   title: route.params.title,
   // });
@@ -71,6 +84,8 @@ const PlanScreen = ({route}) => {
         // }
         // if (!route.params.id)
         const querySnapshot = await firestore()
+          .collection('users')
+          .doc(userId)
           .collection('plans')
           .where('pid', '==', route.params.id)
           .get();
@@ -83,6 +98,8 @@ const PlanScreen = ({route}) => {
 
           // 하위 컬렉션(planDetails)에서 데이터 가져오기
           const unsubscribe = firestore()
+            .collection('users')
+            .doc(userId)
             .collection('plans')
             .doc(docId)
             .collection('planDetails')
@@ -209,6 +226,8 @@ const PlanScreen = ({route}) => {
     try {
       if (route.params.docId) {
         await firestore()
+          .collection('users')
+          .doc(userId)
           .collection('plans')
           .doc(route.params.docId)
           .update({ title: text, 

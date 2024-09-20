@@ -27,10 +27,25 @@ import Empty from '../../assets/Empty';
 import NewPlanbutton from '../../components/NewPlanButton';
 import ListButton from '../../components/ListButton';
 
+// import auth, { getAuth } from '@react-native-firebase/auth';
+
+import { useUserContext } from '../../components/UserContext';
+
+import { getUserAuth } from '../../utils/getUserAuth';
+
 // import plansData from '../../data/planData.json';
 
 
 const PlansScreen = () => {
+  // const { user } = useUserContext();
+
+  // const auth = getAuth();
+  // const user = auth.currentUser;
+  // console.log(auth);
+  // console.log('plan screen user: ' + user.id);
+
+  const userId = getUserAuth();
+
   const [plan, setPlan] = useState([]);
   const [docId, setDocId] = useState();
   const [title, setTitle] = useState('');
@@ -41,6 +56,8 @@ const PlansScreen = () => {
     // let isMounted = true;
 
     const unsubscribe = firestore()
+      .collection('users')
+      .doc(userId)
       .collection('plans')
       .orderBy('timestamp', 'desc')
       .onSnapshot(snapshot => {
@@ -48,9 +65,16 @@ const PlansScreen = () => {
           id: doc.id,
           ...doc.data()
         }));
-        setPlan(fetchedPlans);
-        console.log('Fetched Plan Success!// docId:', fetchedPlans[0].docId);
-        setDocId(fetchedPlans[0].docId);
+        if (fetchedPlans[0] === undefined) {
+          console.log('no fetched plans');
+          return;
+        }
+        else {
+          setPlan(fetchedPlans);
+          console.log('Fetched Plan Success!// docId:', fetchedPlans[0]);
+          setDocId(fetchedPlans[0].docId);
+        }
+        // console.log('Fetched Plan Success!// docId:', fetchedPlans[0].docId);
       }, error => {
         console.error("Error fetching plans: " + error);
       });
@@ -77,12 +101,22 @@ const PlansScreen = () => {
         time: moment().format('LT'),
         timestamp: new Date(),
       };
-      const docRef = await firestore().collection('plans').add(newPlan);
+      const docRef = await 
+      firestore()
+      .collection('users')
+      .doc(userId)
+      .collection('plans')
+      .add(newPlan);
       const id = docRef.id;
 
       console.log('planListSection -> ', id);
 
-      await firestore().collection('plans').doc(id).update({docId: id});
+      await firestore()
+      .collection('users')
+      .doc(userId)
+      .collection('plans')
+      .doc(id)
+      .update({docId: id});
       setDocId(docRef.id); // Update the plan id for the newly inserted plan
       console.log("Inserted plan: " + docId + "date: " + newPlan.timestamp + newPlan.date);
       
@@ -96,7 +130,16 @@ const PlansScreen = () => {
   const onRemove = async (planId) => {
     try {
       console.log(`Removing plan with id: ${planId}`); // Debug log
-      const planDocRef = doc(firestore(), 'plans', planId);
+
+      const planDocRef = await firestore()
+      .collection('users')
+      .doc(userId)
+      .collection('plans')
+      .doc(planId)
+      
+      // console.log('user doc? ', userDocRef);
+
+      // const planDocRef = doc(userDocRef, 'plans', planId);
 
       console.log('doc? ', planDocRef);
     // 하위 컬렉션 참조 (예시로 'planDetails'라는 이름을 사용합니다)

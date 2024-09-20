@@ -133,7 +133,8 @@ const Profile = () => {
         {/* )} */}
         
         <Text style={styles.profile_name}>{user.displayName}</Text>
-        <Text style={styles.profile_id}>userId: 000000</Text>
+        {/* <Text style={styles.profile_id}>userId: 000000</Text> */}
+        <Text style={styles.profile_id}>userId: {user.id}</Text>
         <Text style={styles.introduce_text}>
           Ad consequat fugiat ad nostrud aliqua occaecat culpa amet.
         </Text>

@@ -15,10 +15,11 @@ function PlanStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="addPlan" component={addPlan} 
-        options={{title: '계획 목록'}}
+        options={{title: '계획 목록', headerBackTitleVisible: false}}
+        // options={{headerBackTitleVisible: false}}
       />
       <Stack.Screen name="planScreen" component={PlanScreen} 
-         options={{title: '계획표'}}
+        // options={{title: '계획표'}}
       />
       <Stack.Screen
         name="Plan_Place_Setting"

@@ -21,6 +21,8 @@ import Calendar from './Calendar';
 import { formatDate } from '../util/FormatDate';
 import { formatDateForSorting } from '../util/formatDateForSorting';
 
+import { getUserAuth } from '../../../utils/getUserAuth';
+
 const EditRastaurant = ({docId, placeData, changePlaceSelector, box_type,box_type_en,  edit, dd_date, dd_time, dataId}) => {
     const [plan, setPlan] = useState([]);
 
@@ -41,6 +43,7 @@ const EditRastaurant = ({docId, placeData, changePlaceSelector, box_type,box_typ
     }
 
     const navigation = useNavigation();
+    const userId = getUserAuth();
 
     console.log('edit:', docId);
 
@@ -74,6 +77,8 @@ const EditRastaurant = ({docId, placeData, changePlaceSelector, box_type,box_typ
             };
 
             const docRef =  await firestore()
+            .collection('users')
+            .doc(userId)
             .collection('plans')
             .doc(docId)
             .collection('planDetails')
@@ -83,6 +88,8 @@ const EditRastaurant = ({docId, placeData, changePlaceSelector, box_type,box_typ
 
             // 문서 추가 후, 문서 ID를 해당 데이터에 추가
             await firestore()
+            .collection('users')
+            .doc(userId)
             .collection('plans')
             .doc(docId)
             .collection('planDetails')
@@ -113,6 +120,8 @@ const EditRastaurant = ({docId, placeData, changePlaceSelector, box_type,box_typ
                 };
 
                 await firestore()
+                    .collection('users')
+                    .doc(userId)
                     .collection('plans')
                     .doc(docId)
                     .collection('planDetails')

@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import firestore, { deleteDoc } from "@react-native-firebase/firestore";
 import Delete_Edit_Modal from "./Delete_Edit_modal";
 
+import { onRemove } from '../util/OnRemove';
+
 const WINDOW_WIDTH = Dimensions.get('screen').width;
 const BOX_WIDTH = WINDOW_WIDTH * 2 / 3;
 const EMPTYPLACE = WINDOW_WIDTH - BOX_WIDTH;
@@ -69,23 +71,23 @@ const ItemBox = ({ docId, item, planId }) => {
         setEditModalVisible(false);
     };
 
-    const onRemove = async () => {
-        try {
-            if (planId && item.DataId) {
-                const doc = await firestore()
-                    .collection('plans')
-                    .doc(planId)
-                    .collection('planDetails')
-                    .doc(item.DataId);
-                deleteDoc(doc);
-                console.log('Document deleted!', doc);
-            } else {
-                console.log('No planId or dataId');
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    };
+    // const onRemove = async () => {
+    //     try {
+    //         if (planId && item.DataId) {
+    //             const doc = await firestore()
+    //                 .collection('plans')
+    //                 .doc(planId)
+    //                 .collection('planDetails')
+    //                 .doc(item.DataId);
+    //             deleteDoc(doc);
+    //             console.log('Document deleted!', doc);
+    //         } else {
+    //             console.log('No planId or dataId');
+    //         }
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
 
     useEffect(() => {
         switch (item.type) {
@@ -206,7 +208,11 @@ const ItemBox = ({ docId, item, planId }) => {
             </Pressable>
             <Modal transparent={true} visible={isEditModalVisible}>
                 <Pressable style={styles.modal_bg} onPress={closeModal}>
-                    <Delete_Edit_Modal Yposition={Yposition} onPress={onPress} remove={onRemove} />
+                    <Delete_Edit_Modal 
+                    Yposition={Yposition} 
+                    onPress={onPress} 
+                    remove={()=>onRemove({planId: planId, dataId: item.DataId})} 
+                    />
                 </Pressable>
             </Modal>
         </View>
