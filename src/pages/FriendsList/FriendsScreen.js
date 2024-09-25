@@ -34,6 +34,7 @@ import { getUserAuth } from '../../utils/getUserAuth';
 import firestore, {query, orderBy, doc, deleteDoc} from '@react-native-firebase/firestore';
 import FriendSection from './components/FriendSection';
 
+import CustomToast from '../../components/CustomToast';
 
 const FriendScreen = () => {
   // const {handleCountFriend} = route.params;
@@ -48,6 +49,12 @@ const FriendScreen = () => {
   const [user, setUser] = useState([]);
   const [searchedFriend, setSearchedFriend] = useState();
   const [searchUserModalVisible, setSearchUserModalVisible] = useState(false);
+
+  // const [toastVisible, setToastVisible] = useState(false);
+
+  // const onToast = () => {
+  //   setToastVisible(true);
+  // }
 
   const searchedUser = () => {
     console.log('Press Search');
@@ -192,6 +199,8 @@ const FriendScreen = () => {
                 </>
               )}
             </KeyboardAvoidingView>
+            {/* <CustomToast visible={toastVisible} message="이미 추가된 친구입니다."/> */}
+
             {/* <Pressable onPress={searchedUser} style={{width: 100, height: 100, backgroundColor: 'red'}}/> */}
             {/* <Modal 
             visible={searchUserModalVisible}

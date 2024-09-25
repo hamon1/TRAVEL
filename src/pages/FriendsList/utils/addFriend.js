@@ -30,29 +30,15 @@ import { searchUser } from './searchUser';
 
 // import { getUserAuth } from '../../../utils/getUserAuth';
 
-export async function addFriend(userId, userIdToAdd, userNameToAdd, userPhotoUrlToAdd) {
+export async function addFriend(userId, userIdToAdd, userNameToAdd, userPhotoUrlToAdd, onToast) {
     console.log('adding friend');
-
-    // const user = useUserContext();
-    // console.log('adding friend user: ',user);
-    // const auth = getAuth();
-    // console.log('auth: ', auth.currentUser);
-    // const userId = getUserAuth();
 
     console.log('User ID:', userId);
     console.log('User ID to add:', userIdToAdd);
 
-    // const search = await searchUser('', userIdToAdd, userId);
-
-    // console.log('already added', search.length);
-    // if (search == []) {
-
-    // }
     if (userId) {
         console.log('adding friend / user?:', userId, userNameToAdd, userPhotoUrlToAdd);
-        // const friendsRef = collection(db, "users", userId, "friends");
-        // const friendDoc = doc(friendsRef, userIdToAdd);
-
+        
         const friendDoc = {
             userId: userIdToAdd,
             userName: userNameToAdd,
@@ -75,6 +61,7 @@ export async function addFriend(userId, userIdToAdd, userNameToAdd, userPhotoUrl
             console.log('querySnapshot: ', querySnapshot);
 
             if (!querySnapshot.empty) {
+                onToast();
                 console.log('already added friend');
                 return;
             }

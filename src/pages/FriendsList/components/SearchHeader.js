@@ -21,12 +21,19 @@ import { searchUser } from '../utils/searchUser';
 import { addFriend } from '../utils/addFriend';
 
 import SearchUserModal from './SearchUserModal';
+import CustomToast from '../../../components/CustomToast';
 
 function SearchHeader({ openModal, handleUserData }) {
   const [keyword, setKeyword] = useState('');
   const [userSearched, setUserSearched] = useState();
 
   const [searchUserModalVisible, setSearchUserModalVisible] = useState(false);
+  
+  // const [toastVisible, setToastVisible] = useState(false);
+
+  // const onToast = () => {
+  //   setToastVisible(true);
+  // }
 
   const searchedUser = () => {
     console.log('Press Search');
@@ -93,6 +100,7 @@ function SearchHeader({ openModal, handleUserData }) {
         >
         <Icon name="search" size={26} color="black" />
       </Pressable>
+
       {/* <Pressable
       style={{width: 100, height: 100, backgroundColor: 'green', position: 'absolute', top: 200,}}
       onPress={() => {

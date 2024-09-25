@@ -13,6 +13,7 @@ import {
   Image,
   Alert,
   Modal,
+  Clipboard,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -25,10 +26,31 @@ import { addFriend } from '../utils/addFriend';
 import { removeFriend } from '../utils/removeFriend';
 import { getUserAuth } from '../../../utils/getUserAuth';
 
+import CustomToast from '../../../components/CustomToast';
+
 const FriendSection = ({user, docId, id, userName, userId, photoUrl, text, text2, onRemove, onPress, isAddFriend}) => {
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const userId_now = getUserAuth();
+
+  const [toastVisible, setToastVisible] = useState(false);
+  // const [toastVisibl_not_found, setToastVisible_not_found] = useState(false);
+
+  const onToast = () => {
+    setToastVisible(true);
+  };
+
+  const closeToast = () => {
+    setToastVisible(false);
+  };
+
+  // const onToast_notFound = () => {
+  //   setToastVisible_not_found(true);
+  // };
+
+  // const closeToast_notFound = () => {
+  //   setToastVisible_not_found(false);
+  // };
 
   useEffect(() => {}, []);
 
@@ -87,7 +109,7 @@ const FriendSection = ({user, docId, id, userName, userId, photoUrl, text, text2
         <Text style={styles.text}>{userId}</Text>
         {/** 친구 삭제 */}
         {isAddFriend ? (
-          <TouchableOpacity onPress={()=>addFriend(user, userId, userName, photoUrl)} style={styles.icon_remove}>
+          <TouchableOpacity onPress={()=>addFriend(user, userId, userName, photoUrl, onToast)} style={styles.icon_remove}>
             <Icon name="plus" size={24} color="orange" />
           </TouchableOpacity>
         ):
@@ -114,6 +136,8 @@ const FriendSection = ({user, docId, id, userName, userId, photoUrl, text, text2
           />
         </View>
       </Modal>
+      <CustomToast visible={toastVisible} message="이미 추가된 친구입니다." OffToast={closeToast}/>
+      {/* <CustomToast visible={toastVisible_not_found} message="해당 유저를 찾을 수 없습니다." OffToast={closeToast_notFound}/> */}
     </View>
   );
 };
