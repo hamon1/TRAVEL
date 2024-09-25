@@ -4,7 +4,7 @@ import { Modal, Text, View, StyleSheet } from 'react-native';
 const CustomToast = ({ visible, message, OffToast }) => {
     const [show, setShow] = useState(false);
 
-    console.log('customToast: visible? ', visible);
+    // console.log('customToast: visible? ', visible);
 
     useEffect(() => {
         if (visible) {

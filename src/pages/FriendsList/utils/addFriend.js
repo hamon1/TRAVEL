@@ -38,7 +38,12 @@ export async function addFriend(userId, userIdToAdd, userNameToAdd, userPhotoUrl
 
     if (userId) {
         console.log('adding friend / user?:', userId, userNameToAdd, userPhotoUrlToAdd);
-        
+
+        if (userId === userIdToAdd) {
+            console.log('Cannot add friend with yourself');
+            return;
+        }
+
         const friendDoc = {
             userId: userIdToAdd,
             userName: userNameToAdd,
