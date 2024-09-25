@@ -32,9 +32,13 @@ import { useUserContext } from '../../components/UserContext';
 
 import { getUserId } from '../../utils/getUserId';
 
+import firestore, {query, orderBy, doc, deleteDoc} from '@react-native-firebase/firestore';
+
 const Profile = () => {
   const { user } = useUserContext();
   const navigation = useNavigation();
+
+  const [FriendsCount, setFriendsCount] = useState();
   // 채팅방 목록 상태 설정
   const [chatroom] = useState([
     {
@@ -77,60 +81,84 @@ const Profile = () => {
   // 친구 수 계산
   const friendCount = chatroom.length;
 
-  // 현재 사용자 인증 정보 가져오기
-//   const [LoggedIn, setLoggedIn] = useState(false);
+  
+  // let countFriend = 0;
+  
+  // const handleCountFriend = (count) => {
+    //   countFriend = count;
+    // }
+    
+    // 현재 사용자 인증 정보 가져오기
+    //   const [LoggedIn, setLoggedIn] = useState(false);
+    
+    //   const checkLoggedIn = () => {
+      //     auth().onAuthStateChanged((user) => {
+        //         if (user) {
+          //             setLoggedIn(true)
+          //             console.log("loggedIn")
+          //         } else {
+            //             setLoggedIn(false)
+            //             console.log("loggedOut")
+            //         }
+            //     }
+            //     )
+            // }
+            
+            // checkLoggedIn();
+            
+            const auth = getAuth();
+            // const user = auth.currentUser;
+            console.log(auth);
+            console.log('user: ' + user.id);
+            // console.log('user photoURL: ' + user.photoURL);
+            // getUserId();
+          useEffect(() => {
+            const fetchFriendCount = async () => {
+              console.log('profile');
+              try {
+                const snapshot = await firestore()
+                  .collection('users')
+                  .doc(user.id)
+                  .get();
+  
+                console.log('profile snapshot: ' + snapshot);
+  
+                if (snapshot.exists) {
+                  const data = snapshot.data();
+                  console.log('friend Count: data: ', data);
+      
+                  const specificField = data['friendCount'];
+                  console.log('Friend Count: ', specificField);
+                  setFriendsCount(specificField);
+                  // return specificField;
+                } else {
+                    console.log('No such document!');
+                    // return null;
+                } 
+              }catch(e) {
+                console.error(e);
+              }
 
-//   const checkLoggedIn = () => {
-//     auth().onAuthStateChanged((user) => {
-//         if (user) {
-//             setLoggedIn(true)
-//             console.log("loggedIn")
-//         } else {
-//             setLoggedIn(false)
-//             console.log("loggedOut")
-//         }
-//     }
-//     )
-// }
-
-// checkLoggedIn();
-
-  const auth = getAuth();
-  // const user = auth.currentUser;
-  console.log(auth);
-  console.log('user: ' + user.id);
-  // console.log('user photoURL: ' + user.photoURL);
-  // getUserId();
-
-  return (
-    <View style={styles.block}>
+            };
+            fetchFriendCount();
+          },[]);
+            
+    return (
+      <View style={styles.block}>
       {/* 사용자 프로필 섹션 */}
       <View style={styles.userProfile}>
         {user.photoURL ? (
           <Image
-          
-          // style={styles.image}
-          // source={require('../../assets/Defualtuserimage.png')}
-          
             source={{uri: user.photoURL}}
-            // style={{width: 128, height: 128, marginBottom: 16}}
             style={styles.image}
             resizeMode="cover"
           />
-          
         ):
         <Image
-        
         style={styles.image}
         source={require('../../assets/Defualtuserimage.png')}
-        
-          // source={{uri: user.photoURL}}
-          // style={{width: 128, height: 128, marginBottom: 16}}
-          // resizeMode="cover"
         />
-        }
-        {/* {user.photoURL && ( */}
-        {/* )} */}
+      }
         
         <Text style={styles.profile_name}>{user.displayName}</Text>
         {/* <Text style={styles.profile_id}>userId: 000000</Text> */}
@@ -143,7 +171,12 @@ const Profile = () => {
           onPress={() => {
             navigation.navigate('FriendList');
           }}>
-          <Friends friendCount={friendCount} />
+            {
+              FriendsCount ? (
+                <Friends friendCount={FriendsCount} />
+              ):
+              <Friends friendCount={0} />
+            }
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.setting}
@@ -199,9 +232,11 @@ const styles = StyleSheet.create({
   },
   image: {
     backgroundColor: 'gray',
-    width: 72,
-    height: 72,
-    borderRadius: 45,
+    // width: 72,
+    // height: 72,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
     top: 56,
   },
   profile_name: {

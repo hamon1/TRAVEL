@@ -15,7 +15,11 @@ function FriendList({user, onRemove, onPress}) {
         data={user}
         renderItem={({item}) => (
           <FriendSection
-            id={item.id}
+            id={item.userId}
+            docId={item.pid}
+            userName={item.userName}
+            userId={item.userId}
+            photoUrl={item.userId.photoURL}
             text={item.text}
             text2={item.text2}
             onRemove={onRemove}

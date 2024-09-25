@@ -39,6 +39,11 @@ import IconFeather from 'react-native-vector-icons/Feather';
 
 import { getUserAuth } from '../../utils/getUserAuth';
 
+// import  planNotification  from './util/PlanNotification';
+
+// import PushNotification from 'react-native-push-notification';
+
+
 const PlanScreen = ({route}) => {
   // const { user } = useUserContext();
 
@@ -52,25 +57,37 @@ const PlanScreen = ({route}) => {
   const [docId, setDocId] = useState(null);
   const [title, setTitle] = useState(route.params.title || title);
 
+
+  let planId = null;
   // const [scale, setScale] = useState(1);
 
   // const increaseScale = () => {
-  //   setScale(prevScale => prevScale + 0.1);
-  // };
-  
-  // const decreaseScale = () => {
-  //   setScale(prevScale => prevScale - 0.1);
-  // };
-
-  console.log('plan pid', route.params.docId);
-
-  const navigation = useNavigation();
-
-  const userId = getUserAuth();
-
+    //   setScale(prevScale => prevScale + 0.1);
+    // };
+    
+    // const decreaseScale = () => {
+      //   setScale(prevScale => prevScale - 0.1);
+      // };
+      
+      console.log('plan pid', route.params.docId);
+      
+      const navigation = useNavigation();
+      
+      const userId = getUserAuth();
+      
+      // useEffect(() => {
+      //   // if (docId) {
+      //     console.log('planId가 패치되었으므로 알림 설정을 실행합니다: ', docId);
+      //     planNotification(userId, docId); // 알림 설정 함수 호출
+      //   // }
+      // }, [docId]); 
   // navigation.setOptions({
   //   title: route.params.title,
   // });
+
+
+  // planNotification(userId, docId);
+
 
   console.log('plan screen / title: ', title);
 
@@ -96,6 +113,8 @@ const PlanScreen = ({route}) => {
           setDocId(docId);
           console.log('docId', docId);
 
+          planId = docId;
+
           // 하위 컬렉션(planDetails)에서 데이터 가져오기
           const unsubscribe = firestore()
             .collection('users')
@@ -115,6 +134,21 @@ const PlanScreen = ({route}) => {
               console.error("Error fetching planDetails: ", error);
             });
 
+
+            // if (docId) {
+            //   // 알림이 즉시 표시되도록 푸시 알림 호출
+            //   PushNotification.localNotification({
+            //     title: '알림 테스트',
+            //     message: `Plan ID: ${docId} - 알림이 등록되었습니다.`,
+            //     playSound: true,
+            //     soundName: 'default',
+            //     importance: 'high',
+            //     priority: 'max',
+            //   });
+            // }
+
+            // console.log('planId가 패치되었으므로 알림 설정을 실행합니다: ', planId);
+            // planNotification(userId, docId);
           // Clean up the subscription
           return () => unsubscribe();
         } else {
@@ -126,6 +160,7 @@ const PlanScreen = ({route}) => {
     };
 
     fetchPlanDetails();
+
   }, []);
 
 // 더미 데이터
@@ -223,13 +258,14 @@ const PlanScreen = ({route}) => {
   }, [navigation, title]);
   
   const updateTitle = async (text) => {
+    console.log('updateTitle:', planId);
     try {
       if (route.params.docId) {
         await firestore()
           .collection('users')
           .doc(userId)
           .collection('plans')
-          .doc(route.params.docId)
+          .doc(planId)
           .update({ title: text, 
             date: moment().format('l'),
           time: moment().format('LT'),
@@ -243,6 +279,17 @@ const PlanScreen = ({route}) => {
       console.error("Error updating plan title: ", error);
     }
   };
+
+  // const OnNotification =() => {
+  //   console.log('Pressed notification/ user, plan', userId, planId);
+  //         // planNotification(userId, planId)
+  //         if (userId && planId) {
+  //           <planNotification userId={userId} planId={planId} />
+
+  //         } else {
+  //           console.error("Error: userId or planId is missing.");
+  //         }
+  // }
 
   // useEffect(() => {
   //   if (title) {
@@ -267,10 +314,14 @@ const PlanScreen = ({route}) => {
       {/* <Addbutton docId={docId}/> */}
       {/* <TouchableOpacity style={styles.add} onPress={()=>{console.log('planScreen -> ', route.params.docId)}}/> */}
       {route.params.docId ? (
-        <Addbutton style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: route.params.docId})}}/>
+        <Addbutton style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: docId})}}/>
       ) : 
       <Addbutton style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: docId, edit: false})}}/>
         }
+        {/* <TouchableOpacity
+        style = {{width: 100, height: 100, backgroundColor: 'green', position: 'absolute'}}
+        onPress = {()=>OnNotification()}
+        /> */}
         {/* <View style={{width: 100, height: 100, backgroundColor: 'red', position: 'absolute', top: -10,}}/> */}
       </GestureHandlerRootView>
     </View>

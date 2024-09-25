@@ -27,7 +27,7 @@ const FriendProfile = ({onPress, id, text, text2}) => {
           /** 이미지 설정(기본 값)
            * 이후 사용자가 선택한 이미지로 변경 가능하게.
            */
-          source={require('../assets/Defualtuserimage.png')}
+          source={require('../../../assets/Defualtuserimage.png')}
         />
         <View style={styles.nameBlock}>
           <Text style={styles.nameText}>{text}</Text>

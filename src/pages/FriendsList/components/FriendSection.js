@@ -21,9 +21,15 @@ import FriendProfileModal from './FriendProfieModal';
 import Icon from 'react-native-vector-icons/Octicons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const FriendSection = ({id, text, text2, onRemove, onPress}) => {
+import { addFriend } from '../utils/addFriend';
+import { removeFriend } from '../utils/removeFriend';
+import { getUserAuth } from '../../../utils/getUserAuth';
+
+const FriendSection = ({user, docId, id, userName, userId, photoUrl, text, text2, onRemove, onPress, isAddFriend}) => {
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const userId_now = getUserAuth();
+
   useEffect(() => {}, []);
 
   const onPressModalOpen = () => {
@@ -35,6 +41,7 @@ const FriendSection = ({id, text, text2, onRemove, onPress}) => {
     setIsModalVisible(false);
   };
 
+  console.log('user:', userId_now, ' / userId:', docId);
   const remove = () => {
     Alert.alert(
       '삭제',
@@ -43,7 +50,8 @@ const FriendSection = ({id, text, text2, onRemove, onPress}) => {
         {
           text: '삭제',
           onPress: () => {
-            onRemove(id);
+            // onRemove(id);
+            removeFriend(userId_now, docId);
           },
           style: 'destructive',
         },
@@ -62,18 +70,31 @@ const FriendSection = ({id, text, text2, onRemove, onPress}) => {
   return (
     <View>
       <TouchableOpacity style={styles.section} onPress={onPressModalOpen}>
+        {photoUrl ? (
+          <Image
+            style={styles.userImage}
+            source={{uri: photoUrl}}
+            />
+        ):
         <Image
           style={styles.userImage}
           /** 이미지 설정(기본 값)
-           * 이후 사용자가 선택한 이미지로 변경 가능하게.
            */
-          source={require('../assets/Defualtuserimage.png')}></Image>
-        <Text style={styles.text_Name}>{text}</Text>
-        <Text style={styles.text}>{id}</Text>
+          source={require('../../../assets/Defualtuserimage.png')}
+          />
+        }
+        <Text style={styles.text_Name}>{userName}</Text>
+        <Text style={styles.text}>{userId}</Text>
         {/** 친구 삭제 */}
-        <TouchableOpacity onPress={remove} style={styles.icon_remove}>
-          <Icon name="x" size={24} color="#000000" />
-        </TouchableOpacity>
+        {isAddFriend ? (
+          <TouchableOpacity onPress={()=>addFriend(user, userId, userName, photoUrl)} style={styles.icon_remove}>
+            <Icon name="plus" size={24} color="orange" />
+          </TouchableOpacity>
+        ):
+          <TouchableOpacity onPress={remove} style={styles.icon_remove}>
+            <Icon name="x" size={24} color="#000000" />
+          </TouchableOpacity>
+        }
         {/** 채팅창으로 이동 */}
         <TouchableOpacity
           onPress={() => {
