@@ -48,7 +48,7 @@ function SearchHeader({ openModal, handleUserData }) {
       console.log('keyword not found');
       return;
     }
-    searchUser(keyword).then((foundUser) => {
+    searchUser(keyword, '', userId).then((foundUser) => {
       console.log('found User: ', foundUser[0]);
       setUserSearched(foundUser[0]);
       handleUserData(foundUser[0]);

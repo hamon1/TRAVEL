@@ -26,6 +26,8 @@ import firestore, {query, orderBy, doc, deleteDoc, getDocs, collection} from '@r
 import auth, { getAuth } from '@react-native-firebase/auth';
 import { useUserContext } from '../../../components/UserContext';
 
+import { searchUser } from './searchUser';
+
 // import { getUserAuth } from '../../../utils/getUserAuth';
 
 export async function addFriend(userId, userIdToAdd, userNameToAdd, userPhotoUrlToAdd) {
@@ -39,6 +41,13 @@ export async function addFriend(userId, userIdToAdd, userNameToAdd, userPhotoUrl
 
     console.log('User ID:', userId);
     console.log('User ID to add:', userIdToAdd);
+
+    // const search = await searchUser('', userIdToAdd, userId);
+
+    // console.log('already added', search.length);
+    // if (search == []) {
+
+    // }
     if (userId) {
         console.log('adding friend / user?:', userId, userNameToAdd, userPhotoUrlToAdd);
         // const friendsRef = collection(db, "users", userId, "friends");
@@ -54,21 +63,34 @@ export async function addFriend(userId, userIdToAdd, userNameToAdd, userPhotoUrl
         console.log('new doc');
 
         try {
-            const doc = await firestore()
-            .collection('users')
-            .doc(userId)
-            .collection('friends')
+            const friendCollectionRef = await firestore()
+                .collection('users')
+                .doc(userId)
+                .collection('friends');
+
+            const querySnapshot = await friendCollectionRef
+                .where('userId', '==', userIdToAdd).get();
+
+            // console.log('query snapshot / friendCollectionRef: ', friendCollectionRef.empty);
+            console.log('querySnapshot: ', querySnapshot);
+
+            if (!querySnapshot.empty) {
+                console.log('already added friend');
+                return;
+            }
+
+            const docRef = await friendCollectionRef
             .add(friendDoc);
 
-            console.log('added friend', doc.id);
+            console.log('added friend', docRef.id);
 
             await firestore()
                 .collection('users')
                 .doc(userId)
                 .collection('friends')
-                .doc(doc.id)
+                .doc(docRef.id)
                 .update({
-                    pid: doc.id,
+                    pid: docRef.id,
                 })
         } catch (err) {
             console.error('Error adding friend: ', err);
