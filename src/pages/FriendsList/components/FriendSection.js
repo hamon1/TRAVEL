@@ -28,7 +28,10 @@ import { getUserAuth } from '../../../utils/getUserAuth';
 
 import CustomToast from '../../../components/CustomToast';
 
-const FriendSection = ({user, docId, id, userName, userId, photoUrl, text, text2, onRemove, onPress, isAddFriend}) => {
+import { createChatRoom } from '../../Chat/util/createChatRoom';
+import { create } from 'lodash';
+
+const FriendSection = ({user, docId, userName, userId, photoUrl, onRemove, isAddFriend}) => {
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const userId_now = getUserAuth();
@@ -43,6 +46,8 @@ const FriendSection = ({user, docId, id, userName, userId, photoUrl, text, text2
   const closeToast = () => {
     setToastVisible(false);
   };
+
+  // const chatRoomId = createChatRoom(userId_now, userId);
 
   // const onToast_notFound = () => {
   //   setToastVisible_not_found(true);
@@ -119,8 +124,15 @@ const FriendSection = ({user, docId, id, userName, userId, photoUrl, text, text2
         }
         {/** 채팅창으로 이동 */}
         <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('chatScreen');
+          onPress={async() => {
+            console.log('press chat button / create new chat room', userId_now, userId);
+
+            const RoomId = await createChatRoom(userId_now, userId);
+
+            console.log('created new chat room: ', RoomId);
+
+            navigation.navigate('chatScreen', { chatRoomId: RoomId, userId: userId_now });
+
           }}
           style={styles.icon_message}>
           <Icon2 name="message" size={24} color="#000000" />
@@ -130,9 +142,9 @@ const FriendSection = ({user, docId, id, userName, userId, photoUrl, text, text2
         <View style={styles.modalView}>
           <FriendProfileModal
             onPress={onPressModalClose}
-            id={id}
-            text={text}
-            text2={text2}
+            id={userId}
+            // text={text}
+            // text2={text2}
           />
         </View>
       </Modal>

@@ -30,10 +30,10 @@ const FriendProfile = ({onPress, id, text, text2}) => {
           source={require('../../../assets/Defualtuserimage.png')}
         />
         <View style={styles.nameBlock}>
-          <Text style={styles.nameText}>{text}</Text>
+          {/* <Text style={styles.nameText}>{text}</Text> */}
         </View>
         <View style={styles.introduce_block}>
-          <Text style={styles.introduce_text}>{text2}t</Text>
+          {/* <Text style={styles.introduce_text}>{text2}t</Text> */}
         </View>
       </View>
     </View>

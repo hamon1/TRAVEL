@@ -1,72 +1,128 @@
-// import React from 'react';
-// import {View, Text, StyleSheet} from 'react-native';
+// import React, {useState, useCallback, useEffect} from 'react';
+// import {SafeAreaProvider, StyleSheet, View} from 'react-native';
+// import {GiftedChat} from 'react-native-gifted-chat';
 
-// const ChatScreen = () => {
+// export default function Example() {
+//   const [messages, setMessages] = useState([]);
+
+//   useEffect(() => {
+//     setMessages([
+//       {
+//         _id: 1,
+//         text: 'Hello world!',
+//         createdAt: new Date(),
+//         user: {
+//           _id: 2,
+//           name: 'React Native',
+//           avatar: 'https://placeimg.com/140/140/any',
+//         },
+//       },
+//     ]);
+//   }, []);
+
+//   const onSend = useCallback((messages = []) => {
+//     setMessages(previousMessages =>
+//       GiftedChat.append(previousMessages, messages),
+//     );
+//   }, []);
+
 //   return (
-//     <View style={styles.container}>
-//       <Text>ChatScreen</Text>
-//     </View>
+//     <GiftedChat
+//       placeholder="메시지를 입력하세요."
+//       showUserAvatar={false}
+//       messages={messages}
+//       onSend={messages => onSend(messages)}
+//       user={{
+//         _id: 1,
+//       }}
+//       scrollToBottom={true}
+//       renderUsername={() => {
+//         true;
+//       }}
+//       multiline={false}
+//       alwaysShowSend={true}
+//     />
 //   );
-// };
+// }
 
 // const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: 'gray',
+//   block: {
+//     backgroundColor: 'blue',
 //   },
 // });
 
-// export default ChatScreen;
 
-import React, {useState, useCallback, useEffect} from 'react';
-import {SafeAreaProvider, StyleSheet, View} from 'react-native';
-import {GiftedChat} from 'react-native-gifted-chat';
+//----------------------------------------------------------------
 
-export default function Example() {
-  const [messages, setMessages] = useState([]);
+import React, { useState } from 'react';
+import { View, TextInput, Button, FlatList, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
 
-  useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello world!',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ]);
-  }, []);
+// import sendMessage from './util/sendMessage';
+import { useMessages } from './util/useMessages';
 
-  const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages =>
-      GiftedChat.append(previousMessages, messages),
-    );
-  }, []);
+import { getUserAuth } from '../../utils/getUserAuth';
+import { sendMessage } from './util/createChatRoom';
+
+import { useUserContext } from '../../components/UserContext';
+
+import TextBox from './components/TextBox';
+
+const ChatScreen = ({route}) => {
+  const { user } = useUserContext();
+  
+  const { chatRoomId, userId } = route.params;
+
+  const [messageText, setMessageText] = useState('');
+  const messages = useMessages(chatRoomId);
+
+  const handleSend = () => {
+    console.log('Send message: ', chatRoomId, userId, messageText);
+    sendMessage(chatRoomId, userId, messageText, user.displayName);
+    setMessageText('');
+  }
+
+  // const handleSend = () => {
+  //   sendMessage(userId, 'receiverId', messageText); // 수신자 ID를 실제 수신자로 변경
+  //   setMessageText('');
+  // };
 
   return (
-    <GiftedChat
-      placeholder="메시지를 입력하세요."
-      showUserAvatar={false}
-      messages={messages}
-      onSend={messages => onSend(messages)}
-      user={{
-        _id: 1,
-      }}
-      scrollToBottom={true}
-      renderUsername={() => {
-        true;
-      }}
-      multiline={false}
-      alwaysShowSend={true}
-    />
+    <View style={styles.container}>
+        <FlatList
+          data={messages}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <>
+              <Text>{`${item.userName}: ${item.text}`}</Text>
+              {/* <TextBox messageText={item.text}/> */}
+            </>
+          )}
+        />
+        <View style={styles.textInput_container}>
+          <TextInput
+            value={messageText}
+            onChangeText={setMessageText}
+            placeholder="메시지를 입력하세요"
+          />
+          <Button title="전송" onPress={handleSend}/>
+        </View>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  block: {
-    backgroundColor: 'blue',
+  container: {
+    flex: 1,
   },
-});
+  textInput_container: {
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    padding: 8,
+
+    bottom: 0,
+    height: 64,
+    // backgroundColor: 'green',
+  }
+})
+
+export default ChatScreen;
