@@ -17,16 +17,16 @@ import {useNavigation} from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const ChatSection = ({id, text, text2}) => {
+const ChatSection = ({id, text, text2, lastMessage, userId, otherUserName}) => {
   const navigation = useNavigation();
 
   return (
     <View>
       <TouchableOpacity
         style={styles.section}
-        onPress={() => navigation.navigate('chatScreen')}>
-        <Text style={styles.text_Name}>{text}</Text>
-        <Text style={styles.text}>마지막 메시지</Text>
+        onPress={() => navigation.navigate('chatScreen', {chatRoomId:id, userId:userId})}>
+        <Text style={styles.text_Name}>{otherUserName}</Text>
+        <Text style={styles.text}>{lastMessage||'주고 받은 대화 없음!'}</Text>
         <Icon style={styles.icon} name="people" size={24} color="#000000" />
       </TouchableOpacity>
     </View>

@@ -7,14 +7,21 @@ import {FlatList, View, Text, StyleSheet} from 'react-native';
 
 import ChatSection from './ChatSection';
 
-function ChatList({chatList}) {
+function ChatList({chatList, userId}) {
   return (
     <>
       <FlatList
         style={style.list}
         data={chatList}
         renderItem={({item}) => (
-          <ChatSection id={item.id} text={item.text} text2={item.text2} />
+          <ChatSection 
+          id={item.id} 
+          lastMessage={item.lastMessage}
+          otherUserName={item.otherUserName}
+          // text={item.text} 
+          // text2={item.text2} 
+          userId={userId}
+          />
         )}
         keyExtractor={item => item.id.toString()}
       />

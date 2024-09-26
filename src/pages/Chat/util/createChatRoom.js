@@ -1,4 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
+import { times } from 'lodash';
 
 export const createChatRoom = async (userId1, userId2) => {
     try {
@@ -50,4 +51,12 @@ export const sendMessage = async (chatRoomId, senderId, messageText, userName) =
         text: messageText,
         timestamp: firestore.FieldValue.serverTimestamp(),
     });
+
+    const chatRoomRef = await firestore()
+        .collection('chatRooms')
+        .doc(chatRoomId)
+        .update({
+            lastMessage: messageText,
+            timestamp: firestore.FieldValue.serverTimestamp(),
+        });
 };

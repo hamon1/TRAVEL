@@ -27,12 +27,14 @@ import { useNavigation } from '@react-navigation/native';
 import Friends from './components/FriendsButton';
 import Setting from '../../components/SettingButton';
 
-import ChatList from '../../components/ChatList';
+import ChatList from './components/ChatList';
 import { useUserContext } from '../../components/UserContext';
 
 import { getUserId } from '../../utils/getUserId';
 
 import firestore, {query, orderBy, doc, deleteDoc} from '@react-native-firebase/firestore';
+
+import { getChatRoomList } from './util/getChatRoomList';
 
 const Profile = () => {
   const { user } = useUserContext();
@@ -40,109 +42,106 @@ const Profile = () => {
 
   const [FriendsCount, setFriendsCount] = useState();
   // 채팅방 목록 상태 설정
-  const [chatroom] = useState([
-    {
-      id: 1,
-      text: 'user1',
-      text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    },
-    {
-      id: 2,
-      text: 'user2',
-      text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    },
-    {
-      id: 3,
-      text: 'user3',
-      text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    },
-    {
-      id: 4,
-      text: 'user4',
-      text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    },
-    {
-      id: 5,
-      text: 'user5',
-      text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    },
-    {
-      id: 6,
-      text: 'user6',
-      text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    },
-    {
-      id: 7,
-      text: 'user7',
-      text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    },
+  const [chatroom, setChatRoom] = useState([
+    // {
+    //   id: 1,
+    //   text: 'user1',
+    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    // },
+    // {
+    //   id: 2,
+    //   text: 'user2',
+    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    // },
+    // {
+    //   id: 3,
+    //   text: 'user3',
+    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    // },
+    // {
+    //   id: 4,
+    //   text: 'user4',
+    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    // },
+    // {
+    //   id: 5,
+    //   text: 'user5',
+    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    // },
+    // {
+    //   id: 6,
+    //   text: 'user6',
+    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    // },
+    // {
+    //   id: 7,
+    //   text: 'user7',
+    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+    // },
   ]);
 
   // 친구 수 계산
   const friendCount = chatroom.length;
 
   
-  // let countFriend = 0;
-  
-  // const handleCountFriend = (count) => {
-    //   countFriend = count;
-    // }
-    
-    // 현재 사용자 인증 정보 가져오기
-    //   const [LoggedIn, setLoggedIn] = useState(false);
-    
-    //   const checkLoggedIn = () => {
-      //     auth().onAuthStateChanged((user) => {
-        //         if (user) {
-          //             setLoggedIn(true)
-          //             console.log("loggedIn")
-          //         } else {
-            //             setLoggedIn(false)
-            //             console.log("loggedOut")
-            //         }
-            //     }
-            //     )
-            // }
-            
-            // checkLoggedIn();
-            
-            const auth = getAuth();
-            // const user = auth.currentUser;
-            console.log(auth);
-            console.log('user: ' + user.id);
-            // console.log('user photoURL: ' + user.photoURL);
-            // getUserId();
-          useEffect(() => {
-            const fetchFriendCount = async () => {
-              console.log('profile');
-              try {
-                const snapshot = await firestore()
-                  .collection('users')
-                  .doc(user.id)
-                  .get();
-  
-                console.log('profile snapshot: ' + snapshot);
-  
-                if (snapshot.exists) {
-                  const data = snapshot.data();
-                  console.log('friend Count: data: ', data);
-      
-                  const specificField = data['friendCount'];
-                  console.log('Friend Count: ', specificField);
-                  setFriendsCount(specificField);
-                  // return specificField;
-                } else {
-                    console.log('No such document!');
-                    // return null;
-                } 
-              }catch(e) {
-                console.error(e);
-              }
 
-            };
-            fetchFriendCount();
-          },[]);
             
+    const auth = getAuth();
+    // const user = auth.currentUser;
+    console.log(auth);
+    console.log('user: ' + user.id);
+    // console.log('user photoURL: ' + user.photoURL);
+    // getUserId();
+  useEffect(() => {
+    const fetchFriendCount = async () => {
+      console.log('profile');
+      try {
+        const snapshot = await firestore()
+          .collection('users')
+          .doc(user.id)
+          .get();
+
+        console.log('profile snapshot: ' + snapshot);
+
+        if (snapshot.exists) {
+          const data = snapshot.data();
+          console.log('friend Count: data: ', data);
+
+          const specificField = data['friendCount'];
+          console.log('Friend Count: ', specificField);
+          setFriendsCount(specificField);
+          // return specificField;
+        } else {
+            console.log('No such document!');
+            // return null;
+        } 
+
+      }catch(e) {
+        console.error(e);
+      }
+
+    };
+    // const fetchChatRooms = async () => {
+    //   try {
+    //     const chatRooms = await getChatRoomList(user.id);
+    //     console.log('chatrooms: ', chatRooms);
+    //     setChatRoom(chatRooms);
+    //   }catch (error) {
+    //     console.error('Error getting chatrooms: ', error);
+    //   }
+    // }
+    fetchFriendCount();
+    // fetchChatRooms();
+  },[]);
+            
+  useEffect(() => {
+    const unsubscribe = getChatRoomList(user.id, setChatRoom);
+
+    return () => {
+      unsubscribe && unsubscribe();
+    };
+  }, [user.id]);
+
     return (
       <View style={styles.block}>
       {/* 사용자 프로필 섹션 */}
@@ -198,7 +197,11 @@ const Profile = () => {
           </View>
         ) : (
           <>
-            <ChatList chatList={chatroom} style={styles.chat} />
+            <ChatList 
+            chatList={chatroom} 
+            style={styles.chat} 
+            userId={user.id}
+            />
           </>
         )}
       </View>
