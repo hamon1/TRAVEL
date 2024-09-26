@@ -51,7 +51,6 @@ LocaleConfig.locales.fr = {
         '목',
         '금',
         '토',
-        '일',
     ],
 };
 
