@@ -60,3 +60,19 @@ export const sendMessage = async (chatRoomId, senderId, messageText, userName) =
             timestamp: firestore.FieldValue.serverTimestamp(),
         });
 };
+
+export const leftChatRoom = async (chatRoomId, userId) => {
+    try {
+        const chatRoomRef = await firestore()
+            .collection('chatRooms')
+            .doc(chatRoomId);
+        
+        await chatRoomRef.update({
+            participants: firestore.FieldValue.arrayRemove(userId),
+        });
+
+        console.log(`User ${userId} has left the chat room`);
+    } catch (error) {
+        console.error('Error leaving chat room: ', error);
+    }
+}

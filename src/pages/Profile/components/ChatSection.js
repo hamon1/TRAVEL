@@ -17,7 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const ChatSection = ({id, text, text2, lastMessage, userId, otherUserName}) => {
+const ChatSection = ({id, text, text2, lastMessage, userId, otherUserName, userCount}) => {
   const navigation = useNavigation();
 
   return (
@@ -27,7 +27,10 @@ const ChatSection = ({id, text, text2, lastMessage, userId, otherUserName}) => {
         onPress={() => navigation.navigate('chatScreen', {chatRoomId:id, userId:userId})}>
         <Text style={styles.text_Name}>{otherUserName}</Text>
         <Text style={styles.text}>{lastMessage||'주고 받은 대화 없음!'}</Text>
-        <Icon style={styles.icon} name="people" size={24} color="#000000" />
+        <View style={styles.icon}>
+          <Icon style={{marginRight: 4,}} name="people" size={24} color="#000000" />
+          <Text>{userCount}</Text>
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -58,9 +61,17 @@ const styles = StyleSheet.create({
     left: 25,
   },
   icon: {
+    width: 56,
+    height: 28,
+    borderRadius: 15,
+    backgroundColor: '#FFC107',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'absolute',
     top: 20,
-    left: '90%',
+    left: '82%',
   },
 });
 

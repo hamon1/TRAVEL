@@ -18,6 +18,7 @@ function ChatList({chatList, userId}) {
           id={item.id} 
           lastMessage={item.lastMessage}
           otherUserName={item.otherUserName}
+          userCount={item.userCount}
           // text={item.text} 
           // text2={item.text2} 
           userId={userId}

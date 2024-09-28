@@ -28,11 +28,16 @@ export const getChatRoomList = (userId, onChatRoomsUpdate) => {
         const unsubscribe = firestore()
             .collection('chatRooms')
             .where('participants', 'array-contains', userId)
-            // .orderBy('timestamp', 'asc')
+            // .orderBy('timestamp', 'desc')
             .onSnapshot(async(snapshot) => {
                 const chatrooms = await Promise.all(snapshot.docs.map(async(doc) => {
                     const data = doc.data();  
                     const otherUserId = data.participants.find(id => id !== userId);
+
+                    const participantCount = data.participants.length;
+                    // if (!data.participants.includes(userId)) {
+                    //     return null;
+                    // }
 
                     const otherUser = await firestore()
                         .collection('users')
@@ -47,6 +52,7 @@ export const getChatRoomList = (userId, onChatRoomsUpdate) => {
                         ...doc.data(),
                         otherUserId,
                         otherUserName: otherUser._data.displayName,
+                        userCount: participantCount,
                     }
                 }));
 

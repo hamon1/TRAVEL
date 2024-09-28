@@ -54,14 +54,15 @@
 
 //----------------------------------------------------------------
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, TextInput, Button, FlatList, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
 
 // import sendMessage from './util/sendMessage';
 import { useMessages } from './util/useMessages';
+import { useNavigation } from '@react-navigation/native';
 
 import { getUserAuth } from '../../utils/getUserAuth';
-import { sendMessage } from './util/createChatRoom';
+import { sendMessage, leftChatRoom } from './util/createChatRoom';
 
 import { useUserContext } from '../../components/UserContext';
 
@@ -69,6 +70,8 @@ import TextBox from './components/TextBox';
 
 const ChatScreen = ({route}) => {
   const { user } = useUserContext();
+
+  const navigation = useNavigation();
   
   const { chatRoomId, userId } = route.params;
 
@@ -81,6 +84,14 @@ const ChatScreen = ({route}) => {
     setMessageText('');
   }
 
+  const flatListRef = useRef(null);
+
+  useEffect(() => {
+    if (flatListRef.current && messages.length > 0) {
+      flatListRef.current.scrollToEnd({ animated: true });
+    }
+  }, [messages]);
+
   // const handleSend = () => {
   //   sendMessage(userId, 'receiverId', messageText); // 수신자 ID를 실제 수신자로 변경
   //   setMessageText('');
@@ -89,13 +100,22 @@ const ChatScreen = ({route}) => {
   return (
     <View style={styles.container}>
         <FlatList
+          ref={flatListRef}
           data={messages}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <>
-              <Text>{`${item.userName}: ${item.text}`}</Text>
-              {/* <TextBox messageText={item.text}/> */}
-            </>
+          <View
+            style={[
+              styles.messageContainer,
+              item.senderId === user.id ? styles.myMessage : styles.otherMessage,
+            ]}
+          >
+            <Text style={styles.userName}>
+              {item.senderId === user.id ? '' : item.userName}
+            </Text>
+            <TextBox messageText={item.text} />
+            {/* <Text>{item.timestamp}</Text> */}
+          </View>
           )}
         />
         <View style={styles.textInput_container}>
@@ -106,6 +126,11 @@ const ChatScreen = ({route}) => {
           />
           <Button title="전송" onPress={handleSend}/>
         </View>
+        {/* <Button title="채팅방 나가기" onPress={() => {
+          leftChatRoom(chatRoomId, userId);
+          navigation.pop();
+        }}
+        /> */}
     </View>
   );
 };
@@ -122,7 +147,27 @@ const styles = StyleSheet.create({
     bottom: 0,
     height: 64,
     // backgroundColor: 'green',
-  }
+  },
+  messageContainer: {
+    padding: 10,
+    borderRadius: 10,
+    marginVertical: 8,
+    maxWidth: '90%',
+    marginHorizontal: 8,
+  },
+  myMessage: {
+    alignSelf: 'flex-end',
+    backgroundColor: 'orange',
+  },
+  otherMessage: {
+    alignSelf: 'flex-start',
+    // backgroundColor: '#f1f1f1',
+    backgroundColor: 'white',
+  },
+  userName: {
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
 })
 
 export default ChatScreen;
