@@ -22,9 +22,11 @@ function PlanList({plan, onRemove, docId}) {
             id={item.id}
             date={item.date}
             time={item.time}
+            userId={item.userId}
             // timestamp={item.timestamp}
             onRemove={onRemove}
             docId={docId}
+            guest={item.guest}
           />
         )}
         keyExtractor={item => item.id.toString()}
@@ -43,7 +45,7 @@ const style = StyleSheet.create({
   list: {
     // backgroundColor: 'red',
     // flex: 1,
-    height: '100%',
+    // height: '100%',
   },
 });
 

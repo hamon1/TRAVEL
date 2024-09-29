@@ -49,6 +49,7 @@ const PlansScreen = () => {
   const [plan, setPlan] = useState([]);
   const [docId, setDocId] = useState();
   const [title, setTitle] = useState('');
+  const [guestPlan, setGuestPlan] = useState([]);
 
   const navigation = useNavigation();
   
@@ -63,7 +64,9 @@ const PlansScreen = () => {
       .onSnapshot(snapshot => {
         const fetchedPlans = snapshot.docs.map(doc => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
+          userId: userId,
+          guest: false,
         }));
         if (fetchedPlans[0] === undefined) {
           console.log('no fetched plans');
@@ -86,6 +89,50 @@ const PlansScreen = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const fetchGuestPlans = async () => {
+      try {
+        // 현재 사용자의 guestPlan 문서들 가져오기
+        const guestPlansSnapshot = await firestore()
+          .collection('users')
+          .doc(userId)
+          .collection('guestPlan')
+          .get();
+
+        const fetchedGuestPlans = [];
+
+        // 각 guestPlan 문서에서 planId 및 topUserId를 이용해 계획 데이터 가져오기
+        for (const doc of guestPlansSnapshot.docs) {
+          const { planId, TopUserId } = doc.data();
+
+          // 해당 슈퍼 유저의 plan 컬렉션에서 해당 planId의 계획을 가져오기
+          const planSnapshot = await firestore()
+            .collection('users')
+            .doc(TopUserId)
+            .collection('plans')
+            .doc(planId)
+            .get();
+
+          if (planSnapshot.exists) {
+            fetchedGuestPlans.push({
+              id: planSnapshot.id,
+              ...planSnapshot.data(),
+              userId: TopUserId,
+              guest: true,
+            });
+          }
+        }
+        console.log('fetched data (guest plan): ', fetchedGuestPlans[0]);
+
+        setGuestPlan(fetchedGuestPlans); // 가져온 guestPlan 데이터를 상태에 저장
+      } catch (error) {
+        console.error('Error fetching guest plans: ', error);
+      }
+    };
+
+    fetchGuestPlans();
+  }, [userId]);
+
   const onInsert = async () => {
     try {
       const nextId = plan.length > 0 ? Math.max(...plan.map(p => p.pid)) + 1 : 1;
@@ -93,10 +140,12 @@ const PlansScreen = () => {
       setTitle(plan_title);
       const newPlan = {
         pid: nextId.toString(),
-        userId: 0,
+        userId: userId,
         title: plan_title,
         text: `place${nextId}`,
-        text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+        // text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
+        participants: [userId],
+        chatRoomId: null,
         date: moment().format('l'),
         time: moment().format('LT'),
         timestamp: new Date(),
@@ -191,6 +240,21 @@ const PlansScreen = () => {
         <View style={styles.block}>
           <SafeAreaView style={styles.PlaceList}>
             <KeyboardAvoidingView>
+              {guestPlan.length === 0 ? (
+                <></>
+              ): (
+                <>
+                <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+                  <Text style={{color: 'gray',}}>(초대받은 여행)</Text>
+                </View>
+                <PlanList
+                  plan={guestPlan}
+                  docId={docId}
+                  // userId={}
+                  />
+                <View style={{borderColor: 'gray', borderBottomWidth: 0.5, marginVertical: 4, height: 4,}}></View>
+                </>
+              )}
               {plan.length === 0 ? (
                 <View style={styles.emptyView}>
                   <Text style={styles.emptyViewText}>

@@ -33,12 +33,15 @@ import TransBox from './components/TransBox';
 import RantalBox from './components/RantalhomeBox';
 import RastaurantBox from './components/RastaurantBox';
 
+import FriendsButton from '../Profile/components/FriendsButton';
 import ItemBox from './components/ItemBox';
+import { AddFriendButton } from './components/AddFriendButton';
 
 import IconFeather from 'react-native-vector-icons/Feather';
 
 import { getUserAuth } from '../../utils/getUserAuth';
 
+import { addFriendToPlan } from './util/addFriendToPlan';
 // import  planNotification  from './util/PlanNotification';
 
 // import PushNotification from 'react-native-push-notification';
@@ -57,6 +60,7 @@ const PlanScreen = ({route}) => {
   const [docId, setDocId] = useState(null);
   const [title, setTitle] = useState(route.params.title || title);
 
+  const [participants, setParticipants] = useState([]);
 
   let planId = null;
   // const [scale, setScale] = useState(1);
@@ -87,9 +91,16 @@ const PlanScreen = ({route}) => {
 
 
   // planNotification(userId, docId);
+  const handleAddFriend = async (friendId) => {
+    console.log('handleAddFriend / ', friendId);
+    await addFriendToPlan(docId, friendId, userId);
+
+    setParticipants(prev => [...prev, friendId]);
+  }
 
 
   console.log('plan screen / title: ', title);
+  console.log('plan screen / topUserId(userId): ', route.params.userId);
 
   useEffect(() => {
     const fetchPlanDetails = async () => {
@@ -102,7 +113,7 @@ const PlanScreen = ({route}) => {
         // if (!route.params.id)
         const querySnapshot = await firestore()
           .collection('users')
-          .doc(userId)
+          .doc(route.params.userId)
           .collection('plans')
           .where('pid', '==', route.params.id)
           .get();
@@ -118,7 +129,7 @@ const PlanScreen = ({route}) => {
           // 하위 컬렉션(planDetails)에서 데이터 가져오기
           const unsubscribe = firestore()
             .collection('users')
-            .doc(userId)
+            .doc(route.params.userId)
             .collection('plans')
             .doc(docId)
             .collection('planDetails')
@@ -163,13 +174,6 @@ const PlanScreen = ({route}) => {
 
   }, []);
 
-// 더미 데이터
-  // const items = [
-  //   {id: '1', type: 'place'},
-  //   {id: '2', type: 'trans'},
-  //   {id: '3', type: 'place'},
-  // ];
-
   function renderItem({item}) {
     return (
       <ItemBox
@@ -178,49 +182,6 @@ const PlanScreen = ({route}) => {
       planId={route.params.docId}
       />
     )
-    // switch (item.type) {
-    //   case 'place':
-    //     return (
-    //       <PlaceBox
-    //         docId={docId}
-    //         item={item}
-    //         planId={route.params.docId}
-    //         // id={item.id}
-    //         // description={item.description}
-    //       />
-    //     );
-    //   case 'transportation':
-    //     return (
-    //       <TransBox
-    //       docId={docId}
-    //       item={item}
-    //       planId={route.params.docId}
-    //         // description={item.description}
-    //         // id={item.id}
-    //       />
-    //     );
-    //     case 'rantalHome':
-    //     return (
-    //       <RantalBox
-    //       docId={docId}
-    //       item={item}
-    //       planId={route.params.docId}
-    //         // description={item.description}
-    //         // id={item.id}
-    //       />
-    //     );
-    //     case 'restaurant':
-    //     return (
-    //       <RastaurantBox
-    //       docId={docId}
-    //       item={item}
-    //         // description={item.description}
-    //         // id={item.id}
-    //       />
-    //     );
-    //   default:
-    //     return null;
-    // }
   }
 
   useEffect(() => {
@@ -318,6 +279,9 @@ const PlanScreen = ({route}) => {
       ) : 
       <Addbutton style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: docId, edit: false})}}/>
         }
+        {/* <FriendsButton /> */}
+        <AddFriendButton handleAddFriend={handleAddFriend} friendId={"DE24jXy11jh88EJsUAxP88zWwHt1"
+}/>
         {/* <TouchableOpacity
         style = {{width: 100, height: 100, backgroundColor: 'green', position: 'absolute'}}
         onPress = {()=>OnNotification()}

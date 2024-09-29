@@ -18,8 +18,9 @@ import {useNavigation} from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Octicons';
 
-const PlanSection = ({pid, title, text, text2, id, date, time, onRemove, onPress, docId}) => {
+const PlanSection = ({pid, title, text, text2, id, date, time, onRemove, onPress, docId, userId, guest}) => {
   const navigation = useNavigation();
+  console.log('guest? ', guest);
 
   const remove = () => {
     Alert.alert(
@@ -51,8 +52,10 @@ const PlanSection = ({pid, title, text, text2, id, date, time, onRemove, onPress
   return (
     <View>
       <TouchableOpacity
-        style={styles.section}
-        onPress={() => navigation.navigate('planScreen', {title: title, id: pid, docId: docId})}>
+        style={[styles.section,
+        {backgroundColor: guest === true ? '#ffc43c' : '#fb8c00'}
+        ]}
+        onPress={() => navigation.navigate('planScreen', {title: title, id: pid, docId: docId, userId: userId})}>
         <Text style={styles.text_Name}>{title}</Text>
         <View style={styles.dateBox}>
           {/* <Icon name="calendar" size={20} color="black" style={styles.iconCalender}/> */}
@@ -72,7 +75,7 @@ const styles = StyleSheet.create({
     top: 10,
     bottom: 10,
     // backgroundColor: '#FFE99C',
-    backgroundColor:'#fb8c00',
+    // backgroundColor:'#fb8c00',
     marginLeft: 10,
     marginBottom: 10,
     borderRadius: 15,
