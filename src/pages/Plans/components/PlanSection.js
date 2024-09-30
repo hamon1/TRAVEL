@@ -18,7 +18,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Octicons';
 
-const PlanSection = ({pid, title, text, text2, id, date, time, onRemove, onPress, docId, userId, guest}) => {
+const PlanSection = ({pid, title, text, text2, id, date, time, onRemove, onPress, docId, userId, guest, userCount}) => {
   const navigation = useNavigation();
   console.log('guest? ', guest);
 
@@ -55,7 +55,7 @@ const PlanSection = ({pid, title, text, text2, id, date, time, onRemove, onPress
         style={[styles.section,
         {backgroundColor: guest === true ? '#ffc43c' : '#fb8c00'}
         ]}
-        onPress={() => navigation.navigate('planScreen', {title: title, id: pid, docId: docId, userId: userId})}>
+        onPress={() => navigation.navigate('planScreen', {title: title, id: pid, docId: docId, userId: userId, userCount: userCount})}>
         <Text style={styles.text_Name}>{title}</Text>
         <View style={styles.dateBox}>
           {/* <Icon name="calendar" size={20} color="black" style={styles.iconCalender}/> */}

@@ -36,6 +36,7 @@ import RastaurantBox from './components/RastaurantBox';
 import FriendsButton from '../Profile/components/FriendsButton';
 import ItemBox from './components/ItemBox';
 import { AddFriendButton } from './components/AddFriendButton';
+import { ChatRoomButton } from './components/ChatRoomButton';
 
 import IconFeather from 'react-native-vector-icons/Feather';
 
@@ -101,6 +102,7 @@ const PlanScreen = ({route}) => {
 
   console.log('plan screen / title: ', title);
   console.log('plan screen / topUserId(userId): ', route.params.userId);
+  console.log('plan screen / participants: ', participants.length);
 
   useEffect(() => {
     const fetchPlanDetails = async () => {
@@ -145,22 +147,6 @@ const PlanScreen = ({route}) => {
               console.error("Error fetching planDetails: ", error);
             });
 
-
-            // if (docId) {
-            //   // 알림이 즉시 표시되도록 푸시 알림 호출
-            //   PushNotification.localNotification({
-            //     title: '알림 테스트',
-            //     message: `Plan ID: ${docId} - 알림이 등록되었습니다.`,
-            //     playSound: true,
-            //     soundName: 'default',
-            //     importance: 'high',
-            //     priority: 'max',
-            //   });
-            // }
-
-            // console.log('planId가 패치되었으므로 알림 설정을 실행합니다: ', planId);
-            // planNotification(userId, docId);
-          // Clean up the subscription
           return () => unsubscribe();
         } else {
           console.log("No document matches the query.");
@@ -215,8 +201,18 @@ const PlanScreen = ({route}) => {
           <IconFeather style={{marginLeft: 8}} name="edit-2" size={18} color="#616161"/>
         </View>
       ),
-    });
-  }, [navigation, title]);
+      headerRight: () => (
+        <>
+        {route.params.userCount > 0 ? (
+          <View>
+              <ChatRoomButton />
+          </View>
+        ):
+        <></>
+      }
+      </>
+    )
+  })}, [navigation, title]);
   
   const updateTitle = async (text) => {
     console.log('updateTitle:', planId);
@@ -241,23 +237,6 @@ const PlanScreen = ({route}) => {
     }
   };
 
-  // const OnNotification =() => {
-  //   console.log('Pressed notification/ user, plan', userId, planId);
-  //         // planNotification(userId, planId)
-  //         if (userId && planId) {
-  //           <planNotification userId={userId} planId={planId} />
-
-  //         } else {
-  //           console.error("Error: userId or planId is missing.");
-  //         }
-  // }
-
-  // useEffect(() => {
-  //   if (title) {
-  //     updateTitle();
-  //   }
-  // }, [title]);
-
   return (
     <View style={styles.bg}>
       <GestureHandlerRootView>
@@ -280,8 +259,9 @@ const PlanScreen = ({route}) => {
       <Addbutton style={styles.add} onPress={()=> {navigation.navigate('PlaceSearchScreen', {docId: docId, edit: false})}}/>
         }
         {/* <FriendsButton /> */}
-        <AddFriendButton handleAddFriend={handleAddFriend} friendId={"DE24jXy11jh88EJsUAxP88zWwHt1"
-}/>
+        {/* <View style={styles.friendButton}> */}
+          <AddFriendButton handleAddFriend={handleAddFriend} friendId={"DE24jXy11jh88EJsUAxP88zWwHt1"} userId={route.params.userId} docId={docId} userCount={route.params.userCount}/>
+        {/* </View> */}
         {/* <TouchableOpacity
         style = {{width: 100, height: 100, backgroundColor: 'green', position: 'absolute'}}
         onPress = {()=>OnNotification()}
@@ -308,6 +288,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     right: 20,
+  },
+  friendButton: {
+    // position: 'absolute',
+    // top: 24,
+    // left: 20,
+    // width: 52,
+    // height: 28,
+    // backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // borderRadius: 14,
   },
 });
 

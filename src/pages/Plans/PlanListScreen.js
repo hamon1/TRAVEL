@@ -114,11 +114,15 @@ const PlansScreen = () => {
             .get();
 
           if (planSnapshot.exists) {
+            const planData = planSnapshot.data();
+            const participants = planData.participants || [];
+
             fetchedGuestPlans.push({
               id: planSnapshot.id,
               ...planSnapshot.data(),
               userId: TopUserId,
               guest: true,
+              userCount: participants.length,
             });
           }
         }

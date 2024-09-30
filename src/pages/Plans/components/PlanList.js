@@ -27,6 +27,7 @@ function PlanList({plan, onRemove, docId}) {
             onRemove={onRemove}
             docId={docId}
             guest={item.guest}
+            userCount={item.userCount}
           />
         )}
         keyExtractor={item => item.id.toString()}

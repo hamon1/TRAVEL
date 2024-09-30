@@ -13,6 +13,8 @@ import WelcomeScreen from '../../welcome/screens/WelcomeScreen';
 import PlaceSearchScreen from '../Plans/screens/PlaceSearchScreen';
 import { useUserContext } from '../../components/UserContext';
 import PlanStack from './PlanStack';
+import { InvitedUserList } from '../Plans/InvitedUserList';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +44,11 @@ function RootStack() {
           />
           <Stack.Screen name="planScreen" component={PlanScreen} 
             options={{title: '', headerBackTitleVisible: (false)}}
+          />
+          <Stack.Screen
+            name="InvitedUserList"
+            component={InvitedUserList}
+            options={{title: '참여자 목록'}}
           />
           <Stack.Screen
             name="PlaceSearchScreen"

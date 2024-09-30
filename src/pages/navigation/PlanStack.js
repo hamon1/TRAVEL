@@ -9,6 +9,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 // import addPlan from '../Plans/PlanListScreen';
 // import PlanScreen from '../Plans/PlanScreen';
 
+// import { InvitedUserList } from '../Plans/InvitedUserList';
+
 const Stack = createNativeStackNavigator();
 
 function PlanStack() {
@@ -20,6 +22,11 @@ function PlanStack() {
       />
       <Stack.Screen name="planScreen" component={PlanScreen} 
         // options={{title: '계획표'}}
+      />
+      <Stack.Screen
+        name="InvitedUserList"
+        component={InvitedUserList}
+        options={{title: '참여자 목록'}}
       />
       <Stack.Screen
         name="Plan_Place_Setting"
