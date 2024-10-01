@@ -63,6 +63,10 @@ const PlanScreen = ({route}) => {
 
   const [participants, setParticipants] = useState([]);
 
+  const [userCount, setUserCount] = useState(null);
+
+  const [chatRoomId, setChatRoomId] = useState(null);
+
   let planId = null;
   // const [scale, setScale] = useState(1);
 
@@ -125,6 +129,12 @@ const PlanScreen = ({route}) => {
           const docId = doc.id;
           setDocId(docId);
           console.log('docId', docId);
+
+          const planData = doc.data();
+          setChatRoomId(planData.chatRoomId);
+          setUserCount(planData.participants.length);
+
+          console.log('chatRoomId', planData.chatRoomId);
 
           planId = docId;
 
@@ -203,16 +213,17 @@ const PlanScreen = ({route}) => {
       ),
       headerRight: () => (
         <>
-        {route.params.userCount > 0 ? (
-          <View>
-              <ChatRoomButton />
-          </View>
-        ):
-        <></>
-      }
-      </>
+        {/* <Text>?</Text> */}
+          {chatRoomId && (
+            <ChatRoomButton chatRoomId={chatRoomId} userId={userId}/>
+          ) 
+          // <></>
+        }
+        </>
     )
-  })}, [navigation, title]);
+  })}, [navigation, title, chatRoomId]);
+
+  console.log('chatRoom Id: ', plans.chatRoomId);
   
   const updateTitle = async (text) => {
     console.log('updateTitle:', planId);
@@ -260,7 +271,7 @@ const PlanScreen = ({route}) => {
         }
         {/* <FriendsButton /> */}
         {/* <View style={styles.friendButton}> */}
-          <AddFriendButton handleAddFriend={handleAddFriend} friendId={"DE24jXy11jh88EJsUAxP88zWwHt1"} userId={route.params.userId} docId={docId} userCount={route.params.userCount}/>
+          <AddFriendButton handleAddFriend={handleAddFriend} userId={route.params.userId} docId={docId} userCount={userCount}/>
         {/* </View> */}
         {/* <TouchableOpacity
         style = {{width: 100, height: 100, backgroundColor: 'green', position: 'absolute'}}

@@ -1,12 +1,45 @@
 import firestore from '@react-native-firebase/firestore';
 import { times } from 'lodash';
 
-export const createChatRoom = async (userId1, userId2) => {
+export const createChatRoom = async (userId1, userId2, group, planId) => {
     try {
+        console.log('Creating chat room', group);
+        if (group) {
+            const groupChatRoomSnapshot = await firestore()
+                .collection('groupChatRooms')
+                .where('participants', 'array-contains', userId1)
+                .get();
+
+                console.log('Chat room snapshot: ', groupChatRoomSnapshot);
+        
+                let existingChatRoom = null;
+        
+                groupChatRoomSnapshot.forEach(doc => {
+                    console.log('doc.id: ', doc.id);
+                    const participants = doc.data().participants;
+                    console.log('participants: ', participants);
+                    if (participants.includes(userId2)) {
+                        existingChatRoom = doc.id;
+                    }
+                });
+
+                const chatRoomRef = firestore().collection('groupChatRooms').doc();
+                    await chatRoomRef.set({
+                        participants: [userId1, userId2],
+                        group: true,
+                        planId: planId,
+                    });
+                    console.log('Chat room created: ', chatRoomRef.id);
+                return chatRoomRef.id;
+        } else {
+
+
         const chatRoomSnapshot = await firestore()
             .collection('chatRooms')
             .where('participants', 'array-contains', userId1)
             .get();
+        
+        
 
         console.log('Chat room snapshot: ', chatRoomSnapshot);
 
@@ -32,6 +65,7 @@ export const createChatRoom = async (userId1, userId2) => {
             console.log('Chat room created: ', chatRoomRef.id);
             return chatRoomRef.id;
         }
+    }
 
     }catch (e) {
         console.error('Error creating chat room: ', e);

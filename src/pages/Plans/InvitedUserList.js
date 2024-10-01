@@ -7,13 +7,17 @@ import firestore, {query, orderBy, doc, deleteDoc, getDocs, collection} from '@r
 import { getInvitedUser } from './util/getInvitedUser';
 
 import { InvitedUserSection } from './InvitedUserSection';
+import { AddFriendSection } from './components/AddFriendSection';
 
 import {useNavigation} from '@react-navigation/native';
 
 import { getUserAuth } from '../../utils/getUserAuth';
 
 export const InvitedUserList = ({route}) => {
-    const {topUserId, docId} = route.params;
+    const {topUserId, docId, handleAddFriend } = route.params;
+    // const { topUserId } = route.params.topUserId;
+    // const { docId } = route.params.docId;
+
     const [userList, setUserList] = useState([]);
     const [friendList, setFriendList] = useState([]);
     const navigation = useNavigation();
@@ -44,18 +48,18 @@ export const InvitedUserList = ({route}) => {
             else {
                 setFriendList(fetchedFriends);
     
-                firestore()
-                    .collection('users')
-                    .doc(userId)
-                    .update({
-                    friendCount: fetchedFriends.length,
-                    // pid: fetchedFriends[0].id,
-                    });
+                // firestore()
+                //     .collection('users')
+                //     .doc(userId)
+                //     .update({
+                //     friendCount: fetchedFriends.length,
+                //     // pid: fetchedFriends[0].id,
+                //     });
                 console.log('Fetched Plan Success!// Friends length: ', fetchedFriends.length);
-                console.log('Fetched Plan', friendList);
-              // handleCountFriend(fetchedFriends.length);
-              // setDocId(fetchedFriends[0].docId);
+                // handleCountFriend(fetchedFriends.length);
+                // setDocId(fetchedFriends[0].docId);
             }
+            console.log('Fetched Plan', friendList);
             // console.log('Fetched Plan Success!// docId:', fetchedPlans[0].docId);
         }, error => {
             console.error("Error fetching plans: " + error);
@@ -107,7 +111,14 @@ export const InvitedUserList = ({route}) => {
                         data={friendList}
                         // keyExtractor={(item) => item.userId}
                         renderItem={({item}) => 
-                        <Text>{item.userName}</Text>
+                        // <Text>{item.userName}</Text>
+                        <AddFriendSection 
+                        userName={item.userName}
+                        userId={item.userId}
+                        docId={docId}
+                        topUserId={topUserId}
+                        handleAddFriend={handleAddFriend}
+                        />
                             // <InvitedUserSection userId={item}/>
                         }
                     />

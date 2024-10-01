@@ -33,7 +33,7 @@ export const InvitedUserSection = ({userId}) => {
 const styles = StyleSheet.create({
     container: {
         // width: '100%',
-        height: 64,
+        height: 52,
         // borderBottomWidth: 0.5,
         justifyContent: 'center',
         backgroundColor: 'white',
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     name_text: {
-        fontSize: 16,
+        // fontSize: 16,
         fontWeight: 'bold',
         // marginLeft: 20,
     },
