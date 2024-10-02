@@ -13,6 +13,8 @@ import {useNavigation} from '@react-navigation/native';
 
 import { getUserAuth } from '../../utils/getUserAuth';
 
+import { searchUser } from '../FriendsList/utils/searchUser';
+
 export const InvitedUserList = ({route}) => {
     const {topUserId, docId, handleAddFriend } = route.params;
     // const { topUserId } = route.params.topUserId;
@@ -146,6 +148,7 @@ const styles = StyleSheet.create({
         height: 240,
         borderBottomWidth: 0.2,
         borderColor: 'gray',
+        marginBottom: 12,
     },
     add_button: {
 

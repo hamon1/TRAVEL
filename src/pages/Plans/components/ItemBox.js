@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
     },
     date_box: {
-        left: 10,
+        // left: 10,
     },
     textline_2: {
         marginBottom: 4,

@@ -1,65 +1,12 @@
-// import React, {useState, useCallback, useEffect} from 'react';
-// import {SafeAreaProvider, StyleSheet, View} from 'react-native';
-// import {GiftedChat} from 'react-native-gifted-chat';
-
-// export default function Example() {
-//   const [messages, setMessages] = useState([]);
-
-//   useEffect(() => {
-//     setMessages([
-//       {
-//         _id: 1,
-//         text: 'Hello world!',
-//         createdAt: new Date(),
-//         user: {
-//           _id: 2,
-//           name: 'React Native',
-//           avatar: 'https://placeimg.com/140/140/any',
-//         },
-//       },
-//     ]);
-//   }, []);
-
-//   const onSend = useCallback((messages = []) => {
-//     setMessages(previousMessages =>
-//       GiftedChat.append(previousMessages, messages),
-//     );
-//   }, []);
-
-//   return (
-//     <GiftedChat
-//       placeholder="메시지를 입력하세요."
-//       showUserAvatar={false}
-//       messages={messages}
-//       onSend={messages => onSend(messages)}
-//       user={{
-//         _id: 1,
-//       }}
-//       scrollToBottom={true}
-//       renderUsername={() => {
-//         true;
-//       }}
-//       multiline={false}
-//       alwaysShowSend={true}
-//     />
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   block: {
-//     backgroundColor: 'blue',
-//   },
-// });
-
-
-//----------------------------------------------------------------
 
 import React, { useState, useEffect, useRef } from 'react';
-import { View, TextInput, Button, FlatList, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { View, TextInput, Button, FlatList, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 
 // import sendMessage from './util/sendMessage';
 import { useMessages } from './util/useMessages';
 import { useNavigation } from '@react-navigation/native';
+
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { getUserAuth } from '../../utils/getUserAuth';
 import { sendMessage, leftChatRoom } from './util/createChatRoom';
@@ -98,40 +45,51 @@ const ChatScreen = ({route}) => {
   // };
 
   return (
-    <View style={styles.container}>
-        <FlatList
-          ref={flatListRef}
-          data={messages}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-          <View
-            style={[
-              styles.messageContainer,
-              item.senderId === user.id ? styles.myMessage : styles.otherMessage,
-            ]}
-          >
-            <Text style={styles.userName}>
-              {item.senderId === user.id ? '' : item.userName}
-            </Text>
-            <TextBox messageText={item.text} />
-            {/* <Text>{item.timestamp}</Text> */}
+    <KeyboardAvoidingView 
+      style={{flex: 1,}}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0} // iOS에서는 오프셋을 조정
+    >
+      <View style={styles.container}>
+          <FlatList
+            ref={flatListRef}
+            data={messages}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => (
+              <View
+              style={[
+                styles.messageContainer,
+                item.senderId === user.id ? styles.myMessage : styles.otherMessage,
+              ]}
+              >
+              <Text style={styles.userName}>
+                {item.senderId === user.id ? '' : item.userName}
+              </Text>
+              <TextBox messageText={item.text} />
+              {/* <Text>{item.timestamp}</Text> */}
+            </View>
+            )}
+            />
+          <View style={styles.textInput_container}>
+            <TextInput
+              style={styles.textInput}
+              value={messageText}
+              onChangeText={setMessageText}
+              placeholder="메시지를 입력하세요"
+              />
+              <TouchableOpacity onPress={handleSend}>
+                <MaterialCommunityIcons name="send" size={24} color="orange" />
+                </TouchableOpacity>
+            {/* <Button  onPress={handleSend}>
+              </Button> */}
           </View>
-          )}
-        />
-        <View style={styles.textInput_container}>
-          <TextInput
-            value={messageText}
-            onChangeText={setMessageText}
-            placeholder="메시지를 입력하세요"
-          />
-          <Button title="전송" onPress={handleSend}/>
-        </View>
-        {/* <Button title="채팅방 나가기" onPress={() => {
-          leftChatRoom(chatRoomId, userId);
-          navigation.pop();
-        }}
+          {/* <Button title="채팅방 나가기" onPress={() => {
+            leftChatRoom(chatRoomId, userId);
+            navigation.pop();
+          }}
         /> */}
-    </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -145,10 +103,12 @@ const styles = StyleSheet.create({
     padding: 8,
 
     bottom: 0,
-    height: 64,
-    // backgroundColor: 'green',
+    height: 52,
+    backgroundColor: 'white',
+    paddingHorizontal: 16,
   },
   messageContainer: {
+    paddingHorizontal: 20,
     padding: 10,
     borderRadius: 10,
     marginVertical: 8,
@@ -167,6 +127,10 @@ const styles = StyleSheet.create({
   userName: {
     fontWeight: 'bold',
     marginBottom: 8,
+  },
+  textInput: {
+    // backgroundColor: 'magenta',
+    maxWidth: '85%',
   },
 })
 
