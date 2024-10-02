@@ -253,7 +253,10 @@ const PlanScreen = ({route}) => {
       <GestureHandlerRootView>
       {
         plans.length === 0? (
-          <View><Text>empty</Text></View>
+          <View style={{marginTop: 12,}}>
+            <Text style={styles.empty_text}>아래 '+' 버튼을 통해</Text>
+            <Text style={styles.empty_text}>새로운 계획을 추가해 주세요!</Text>
+          </View>
         ) : 
         <FlatList
           data={plans}
@@ -310,6 +313,12 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     // justifyContent: 'center',
     // borderRadius: 14,
+  },
+  empty_text: {
+    fontSize: 14,
+    color: 'white',
+    textAlign: 'center',
+    // marginTop: 10,
   },
 });
 
