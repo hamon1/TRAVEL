@@ -190,6 +190,21 @@ const PlansScreen = () => {
         .doc(userId)
         .collection('plans')
         .doc(planId)
+
+      const planData = await planDocRef.get();
+
+      console.log('Removing plan, planData: ', planData)
+
+      const chatRoomId = planData._data.chatRoomId;
+
+      const chatRoomRef = await firestore()
+        .collection('groupChatRooms')
+        .doc(chatRoomId);
+
+      if (chatRoomRef) {
+        await deleteDoc(chatRoomRef);
+        console.log('Removed chat room: ', chatRoomId);
+      }
       
       // console.log('user doc? ', userDocRef);
 
@@ -232,7 +247,7 @@ const PlansScreen = () => {
       console.log('handlePress: ', id);
   
       // id 값을 이용하여 다음 화면으로 이동합니다.
-      navigation.navigate('planScreen', {id: plan.id, docId: id}); 
+      // navigation.navigate('planScreen', {id: plan.id, docId: id}); 
     } catch (error) {
       console.error("Error in handlePress: ", error);
     }
