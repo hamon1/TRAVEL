@@ -191,18 +191,18 @@ const EditPlace = ({docId, placeData, changePlaceSelector, box_type, box_type_en
                     <TypePicker visible={isModalVisible} setModalClose={setModalClose} changePlaceSelector={changePlaceSelector} values={box_type} width={88} positon={0} setType={handleTypeChange}/>
 
                 </View>
-                <MapView
-                style={styles.map}
-                provider={PROVIDER_GOOGLE}
-                initialRegion={{
-                //   latitude: 37.78825,
-                //   longitude: -122.4324,
-                latitude: placeData.details.geometry.location.lat,
-                longitude: placeData.details.geometry.location.lng,
-                latitudeDelta: 0.05,
-                longitudeDelta: 0.05,
-                }}
-                />
+                    <MapView
+                    style={styles.map}
+                    provider={PROVIDER_GOOGLE}
+                    initialRegion={{
+                    //   latitude: 37.78825,
+                    //   longitude: -122.4324,
+                    latitude: placeData.details.geometry.location.lat,
+                    longitude: placeData.details.geometry.location.lng,
+                    latitudeDelta: 0.05,
+                    longitudeDelta: 0.05,
+                    }}
+                    />
             <View style={styles.textBlock}>
                 <View style={styles.placeName}>
                     <Text numberOfLines={1} ellipsizeMode='middle' style={styles.PlaceNameText}>{placeData.data.structured_formatting.main_text}</Text>

@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Modal, Pressable} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet, Modal, Pressable, TextInput} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
@@ -21,7 +21,10 @@ import Calendar from './Calendar';
 import { formatDate } from '../util/FormatDate';
 import { formatDateForSorting } from '../util/formatDateForSorting';
 
+import { updateNote } from '../util/updateNote';
+
 import { getUserAuth } from '../../../utils/getUserAuth';
+import { update } from 'lodash';
 
 const EditTrans = ({docId, placeData, changePlaceSelector, box_type, box_type_en, edit, dd_date, dd_time, dataId}) => {
     const [plan, setPlan] = useState([]);
@@ -32,6 +35,8 @@ const EditTrans = ({docId, placeData, changePlaceSelector, box_type, box_type_en
 
     const t = moment().format('LT');
     const [time, setTime] = useState(t);
+
+    const [note, setNote] = useState(null);
 
     const [isModalVisible, setModalVisible] = useState(false);
     const [isTransPickerVisible, setTransPickerVisible] = useState(false);
@@ -97,6 +102,7 @@ const EditTrans = ({docId, placeData, changePlaceSelector, box_type, box_type_en
             .doc(docRef.id) // 문서 ID 참조
             .update({ DataId: docRef.id }); // ID를 문서 데이터에 업데이트
 
+            updateNote(userId, docId, docRef.id, note); // update note
             console.log("Document ID added to the data: ", docRef.id);
         } catch (error) {
         console.error("Error adding plan: " + error);
@@ -200,6 +206,14 @@ const EditTrans = ({docId, placeData, changePlaceSelector, box_type, box_type_en
         setTransIndx(idx);
     }
 
+    useEffect(() => {
+        console.log('transportation note: ', note);
+
+        // console.log('dataId: ', dataId);
+        // updateNote(userId, docId, dataId, note);
+
+    }, [note])
+
     return (
         <View style={styles.background}>
             <View style={styles.block}>
@@ -232,16 +246,27 @@ const EditTrans = ({docId, placeData, changePlaceSelector, box_type, box_type_en
                     <TypePicker visible={isTransPickerVisible} setModalClose={()=>setTransPickerVisible(false)} changePlaceSelector={changePlaceSelector}/>
                 </View> */}
                 <View style={styles.textBlock}>
-                    <View style={styles.placeName}>
+                    {/* <View style={styles.placeName}> */}
                         {/* <Text style={styles.PlaceNameText}>{placeData.data.structured_formatting.main_text}</Text> */}
-                        <Text style={styles.PlaceNameText}>글자</Text>
-                    </View>
-                <View style={styles.address}>
+                        {/* <Text style={styles.PlaceNameText}>글자</Text>
+                    </View> */}
+                {/* <View style={styles.address}> */}
                     {/* <Text style={styles.addressText}>{placeData.data.description}</Text> */}
-                    <Text style={styles.PlaceNameText}>글자</Text>
-                </View>
-                <View>
-                    <Text></Text>
+                    {/* <Text style={styles.PlaceNameText}>글자</Text>
+                </View> */}
+                <View  style={styles.textInputBox}>
+                    <View style={styles.memoBox}>
+                        <Text style={{color: 'gray', marginRight: 4, }}>메모</Text>
+                        <IconMaterialCommunityIcons name='pencil-outline' color='gray' size={14}/>
+                    </View>
+                    <TextInput
+                        placeholder='메모를 입력하세요.'
+                        multiline={true}
+                        value={note}
+                        onChangeText={(text)=>setNote(text)}
+                    >
+
+                    </TextInput>
                 </View>
             </View>
             <View style={styles.dateBlock}>
@@ -347,6 +372,18 @@ const styles = StyleSheet.create({
     },
     textBlock: {
         width: '90%',
+        top: 12,
+        // backgroundColor: 'green',
+        height: 320,
+    },
+    textInputBox: {
+
+    },
+    memoBox: {
+        flexDirection: 'row',
+        // backgroundColor: 'yellow',
+        alignItems: 'center',
+        marginBottom: 4,
     },
     placeName: {
         marginBottom: 10,

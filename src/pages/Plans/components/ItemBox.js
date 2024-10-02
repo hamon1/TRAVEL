@@ -149,7 +149,7 @@ const ItemBox = ({ docId, item, planId }) => {
             case 'transportation':
                 return (
                     <View style={styles.textline_2}>
-                    {/* <Text>{item.trans}</Text> */}
+                    <Text>{item.memo}</Text>
                 </View>
             );
             case 'restaurant':

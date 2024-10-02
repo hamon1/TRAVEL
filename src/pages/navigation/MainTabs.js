@@ -34,7 +34,7 @@ const TabNavigator = () => {
             tabBarShowLabel: false,
           }}>
           <Tab.Screen
-            name="Home"
+            name="여행지"
             component={HomeStack}
             options={{
               tabBarIcon: ({color}) => (
@@ -44,7 +44,7 @@ const TabNavigator = () => {
           }
           />
           <Tab.Screen
-            name="Profile"
+            name="프로필"
             component={ProfileStack}
             options={{
               tabBarIcon: ({color}) => (
