@@ -20,14 +20,14 @@ const ChatScreen = ({route}) => {
 
   const navigation = useNavigation();
   
-  const { chatRoomId, userId } = route.params;
+  const { chatRoomId, userId, group } = route.params;
 
   const [messageText, setMessageText] = useState('');
-  const messages = useMessages(chatRoomId);
+  const messages = useMessages(chatRoomId, group);
 
   const handleSend = () => {
     console.log('Send message: ', chatRoomId, userId, messageText);
-    sendMessage(chatRoomId, userId, messageText, user.displayName);
+    sendMessage(chatRoomId, userId, messageText, user.displayName, group);
     setMessageText('');
   }
 

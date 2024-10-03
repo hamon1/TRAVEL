@@ -72,9 +72,16 @@ export const createChatRoom = async (userId1, userId2, group, planId) => {
     }
 };
 
-export const sendMessage = async (chatRoomId, senderId, messageText, userName) => {
+export const sendMessage = async (chatRoomId, senderId, messageText, userName, group) => {
+    let chat = '';
+    if (group) {
+        chat = 'groupChatRooms';
+    } else {
+        chat = 'chatRooms';
+    }
+
     const messageRef = await firestore()
-        .collection('chatRooms')
+        .collection(chat)
         .doc(chatRoomId)
         .collection('messages')
         .doc();
@@ -87,7 +94,7 @@ export const sendMessage = async (chatRoomId, senderId, messageText, userName) =
     });
 
     const chatRoomRef = await firestore()
-        .collection('chatRooms')
+        .collection(chat)
         .doc(chatRoomId)
         .update({
             lastMessage: messageText,

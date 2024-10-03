@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import firestore from '@react-native-firebase/firestore';
 
-export const useMessages = (chatRoomId) => {
+export const useMessages = (chatRoomId, group) => {
     const [messages, setMessages] = useState([]);
+    let chat = '';
+    if (group) {
+        chat = 'groupChatRooms';
+    } else {
+        chat = 'chatRooms';
+    }
 
     useEffect(() => {
         const unsubscribe = firestore()
-            .collection('chatRooms')
+            .collection(chat)
             .doc(chatRoomId)
             .collection('messages')
             .orderBy('timestamp', 'asc')

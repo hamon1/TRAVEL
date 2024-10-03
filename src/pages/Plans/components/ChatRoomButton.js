@@ -12,7 +12,7 @@ export const ChatRoomButton = ({chatRoomId, userId}) => {
         <View>
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigate.navigate('chatScreen', { chatRoomId: chatRoomId, userId: userId })}
+                onPress={() => navigate.navigate('chatScreen', { chatRoomId: chatRoomId, userId: userId, group: true })}
             >
                 <IconMaterialCommunityIcons name="message" size={24} color="orange" />
 

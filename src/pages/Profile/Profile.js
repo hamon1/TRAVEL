@@ -42,49 +42,10 @@ const Profile = () => {
 
   const [FriendsCount, setFriendsCount] = useState();
   // 채팅방 목록 상태 설정
-  const [chatroom, setChatRoom] = useState([
-    // {
-    //   id: 1,
-    //   text: 'user1',
-    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    // },
-    // {
-    //   id: 2,
-    //   text: 'user2',
-    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    // },
-    // {
-    //   id: 3,
-    //   text: 'user3',
-    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    // },
-    // {
-    //   id: 4,
-    //   text: 'user4',
-    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    // },
-    // {
-    //   id: 5,
-    //   text: 'user5',
-    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    // },
-    // {
-    //   id: 6,
-    //   text: 'user6',
-    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    // },
-    // {
-    //   id: 7,
-    //   text: 'user7',
-    //   text2: 'Excepteur anim culpa Lorem reprehenderit adipisicing excepteur consectetur et et eiusmod ex veniam consectetur velit.',
-    // },
-  ]);
+  const [chatroom, setChatRoom] = useState([]);
 
   // 친구 수 계산
   const friendCount = chatroom.length;
-
-  
-
             
     const auth = getAuth();
     // const user = auth.currentUser;
