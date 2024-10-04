@@ -121,6 +121,7 @@ const FriendScreen = () => {
   useEffect(() => {
     searchUser(keyword)
       .then(foundUser => {
+        console.log('Fetched Plan Success!// searchedUser', foundUser);
         if (foundUser.length > 0) {
           setSearchedFriend(foundUser);
           console.log('Fetched Plan Success!// searchedFriend', searchedFriend);
@@ -172,6 +173,13 @@ const FriendScreen = () => {
                 <View style={{width: '100%', height: 164, paddingTop: 12, backgroundColor: '#f6f6f6', borderBottomWidth: 3, borderColor: 'orange'}}>
                   <Text style={{color: 'gray'}}>유저 검색 결과</Text>
                 {/* {id, userName, userId, photoUrl, text, text2, onRemove, onPress} */}
+                {/* <FlatList
+                data={searchedFriend}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({item}) => 
+                  <FriendSection user={userId} userId={item.id} userName={item.displayName} photoUrl={item.photoUrl} isAddFriend={true} />
+                }
+                /> */}
                   <FriendSection user={userId} userId={searchedFriend.id} userName={searchedFriend.displayName} photoUrl={searchedFriend.photoUrl} isAddFriend={true} />
                 </View>
               ): 
