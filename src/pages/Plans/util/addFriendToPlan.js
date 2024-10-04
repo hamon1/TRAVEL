@@ -1,6 +1,7 @@
 import firestore, {query, orderBy, doc, deleteDoc, getDocs, collection} from '@react-native-firebase/firestore';
 
 import { createChatRoom } from '../../Chat/util/createChatRoom';
+// import { fetchPlanDetails } from './fetchPlanDetails';
 
 export const addFriendToPlan = async (planId, friendId, userId) => {
     console.log('addFriendToPlan / ', planId, friendId);
@@ -50,4 +51,10 @@ export const addFriendToPlan = async (planId, friendId, userId) => {
     } else {
         console.log('already added');
     }
+
+    // try {
+    //     await fetchPlanDetails({userId: userId, pid: planId});
+    // } catch (err) {
+    //     console.error('fetchPlanDetails error: ', err);
+    // }
 }

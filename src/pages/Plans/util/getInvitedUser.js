@@ -1,6 +1,10 @@
+import {useState} from 'react';
+
 import firestore, {query, orderBy, doc, deleteDoc, getDocs, collection} from '@react-native-firebase/firestore';
 
+
 export const getInvitedUser = async({topUserId, docId}) => {
+
     const planDocRef = await firestore()
         .collection('users')
         .doc(topUserId)

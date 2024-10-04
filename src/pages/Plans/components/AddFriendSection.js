@@ -3,13 +3,14 @@ import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 
 import { addFriendToPlan } from '../util/addFriendToPlan';
 
-export const AddFriendSection = ({userName, userId, docId, topUserId}) => {
+export const AddFriendSection = ({userName, userId, docId, topUserId, handleAddFriend}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.name_text}>{userName}</Text>
             <TouchableOpacity
                 onPress={()=>{
                     console.log('AddFriend => ',  docId, userId, topUserId);
+                    // handleAddFriend(userId)
                     addFriendToPlan(docId, userId, topUserId)
                 }}
             >

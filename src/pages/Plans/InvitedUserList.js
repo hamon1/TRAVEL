@@ -74,14 +74,40 @@ export const InvitedUserList = ({route}) => {
         }
     }, [userId]);
 
-    useEffect(() => {
-        const fetchInvitedUsers = async () => {
-            const users = await getInvitedUser({topUserId, docId});
-            setUserList(users);
-            console.log('invited user list:', users);
-        }
-        fetchInvitedUsers();
-    }, []);
+    // useEffect(() => {
+    //     const fetchInvitedUsers = async () => {
+    //         const users = await getInvitedUser({topUserId, docId});
+    //         setUserList(users);
+    //         console.log('invited user list:', users);
+    //     }
+    //     fetchInvitedUsers();
+    // }, []);
+
+     // 참여자 목록을 실시간으로 불러오기
+     useEffect(() => {
+        const planDocRef = firestore()
+            .collection('users')
+            .doc(topUserId)
+            .collection('plans')
+            .doc(docId);
+
+        // 실시간 구독을 통해 참여자 목록 가져오기
+        const unsubscribe = planDocRef.onSnapshot(docSnapshot => {
+            if (docSnapshot.exists) {
+                const participants = docSnapshot.data().participants;
+                setUserList(participants); // 참여자 목록 업데이트
+                console.log('Real-time participants:', participants);
+            } else {
+                console.log('No such document!');
+                setUserList([]); // 문서가 없을 경우 빈 배열 설정
+            }
+        }, error => {
+            console.error("Error fetching real-time invited users: ", error);
+        });
+
+        // Clean up the subscription
+        return () => unsubscribe();
+    }, [topUserId, docId]);
 
     useEffect(() => {
         navigation.setOptions({

@@ -11,7 +11,7 @@ export const AddFriendButton = ({ handleAddFriend, planId, friendId, userId, doc
     return (
         <TouchableOpacity style={styles.container} onPress={() => {
             console.log('addFriendButton');
-            navigation.navigate('InvitedUserList', {topUserId: userId, docId: docId});
+            navigation.navigate('InvitedUserList', {topUserId: userId, docId: docId, handleAddFriend: handleAddFriend});
         }}>
             <Icon style={styles.icon} name="people" size={24} color="#000000" />
             {/** 친구목록.length */}

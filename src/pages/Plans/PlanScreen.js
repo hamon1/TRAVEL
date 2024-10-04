@@ -101,6 +101,8 @@ const PlanScreen = ({route}) => {
     await addFriendToPlan(docId, friendId, userId);
 
     setParticipants(prev => [...prev, friendId]);
+
+    await fetchPlanDetails();
   }
 
 
@@ -169,6 +171,41 @@ const PlanScreen = ({route}) => {
     fetchPlanDetails();
 
   }, []);
+
+  useEffect(() => {
+    const subscribeToParticipants = async () => {
+      try {
+        // 특정 플랜 문서의 변경 사항을 실시간으로 구독
+        const unsubscribe = firestore()
+          .collection('users')
+          .doc(route.params.userId)
+          .collection('plans')
+          .doc(docId)
+          .onSnapshot((doc) => {
+            if (doc.exists) {
+              const planData = doc.data();
+              // participants 상태 업데이트
+              setParticipants(planData.participants);
+              setUserCount(planData.participants.length);
+              console.log('Participants updated:', planData.participants);
+            } else {
+              console.log("No such document!");
+            }
+          }, error => {
+            console.error("Error subscribing to participants: ", error);
+          });
+  
+        // 컴포넌트 언마운트 시 구독 해제
+        return () => unsubscribe();
+      } catch (error) {
+        console.error("Error setting up participants subscription: ", error);
+      }
+    };
+  
+    subscribeToParticipants();
+  }, [docId]);
+  
+  
 
   function renderItem({item}) {
     return (
