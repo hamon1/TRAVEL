@@ -5,22 +5,37 @@
  */
 
 import React from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
-
+import {View, Text, StyleSheet, Pressable, Platform} from 'react-native';
+import { signOut } from '../../lib/auth';
+import { useUserContext } from '../../components/UserContext';
 const Setting = () => {
+  const { setUser } = useUserContext();
+
+  const onLogout = async () => {
+    await signOut();
+    setUser(null)
+  }
   return (
-    <View style={style.block}>
-      <Pressable style={style.item}>
-        <Text style={style.itemText}>로그아웃</Text>
+    <View style={styles.block}>
+      <Pressable
+        onPress={onLogout}
+        style={({pressed}) => [
+          styles.item,
+          pressed && Platform.select({ios: {opacity: 0.5}}),
+        ]}
+        android_ripple={{
+          color: '#eee',
+        }}>
+        <Text style={styles.itemText} >로그아웃</Text>
       </Pressable>
-      <Pressable style={style.item}>
-        <Text style={style.itemText}>회원탈퇴</Text>
+      <Pressable style={styles.item}>
+        <Text style={styles.itemText}>회원탈퇴</Text>
       </Pressable>
     </View>
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   block: {
     flex: 1,
     paddingTop: 32,

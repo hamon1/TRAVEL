@@ -15,3 +15,4 @@ export function subscribeAuth(callback) {
 export function signOut() {
     return auth().signOut();
 }
+
