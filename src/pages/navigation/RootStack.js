@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MainTab from './MainTabs';
 
@@ -14,12 +14,29 @@ import PlaceSearchScreen from '../Plans/screens/PlaceSearchScreen';
 import { useUserContext } from '../../components/UserContext';
 import PlanStack from './PlanStack';
 import { InvitedUserList } from '../Plans/InvitedUserList';
+import { getUser} from '../../lib/users';
+import { subscribeAuth } from '../../lib/auth';
 
 
 const Stack = createNativeStackNavigator();
 
 function RootStack() {
-  const {user} = useUserContext();
+  const {user, setUser} = useUserContext();
+
+  useEffect(() => {
+    const unsubscribe = subscribeAuth(async currentUser => {
+      unsubscribe();
+      if (!currentUser) {
+        return;
+      }
+      const profile = await getUser(currentUser.uid);
+      if (!profile) {
+        return;
+      }
+      setUser(profile);
+    });
+  }, [setUser]);
+
   return (
     <Stack.Navigator>
       {user ? (
