@@ -34,7 +34,7 @@ const TabNavigator = () => {
             tabBarShowLabel: false,
           }}>
           <Tab.Screen
-            name="여행지"
+            name="trip BUDDY"
             component={HomeStack}
             options={{
               tabBarIcon: ({color}) => (
