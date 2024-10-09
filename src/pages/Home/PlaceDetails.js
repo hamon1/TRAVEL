@@ -8,7 +8,7 @@
 --> 이 여행지를 만들어 놓은 혹은 새로 만들 플랜에 집어 넣기 가능. (AddPlace)
  */
 
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
   View,
@@ -18,6 +18,7 @@ import {
   Button,
   Image,
   Pressable,
+  Dimensions,
   Modal,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -25,16 +26,34 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import AddIcon from '../../components/IconPlus';
+import { AddModal } from './components/AddModal';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Place_detaile = ({route}) => {
   const navigation = useNavigation();
-
-  const onPress = () => {
-    navigation.navigate('addPlan');
-  };
-
+  const modalRef = useRef();
+  
+  const [isAddModal, setAddModal] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [Yposition, setYposition] = useState();
+
   useEffect(() => {}, []);
+
+  // const onPress = () => {
+  //   // navigation.navigate('addPlan');
+  //   console.log('press add button');
+  //   setAddModal(true);
+  // };
+
+  const openModal = () => {
+    console.log('open modal');
+    modalRef.current?.measureInWindow((x, y, width, height, pageX, pageY) => {
+      console.log('modal y position?');
+        // increaseScale();
+        setYposition(y);
+        setAddModal(true);
+    });
+};
 
   const onPressModalOpen = () => {
     console.log('enlarge a map');
@@ -47,7 +66,8 @@ const Place_detaile = ({route}) => {
 
   // navigation.setOptions({
   //   headerRight: () => <AddIcon onPress={onPress} name="add" color="black" />,
-  // });
+  // })
+
 
   return (
     <>
@@ -76,17 +96,18 @@ const Place_detaile = ({route}) => {
          />
                 </MapView>
         {/* </Pressable> */}
-        <View style={styles.textContainer}>
+        <View ref={modalRef} style={styles.textContainer}>
           {/* <Text style={styles.nameText}>name</Text> */}
           <Text style={styles.nameText}>{route.params.name}</Text>
           <Text style={styles.idText}>{route.params.address}</Text>
-          <Text style={styles.infoText} >aa</Text>
+          <Text style={styles.infoText} ></Text>
           {/* <Text style={styles.nameText}>{route.params.text}</Text>
           <Text style={styles.idText}>id: {route.params.id}</Text>
           <Text style={styles.infoText} >{route.params.text2}</Text> */}
         </View>
           <AddIcon
-            onPress={onPress}
+            // ref={modalRef}
+            onPress={openModal}
             name="add"
             color="#fb8c00"
             style={styles.addButton}
@@ -115,6 +136,9 @@ const Place_detaile = ({route}) => {
             <Text>리뷰 미리보기</Text>
           </View>
         </View>
+        <Modal transparent={true} visible={isAddModal}>
+            <AddModal yPosition={Yposition}/>
+        </Modal>
       </ScrollView>
       {/* <Modal animationType="fade" transparent={true} visible={isModalVisible}>
         <View style={styles.ModalView}>

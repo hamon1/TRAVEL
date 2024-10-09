@@ -25,7 +25,7 @@ import firestore from '@react-native-firebase/firestore';
 
 export const getChatRoomList = (userId, onChatRoomsUpdate) => {
     try {
-        const unsubscribe = firestore()
+        const chatRoomsUnsubscribe = firestore()
             .collection('chatRooms')
             .where('participants', 'array-contains', userId)
             // .orderBy('timestamp', 'desc')
@@ -61,8 +61,44 @@ export const getChatRoomList = (userId, onChatRoomsUpdate) => {
             }, error => {
                 console.error('Error getting chatrooms: ', error);
             });
+        
+        // const groupChatRoomsUnsubscribe = firestore()
+        //     .collection('groupChatRooms')
+        //     .where('participants', 'array-contains', userId)
+        //     .onSnapshot(async(snapshot) => {
+        //         const groupChatrooms = await Promise.all(snapshot.docs.map(async (doc) => {
+        //         const data = doc.data();
+        //         const participantCount = data.participants.length;
 
-        return unsubscribe; // 컴포넌트에서 정리할 때 호출할 수 있도록 반환
+        //         const otherUsers = await Promise.all(data.participants
+        //         .filter(id => id !== userId)
+        //     .map(async(participantId) => {
+        //         const userDoc = await firestore()
+        //             .collection('users')
+        //             .doc(participantId)
+        //             .get();
+        //         return userDoc._data.displayName;
+        //     })
+        // );
+
+        // return {
+        //     id: doc.id,
+        //     ...doc.data(),
+        //     otherUsers,
+        //     userCount: participantCount,
+        // };
+        //     }));
+
+            // onChatRoomsUpdate(prevRooms => [...prevRooms, ...groupChatrooms]);
+
+        // return unsubscribe; // 컴포넌트에서 정리할 때 호출할 수 있도록 반환
+        // }, error => {
+        //     console.error('Error setting up chatrooms listener: ', error);
+        // });
+        return () => {
+            chatRoomsUnsubscribe();
+            // groupChatRoomsUnsubscribe();
+        };
     } catch (error) {
         console.error('Error setting up chatroom listener: ', error);
     }

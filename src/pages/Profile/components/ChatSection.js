@@ -25,7 +25,7 @@ const ChatSection = ({id, text, text2, lastMessage, userId, otherUserName, userC
       <TouchableOpacity
         style={styles.section}
         onPress={() => navigation.navigate('chatScreen', {chatRoomId:id, userId:userId})}>
-        <Text style={styles.text_Name}>{otherUserName}</Text>
+        <Text style={styles.text_Name}>{otherUserName||'그룹 채팅'}</Text>
         <Text style={styles.text}>{lastMessage||'주고 받은 대화 없음!'}</Text>
         <View style={styles.icon}>
           <Icon style={{marginRight: 4,}} name="people" size={24} color="#000000" />

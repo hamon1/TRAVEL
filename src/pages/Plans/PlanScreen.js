@@ -270,7 +270,7 @@ const PlanScreen = ({route}) => {
           .collection('users')
           .doc(userId)
           .collection('plans')
-          .doc(planId)
+          .doc(docId)
           .update({ title: text, 
             date: moment().format('l'),
           time: moment().format('LT'),
