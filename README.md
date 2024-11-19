@@ -1,79 +1,45 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+#🌍 TravelBUDDY - 여행 계획 & 공유 iOS 앱
 
-# Getting Started
+**React Native와 Firebase로 구현된 여행 계획 앱 TravelBUDDY는 친구와 함께 여행을 계획하고 관리할 수 있는 스마트한 방법을 제공합니다.**
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## 📱 기능 소개
 
-## Step 1: Start the Metro Server
+###1️⃣ 홈 화면 (여행지 추천)
+사용자 위치 기반 추천: 현재 위치를 기준으로 주변의 여행지 목록을 확인할 수 있습니다.
+태그 필터링: 여행지에는 다양한 태그(예: 관광 명소, 카페, 숙박, 식당, 캠핑장)가 포함되어 있으며, 태그별로 여행지를 필터링할 수 있습니다.
+검색 기능: 상단의 검색 버튼을 통해 특정 여행지를 찾아볼 수 있습니다.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+### 2️⃣ 여행 계획 관리
+나의 여행 계획: 사용자가 생성한 여행 목록을 확인할 수 있습니다.
+초대받은 여행: 친구가 초대한 여행 계획을 한눈에 확인할 수 있습니다.
+*(초대받은 사용자는 읽기만 가능합니다.)*
 
-To start Metro, run the following command from the _root_ of your React Native project:
+3️⃣ 여행 일정 구성
+장소 추가: 여행지를 검색해 여행 일정에 추가할 수 있습니다.
+카테고리별 구성:
+- *여행지*
+- *이동수단*
+- *숙소*
+- *식당*
+날짜별 정렬: 여행 일정이 날짜 순으로 자동 정렬됩니다.
 
-```bash
-# using npm
-npm start
+4️⃣ 채팅 기능
+그룹 채팅: 여행에 참여 중인 사람들과 실시간으로 소통할 수 있습니다.
+1:1 채팅: 개별 채팅을 통해 더 깊은 소통이 가능합니다.
 
-# OR using Yarn
-yarn start
-```
+## 🛠️ 기술 스택
 
-## Step 2: Start your Application
+프론트엔드
+React Native *(ios)*
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+백엔드 및 데이터베이스
+Firebase
 
-### For Android
+사용자 인증
 
-```bash
-# using npm
-npm run android
+실시간 데이터베이스
 
-# OR using Yarn
-yarn android
-```
+채팅 기능
 
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+API *(Google Places API)*
+- 사용자 위치를 기반으로 여행지 정보를 제공합니다.
