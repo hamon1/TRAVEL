@@ -264,13 +264,14 @@ const PlanScreen = ({route}) => {
   
   const updateTitle = async (text) => {
     console.log('updateTitle:', planId);
+    console.log('updateTitle:', docId);
     try {
-      if (route.params.docId) {
+      if (planId) {
         await firestore()
           .collection('users')
           .doc(userId)
           .collection('plans')
-          .doc(docId)
+          .doc(planId)
           .update({ title: text, 
             date: moment().format('l'),
           time: moment().format('LT'),

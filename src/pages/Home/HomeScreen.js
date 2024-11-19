@@ -48,7 +48,8 @@ import SelectTypeButton from './components/select_type/SelectTypeButton';
 import TypeSelectList from './components/select_type/Type.json';
 import { serializer } from '../../../metro.config';
 
-const GOOGLE_PLACES_API_KEY = 'AIzaSyDRdIybBpN0aO6gJal9skDd0VG6KMrgqJk';
+
+import { GOOGLE_PLACES_API_KEY } from "@env";
 
 // 위치 권한 요청 함수
 async function requestPermission() {
@@ -251,9 +252,9 @@ const onPressModalClose = () => {
       </Pressable>
         </View> */}
         <View style={style.topMenuColumn}>
-        <Pressable style={style.menuButton} onPress={()=>Linking.openURL('shareddocuments://')}>
+        {/* <Pressable style={style.menuButton} onPress={()=>Linking.openURL('shareddocuments://')}>
         <Text>파일 앱</Text>
-      </Pressable>
+      </Pressable> */}
         </View>
       </ScrollView>
       {/* ----------------------------------------------------------------가로 스크롤  */}

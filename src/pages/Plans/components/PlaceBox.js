@@ -7,6 +7,8 @@ import {useNavigation} from '@react-navigation/native';
 import Delete_Edit_Modal from "./Delete_Edit_modal";
 import firestore, { deleteDoc } from "@react-native-firebase/firestore";
 
+import { OnRemove } from "../util/OnRemove";
+
 const WINDOW_WIDTH = Dimensions.get('screen').width;
 const BOX_WIDTH = WINDOW_WIDTH * 2 / 3;
 const EMPTYPLACE = WINDOW_WIDTH - BOX_WIDTH;
@@ -44,7 +46,7 @@ const PlaceBox = ({ docId, item, planId }) => {
                     .doc(planId)
                     .collection('planDetails')
                     .doc(item.DataId);
-                deleteDoc(doc);
+                    deleteDoc(doc);
                 console.log('Document deleted!');
             }
             else {

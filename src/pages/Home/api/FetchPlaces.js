@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // import Config from 'react-native-config';
 
-const GOOGLE_PLACES_API_KEY = 'AIzaSyDRdIybBpN0aO6gJal9skDd0VG6KMrgqJk';
+import { GOOGLE_PLACE_API_KEY} from "@env";
 
 /**
  * 주어진 위치와 페이지 토큰을 사용하여 Google Places API의 Nearby Search를 통해

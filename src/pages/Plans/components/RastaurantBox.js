@@ -23,12 +23,12 @@ const RastaurantBox = ({ docId, item }) => {
                 <View style={styles.time}>
                     <Text style={styles.time_string_text}>{time_split}</Text>
                 </View>
-            <Image
-          style={styles.dot_image}
-          source={require('../assets/rastaurant_dot.png')}
-          />
-          </View>
+                <Image
+                style={styles.dot_image}
+                source={require('../assets/rastaurant_dot.png')}
+                />
             </View>
+        </View>
 
 
         <Pressable style={styles.Box} onPress={()=>navigation.navigate('PlaceSearchScreen', {docId: docId, edit: true, type: item.type, data: item.data, dataId: item.DataId, date: item.d_date, time: item.d_time})}>
@@ -47,15 +47,15 @@ const RastaurantBox = ({ docId, item }) => {
             </View>
             <View style={styles.image}>
             <MapView
-              style={styles.image_map}
-              provider={PROVIDER_GOOGLE}
-              initialRegion={{
+                style={styles.image_map}
+                provider={PROVIDER_GOOGLE}
+                initialRegion={{
                 //   latitude: 37.78825,
                 //   longitude: -122.4324,
-                  latitude: item.lat,
-                  longitude: item.lng,
-                  latitudeDelta: 0.9,
-                  longitudeDelta: 0.9,
+                latitude: item.lat,
+                longitude: item.lng,
+                latitudeDelta: 0.9,
+                longitudeDelta: 0.9,
                 }}
                 />
             </View>

@@ -8,7 +8,8 @@ import {OptimizedFlatList} from 'react-native-optimized-flatlist';
 
 import PlaceSection from './PlaceSection';
 
-const GOOGLE_PLACES_API_KEY = 'AIzaSyDRdIybBpN0aO6gJal9skDd0VG6KMrgqJk';
+import { GOOGLE_PLACES_API_KEY } from "@env";
+
 
 
 function PlaceList({place, onEndReached, refreshDataFetch}) {

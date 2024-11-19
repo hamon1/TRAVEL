@@ -132,8 +132,8 @@ export const InvitedUserList = ({route}) => {
             {searchValue ? (
                 <View style={styles.searchContainer}>
                     <View>
-                        <Text>TextInput</Text>
-                        <TextInput></TextInput>
+                        {/* <Text>TextInput</Text>
+                        <TextInput></TextInput> */}
                     </View>
                     <FlatList
                         data={friendList}

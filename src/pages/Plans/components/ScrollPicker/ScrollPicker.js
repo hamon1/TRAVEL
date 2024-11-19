@@ -19,15 +19,15 @@ const getCenterPositionFromIndex = (index) => {
 };
 
 // 배열 앞뒤로 빈 문자열 채움
-const fillEmpty = (visibleCount, values) => {
-    console.log(values);
-    const fillCount = (visibleCount - 1) / 2;
-    for (let i = 0; i < fillCount; i++) {
-        values.unshift('');
-        values.push('');
-    }
-    return values;
-};
+// const fillEmpty = (visibleCount, values) => {
+//     console.log(values);
+//     const fillCount = (visibleCount - 1) / 2;
+//     for (let i = 0; i < fillCount; i++) {
+//         values.unshift('');
+//         values.push('');
+//     }
+//     return values;
+// };
 
 const ScrollPicker = ({handleTimeChange, TimePickerClose}) => {
     const [selectedPeriod, setSelectedPeriod] = React.useState('오전'); // '오전' 또는 '오후'

@@ -133,7 +133,7 @@ const Place_detaile = ({route}) => {
             />
           </Pressable>
           <View style={styles.reviewPreview}>
-            <Text>리뷰 미리보기</Text>
+            {/* <Text>리뷰 미리보기</Text> */}
           </View>
         </View>
         <Modal transparent={true} visible={isAddModal}>
