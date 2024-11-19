@@ -1,6 +1,4 @@
 // import axios from 'axios';
-
-
 import { GOOGLE_PLACE_API_KEY} from "@env";
 /**
  * 주어진 장소 ID를 사용하여 Google Places API의 Place Details를 통해
