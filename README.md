@@ -2,6 +2,14 @@
 
 **React Native와 Firebase로 구현된 여행 계획 앱 TravelBUDDY는 친구와 함께 여행을 계획하고 관리할 수 있는 스마트한 방법을 제공합니다.**
 
+## ⚙️ key function
+
+Navigation: react-navigation/bottom-tab,react-navigation/stack 을 사용한 화면 전환
+
+OptimizedFlatList: 대규모 여행지 리스트 랜더링 시 메모리 효율을 위해 FlatList 대신 OptimizedFlatList를 사하여 렝더링 제한 
+
+Google Maps/Places API 기반 데이터 서비스: 사용자의 실시간 좌표(경도, 위도)를 기반으로 인근 여행지 데이터를 우선 노출하여, 앱 실행과 동시에 주변의 유용한 정보를 즉시 탐색. 키워드 태그를 통해 필터링, 검색 기능을 통해 사용자가 원하는 장소를 빠르게 찾을 수 있도록 기능 추가
+
 ## 📱 기능 소개
 
 ### 1️⃣ 홈 화면 (여행지 추천)
@@ -80,11 +88,3 @@ API *(Google Places API)*
 /src/utils/: 사용자 권한 체크 및 데이터 정렬 등 독립적인 비즈니스 로직 처리
 
 src/welcome/: 앱 온보딩 및 초기 진입 프로세스
-
-## ⚙️ function
-
-Navigation: react-navigation/bottom-tab,react-navigation/stack 을 사용한 화면 전환
-
-OptimizedFlatList: 대규모 여행지 리스트 랜더링 시 메모리 효율을 위해 FlatList 대신 OptimizedFlatList를 사하여 렝더링 제한 
-
-Google Maps/Places API 기반 데이터 서비스: 사용자의 실시간 좌표(경도, 위도)를 기반으로 인근 여행지 데이터를 우선 노출하여, 앱 실행과 동시에 주변의 유용한 정보를 즉시 탐색. 키워드 태그를 통해 필터링, 검색 기능을 통해 사용자가 원하는 장소를 빠르게 찾을 수 있도록 기능 추가
