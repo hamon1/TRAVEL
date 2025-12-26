@@ -65,11 +65,26 @@ React Native *(ios)*
 백엔드 및 데이터베이스
 Firebase
 
-사용자 인증
-
-실시간 데이터베이스
-
-채팅 기능
-
 API *(Google Places API)*
-- 사용자 위치를 기반으로 여행지 정보를 제공합니다.
+
+## 📂 파일 구조
+
+/src/components/: UI의 일관성과 재사용성을 위해 분리된 공통 컴포넌트 (입력창, 일정 상세 버튼 등)
+
+/src/pages/: 서비스의 핵심 기능을 담당하는 메인 스크린 (Home, Chat, FriendsList 등)
+
+/src/context/: Context API를 활용하여 검색 상태 및 사용자 데이터를 전역적으로 관리
+
+/src/lib/: Firebase SDK 연동을 모듈화하여 인증(Auth) 및 DB(Firestore) 로직을 분리 관리
+
+/src/utils/: 사용자 권한 체크 및 데이터 정렬 등 독립적인 비즈니스 로직 처리
+
+src/welcome/: 앱 온보딩 및 초기 진입 프로세스
+
+## ⚙️ function
+
+Navigation: react-navigation/bottom-tab,react-navigation/stack 을 사용한 화면 전환
+
+OptimizedFlatList: 대규모 여행지 리스트 랜더링 시 메모리 효율을 위해 FlatList 대신 OptimizedFlatList를 사하여 렝더링 제한 
+
+Google Maps/Places API 기반 데이터 서비스: 사용자의 실시간 좌표(경도, 위도)를 기반으로 인근 여행지 데이터를 우선 노출하여, 앱 실행과 동시에 주변의 유용한 정보를 즉시 탐색. 키워드 태그를 통해 필터링, 검색 기능을 통해 사용자가 원하는 장소를 빠르게 찾을 수 있도록 기능 추가
