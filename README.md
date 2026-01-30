@@ -1,14 +1,25 @@
 # 🌍 TravelBUDDY - 여행 계획 & 공유 iOS 앱
 
-**React Native와 Firebase로 구현된 여행 계획 앱 TravelBUDDY는 친구와 함께 여행을 계획하고 관리할 수 있는 스마트한 방법을 제공합니다.**
+**TravelBUDDY는 React Native와 Firebase를 기반으로,
+여행지 탐색부터 일정 구성, 실시간 소통까지 하나의 흐름으로 연결한 모바일 여행 협업 서비스입니다.**
 
-## ⚙️ key function
+## ⚙️ Core Features & Technical Highlights
+### 📍 위치 기반 여행지 추천
+Google Maps / Places API를 활용하여 **사용자의 실시간 좌표(위도·경도)**를 기준으로 인근 여행지를 우선 노출
+태그 기반 필터링 및 검색 기능을 통해 사용자가 원하는 장소를 빠르게 탐색 가능
 
-Navigation: react-navigation/bottom-tab,react-navigation/stack 을 사용한 화면 전환
+### 🚀 대규모 리스트 성능 최적화
+여행지 데이터 증가에 따라 발생한 메모리 과부하 및 프레임 드랍 문제를 해결하기 위해
+기본 FlatList 대신 OptimizedFlatList를 적용
+렌더링 제한 및 뷰 재사용 전략을 통해 초기 로딩 성능 및 메모리 사용 안정화
 
-OptimizedFlatList: 대규모 여행지 리스트 랜더링 시 메모리 효율을 위해 FlatList 대신 OptimizedFlatList를 사하여 렝더링 제한 
+### 🗓️ 여행 일정 관리
+여행지 / 이동수단 / 숙소 / 식당 등 카테고리 기반 일정 구성
+날짜 기준 자동 정렬을 통해 일정 가독성 향상
+초대된 사용자는 읽기 전용으로 접근 가능하여 권한 분리
 
-Google Maps/Places API 기반 데이터 서비스: 사용자의 실시간 좌표(경도, 위도)를 기반으로 인근 여행지 데이터를 우선 노출하여, 앱 실행과 동시에 주변의 유용한 정보를 즉시 탐색. 키워드 태그를 통해 필터링, 검색 기능을 통해 사용자가 원하는 장소를 빠르게 찾을 수 있도록 기능 추가
+### 💬 실시간 채팅
+Firebase Firestore의 실시간 리스너를 활용한 1:1 / 그룹 채팅 구현
 
 ## 📱 기능 소개
 
@@ -65,15 +76,12 @@ Google Maps/Places API 기반 데이터 서비스: 사용자의 실시간 좌표
 <img src="app_screen_shot/friend.png" width="200"/>
 </div>
 
-## 🛠️ 기술 스택
+##🛠️ Tech Stack
 
-프론트엔드
-React Native *(ios)*
-
-백엔드 및 데이터베이스
-Firebase
-
-API *(Google Places API)*
+Frontend: React Native (iOS)
+Backend / DB: Firebase
+API: Google Places API
+Collaboration: Git, Git Flow
 
 ## 📂 파일 구조
 
